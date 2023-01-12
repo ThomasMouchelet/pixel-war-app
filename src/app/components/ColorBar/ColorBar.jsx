@@ -1,10 +1,15 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import useTimer from "../../../setup/context/timerContext";
+import { readCookie } from "../../../setup/utils/cookies";
 import arrowIcon from "../../assets/images/arrow.png";
 
-const ColorBar = ({ currentColor, setCurrentColor }) => {
-  const [time, setTime] = useState(10);
+const ColorBar = ({ currentColor, setCurrentColor, hide, gameTimer }) => {
+  const [time, setTime] = useState(0);
   const { newPixelIsCreated, setNewPixelIsCreated } = useTimer();
+
+  useEffect(() => {
+    setTime(gameTimer)
+  }, [])
 
   const colorList = [
     "#FFEBEE",
@@ -26,7 +31,7 @@ const ColorBar = ({ currentColor, setCurrentColor }) => {
     "#A1887F",
     "#E0E0E0",
     "#90A4AE",
-    "#000",
+    "#000000",
     "#FFEBEE",
     "#FCE4EC",
     "#F3E5F5",
@@ -46,12 +51,24 @@ const ColorBar = ({ currentColor, setCurrentColor }) => {
     "#A1887F",
     "#E0E0E0",
     "#90A4AE",
-    "#000",
+    "#000000",
   ];
 
   const colorListRef = useRef(null);
   const arrowRef = useRef(null);
   let isRotate = false;
+
+  useEffect(() => {
+    const timestampTimer = readCookie("Google Analytics");
+    if (timestampTimer) {
+      const currentTime = Math.floor(new Date().getTime() / 1000);
+      console.log(timestampTimer < currentTime);
+      if (currentTime < timestampTimer) {
+        setNewPixelIsCreated(true);
+        setTime(timestampTimer - currentTime);
+      }
+    }
+  }, []);
 
   const handleColorListNavigation = () => {
     if (isRotate == false) {
@@ -107,13 +124,13 @@ const ColorBar = ({ currentColor, setCurrentColor }) => {
     }
     if (time === 0) {
       setNewPixelIsCreated(false);
-      setTime(10);
+      setTime(60);
     }
   }, [newPixelIsCreated, time, setNewPixelIsCreated]);
 
   return (
     <div
-      className={"colorBar"}
+      className={!hide ? "colorBar" : "hide"}
       style={newPixelIsCreated ? { width: "16rem", height: "4rem" } : null}
     >
       <div className="color-list" ref={colorListRef}>
@@ -134,7 +151,9 @@ const ColorBar = ({ currentColor, setCurrentColor }) => {
               onClick={handleColorListNavigation}
             />
           </>
-        ) : <p className="cooldown">{renderTime()}</p>}
+        ) : (
+          <p className="cooldown">{renderTime()}</p>
+        )}
       </div>
     </div>
   );

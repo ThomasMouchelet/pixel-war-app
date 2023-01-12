@@ -1,44 +1,116 @@
-import firestoreDb from "../config/firebase.config"
-import { collection, getDocs, query, where, Timestamp, addDoc, setDoc, doc } from "firebase/firestore"
-const paramCollection = collection(firestoreDb, "param-thomasm")
+import { firestoreDb } from "../config/firebase.config";
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+  Timestamp,
+  addDoc,
+  setDoc,
+  doc,
+  onSnapshot,
+  getDoc,
+  updateDoc,
+} from "firebase/firestore";
+const paramCollection = collection(firestoreDb, "param");
 
-const gamesCollection = collection(firestoreDb, `game-${process.env.REACT_APP_GAME_KEY}`)
+const gamesCollection = collection(
+  firestoreDb,
+  `game-${process.env.REACT_APP_GAME_KEY}`
+);
 
+const userCollection = collection(
+    firestoreDb,
+    'users'
+)
 
 const getPixel = async () => {
-    // const pixels = await getDocs(gamesCollection)
-    // const pixelsData = pixels.docs.map(pixel => {
-    //     return pixel.data()
-    // })
-    // return pixelsData
-    const querySnapshot = await getDocs(collection(firestoreDb, "game-test-thomasm"));
-    querySnapshot.forEach((doc) => {
-        // console.log(`${doc.id} => ${doc.data()}`);
-        // console.log(doc.data())
-    });
+  const pixels = await getDocs(gamesCollection);
+  const pixelsData = pixels.docs.map((pixel) => {
+    return pixel.data();
+  });
+  return pixelsData;
+};
+
+const getUser = async (userId) => {
+    const user = await getDoc(doc(userCollection, userId))
+    return user.data()
 }
 
-const createPixelService = async ({x, y, color}) => {
-    const newPixel = {
-        x,
-        y,
-        color,
-    }
-    // await addDoc(collection(firestoreDb, `game-test-thomasm`), newPixel, { merge: true});
-    // await setDoc(doc(firestoreDb, `game-${process.env.REACT_APP_GAME_KEY}`, `${newPixel.x}-${newPixel.y}`), newPixel)
-
-    // const pixelRef = firestoreDb.collection(`game-test-thomasm`).doc(`${newPixel.x}-${newPixel.y}`)
-    // pixelRef.set(newPixel, { merge: true })
-
+const updateScore = async (userId) => {
     try {
-        const docRef = await addDoc(collection(firestoreDb, "game-test-thomasm"), newPixel, { merge: true});
-        console.log("Document written with ID: ", docRef.id);
-      } catch (e) {
-        console.error("Error adding document: ", e);
-      }
+        const user = await getUser(userId)
+        console.log("user score => ", user.totalScore);
+        await updateDoc(doc(userCollection, userId), {
+            totalScore: user.totalScore + 1
+        })
+        const updatedUser = {
+            ...user,
+            totalScore: user.totalScore + 1
+        }
+        return updatedUser
+    } catch (error) {
+        console.log(error.message);
+    }
 }
 
-export {
-    getPixel,
-    createPixelService
-}
+const createPixelService = async ({ x, y, color, userId }) => {
+  const user = await updateScore(userId)
+  const newPixel = {
+    x,
+    y,
+    color,
+    user
+  };
+  await setDoc(
+    doc(
+      firestoreDb,
+      `game-${process.env.REACT_APP_GAME_KEY}`,
+      `${newPixel.x}-${newPixel.y}`
+    ),
+    newPixel
+  );
+};
+
+const updatePixelsGrid = async (game, createPixel) => {
+  onSnapshot(gamesCollection, (snapshot) => {
+      snapshot.docChanges().forEach(
+        async (change) => {
+        const doc = change.doc.data();
+        const ctx = game.getContext("2d");
+        createPixel(ctx, doc.x, doc.y, doc.color, true);
+      },
+      (error) => {
+        console.log("error => ", error);
+      }
+    );
+  });
+};
+
+// const updateGameParams = async () => {
+//   const q = query(paramCollection, where("state", "==", "CA"));
+//   const unsubscribe = onSnapshot(q, (querySnapshot) => {
+//     const cities = [];
+//     querySnapshot.forEach((doc) => {
+//         cities.push(doc.data().name);
+//     });
+//     console.log("Current cities in CA: ", cities.join(", "));
+//   });
+// }
+
+const updateGameParams = async (setGameParams) => {
+  onSnapshot(paramCollection, (snapshot) => {
+      snapshot.docChanges().forEach(
+        async (change) => {
+          if(change.doc.data().gameNumber === parseInt(process.env.REACT_APP_GAME_KEY)) {
+            setGameParams(change.doc.data())
+          }
+      },
+      (error) => {
+        console.log("error => ", error);
+      }
+    );
+  });
+};
+
+export { getPixel, createPixelService, updatePixelsGrid, updateGameParams };

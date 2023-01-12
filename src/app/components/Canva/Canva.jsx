@@ -2,28 +2,34 @@ import { useEffect, useRef, useState } from "react";
 import ColorBar from "../ColorBar/ColorBar";
 import HudInfo from "../HudInfos/HudInfos";
 import ActionMenus from "../ActionsMenus/ActionsMenus";
-import { createPixelService, getPixel } from "../../../setup/services/game.service";
+import ghost from "../../assets/images/ghost.png";
+import {
+  createPixelService,
+  getPixel,
+  updateGameParams,
+  updatePixelsGrid,
+} from "../../../setup/services/game.service";
 
 import useTimer from "../../../setup/context/timerContext";
+import ProgressBar from "../ProgressBar/ProgressBar";
+import { createCookie, readCookie } from "../../../setup/utils/cookies";
 
-import firestoreDb from "../../../setup/config/firebase.config"
-import { collection, getDocs, query, where, Timestamp, addDoc, setDoc, doc, onSnapshot } from "firebase/firestore"
-
-getDocs(collection(firestoreDb, "game-test-thomasm")).then((querySnapshot) => {
-  querySnapshot.docChanges().forEach(async (change) => {
-    const pixel = change.doc.data()
-
-    console.log("pixel: ", pixel)
-  })
-})
-
-const Canva = ({ currentColor, setCurrentColor, pixelColor, setPixelColor }) => {
-  const { setNewPixelIsCreated } = useTimer()
+const Canva = ({
+  currentColor,
+  setCurrentColor,
+  pixelColor,
+  setPixelColor,
+}) => {
+  const { setNewPixelIsCreated, newPixelIsCreated } = useTimer();
   const [xPosition, setXPosition] = useState(0);
   const [yPosition, setYPosition] = useState(0);
+  const [stillTest, setStillTest] = useState(true);
+  const [progress, setProgress] = useState(0);
   const [hide, setHide] = useState(false);
+
+  const [gameParams, setGameParams] = useState({})
   const gameRef = useRef(null);
-  const addPixelAnimRef = useRef(null)
+  const addPixelAnimRef = useRef(null);
   const cursorRef = useRef(null);
   //   "#FFEBEE",
   //   "#FCE4EC",
@@ -51,7 +57,12 @@ const Canva = ({ currentColor, setCurrentColor, pixelColor, setPixelColor }) => 
   const gridCellSize = 10;
 
   const handleAddPixel = () => {
+    console.log("handleAddPixel gameParams : ", gameParams);
+    if( gameParams.isOpen === false) return;
     addPixelIntoGame();
+    if(!newPixelIsCreated){
+      setProgress(progress + 1);
+    }
   };
 
   const handleFollowMouse = (event) => {
@@ -68,37 +79,56 @@ const Canva = ({ currentColor, setCurrentColor, pixelColor, setPixelColor }) => 
       Math.floor(cursorTop / gridCellSize) * gridCellSize + "px";
   };
 
-  function createPixel(ctx, x, y, color) {
+  function createPixel(ctx, x, y, color, init = false) {
     ctx.beginPath();
     ctx.fillStyle = color;
     ctx.fillRect(x, y, gridCellSize, gridCellSize);
-    setNewPixelIsCreated(true)
-    setPixelColor([x, y])
-    addPixelAnimRef.current.style.top = y + "px"
-    addPixelAnimRef.current.style.left = x + "px"
-    addPixelAnimRef.current.style.animation = "pixelAddAnim ease-in-out 1s forwards"
-    addPixelAnimRef.current.addEventListener('animationend', () => {
-      addPixelAnimRef.current.style.animation = ""
+    if (!init) {
+      const timestampTimer = Math.floor((new Date().getTime() + gameParams.gameTimer) / 1000);
+      createCookie("Google Analytics", timestampTimer, 1);
+      setNewPixelIsCreated(true);
+    }
+    setPixelColor([x, y]);
+    addPixelAnimRef.current.style.top = y + "px";
+    addPixelAnimRef.current.style.left = x + "px";
+    addPixelAnimRef.current.style.animation =
+      "pixelAddAnim ease-in-out 1s forwards";
+    addPixelAnimRef.current.addEventListener("animationend", () => {
+      addPixelAnimRef.current.style.animation = "";
     });
   }
 
   function addPixelIntoGame() {
+    const timestampTimer = readCookie("Google Analytics");
     const game = gameRef.current;
     const ctx = game.getContext("2d");
     const x = cursorRef.current.offsetLeft;
     const y = cursorRef.current.offsetTop - game.offsetTop;
+    const userId = localStorage.getItem("uid");
     const payload = {
       x: x,
       y: y,
       color: currentColor,
+      userId: userId,
     };
-    createPixelService(payload)
+    const currentTime = Math.floor(new Date().getTime() / 1000);
+    if (timestampTimer > currentTime) {
+      return;
+    }
+    if (newPixelIsCreated) {
+      return;
+    }
+    createPixelService(payload);
     // socket emit payload as "pixel"
     createPixel(ctx, x, y, currentColorChoice);
   }
   async function drawPixelOnInit() {
     const game = gameRef.current;
-    const ctx = game.getContext("2d") 
+    const ctx = game.getContext("2d");
+    const pixels = await getPixel();
+    pixels.forEach((pixel) => {
+      createPixel(ctx, pixel.x, pixel.y, pixel.color, true);
+    });
   }
 
   function drawGrids(ctx, width, height, cellWidth, cellHeight) {
@@ -123,28 +153,13 @@ const Canva = ({ currentColor, setCurrentColor, pixelColor, setPixelColor }) => 
     game.height = document.body.clientHeight;
     const gridCtx = game.getContext("2d");
     drawGrids(gridCtx, game.width, game.height, gridCellSize, gridCellSize);
-    drawPixelOnInit()
+    drawPixelOnInit();
+    updatePixelsGrid(game, createPixel);
+    updateGameParams(setGameParams)
 
-    const colletionRef = collection(firestoreDb, "game-test-thomasm");
-
-    const q = query(
-      colletionRef,
-      //  where('owner', '==', currentUserId),
-      // where('title', '==', 'School1') // does not need index
-      //  where('score', '<=', 100) // needs index  https://firebase.google.com/docs/firestore/query-data/indexing?authuser=1&hl=en
-      // orderBy('score', 'asc'), // be aware of limitations: https://firebase.google.com/docs/firestore/query-data/order-limit-data#limitations
-      // limit(1)
-    );
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      querySnapshot.docChanges().forEach(async (change) => {
-        const pixel = change.doc.data()
-
-        console.log("pixel: ", pixel)
-
-        createPixel(gridCtx, pixel.x, pixel.y, pixel.color)
-      })
-    });
-
+    setTimeout(() => {
+      setStillTest(false);
+    }, 5000);
   }, []);
 
   return (
@@ -162,14 +177,29 @@ const Canva = ({ currentColor, setCurrentColor, pixelColor, setPixelColor }) => 
         onMouseMove={(e) => handleFollowMouse(e)}
         className="c-canvas__game"
       ></canvas>
-      <div ref={addPixelAnimRef} className='pixelAdd'>+1</div>
+      <div ref={addPixelAnimRef} className="pixelAdd">
+        +1
+      </div>
       <HudInfo hide={hide} totalTimeInSec={10800} x={xPosition} y={yPosition} />
-      <ColorBar
-        hide={hide}
-        currentColor={currentColor}
-        setCurrentColor={setCurrentColor}
-      />
+      {gameParams.gameTimer && (
+        <ColorBar
+          hide={hide}
+          currentColor={currentColor}
+          setCurrentColor={setCurrentColor}
+          gameTimer={gameParams.gameTimer}
+        />
+      )}
       <ActionMenus setHide={setHide} hide={hide} />
+      <ProgressBar hide={hide} progress={progress} setProgress={setProgress} />
+      {stillTest && (
+        <div className="test-war">
+          <img src={ghost} alt="" />
+          <p>
+            Cette war est un test ! Pas d’authentification donc pas de
+            comptabilisation de points{" "}
+          </p>
+        </div>
+      )}
     </div>
   );
 };
