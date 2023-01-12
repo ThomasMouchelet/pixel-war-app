@@ -1,5 +1,8 @@
 import CloseIcon from "../../../assets/images/close_icon.png";
 import coin from "../../../assets/images/coin.png";
+import illustrationPose from "../../../assets/images/Illustration_pose_pixels.png";
+import illustrationGain from "../../../assets/images/Illustration_gains.png";
+import illustrationTemps from "../../../assets/images/Illustration_temps_pause.png";
 
 const RulesModal = ({ isModalActive, setIsModalActive }) => {
   return (
@@ -26,6 +29,11 @@ const RulesModal = ({ isModalActive, setIsModalActive }) => {
             <span> 10 coins</span>.
           </p>
           <p>Que la bataille des pixels commence ! </p>
+          <div className="images">
+            <img src={illustrationPose} alt="" />
+            <img src={illustrationGain} alt="" />
+            <img src={illustrationTemps} alt="" />
+          </div>
 
           <div className="rules-card-container">
 

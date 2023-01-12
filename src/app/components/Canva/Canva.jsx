@@ -4,6 +4,7 @@ import HudInfo from "../HudInfos/HudInfos";
 import ActionMenus from "../Actions/ActionsMenus";
 import ghost from "../../assets/images/ghost.png";
 import pause_icon from "../../assets/images/pause_icon.svg";
+import EndGameScreen from "../EndGameScreen/EndGameScreen";
 import {
   createPixelService,
   getPixel,
@@ -41,6 +42,28 @@ const Canva = ({
 
   let currentColorChoice = currentColor;
   const gridCellSize = 10;
+
+  const startDateEvent = new Date("2023-01-13T12:00:00");
+  const dateNow = new Date();
+
+  const handleDefineTimer = () => {
+    const difference = startDateEvent.getTime() - dateNow.getTime();
+    setTime(difference);
+  };
+
+  const hours = Math.floor(time / 1000 / 3600);
+  let minutes = Math.floor((time % 3600) / 60);
+  let seconds = Math.floor(time % 60);
+
+  const renderTime = () => {
+    if (seconds < 10) {
+      seconds = "0" + seconds;
+    }
+    if (minutes < 10) {
+      minutes = "0" + minutes;
+    }
+    return hours + ":" + minutes + ":" + seconds;
+  };
 
   const handleAddPixel = () => {
     console.log("handleAddPixel gameParams : ", gameParams);
@@ -154,54 +177,67 @@ const Canva = ({
     }, 5000);
   }, []);
 
+  useEffect(() => {
+    handleDefineTimer();
+  }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      return setTime(time - 1);
+    }, 1000);
+  }, [time]);
+
   return (
-    <div className="c-canvas">
-      <div
-        id="cursor"
-        className="c-canvas__cursor"
-        ref={cursorRef}
-        onClick={handleAddPixel}
-      ></div>
-      <canvas
-        id="game"
-        ref={gameRef}
-        onClick={() => handleAddPixel()}
-        onMouseMove={(e) => handleFollowMouse(e)}
-        className="c-canvas__game"
-      ></canvas>
-      <div ref={addPixelAnimRef} className="pixelAdd">
-        +1
+    <>
+      <EndGameScreen time={renderTime()} dateNow={dateNow.getTime()} startedAt={startDateEvent.getTime()} style={time < 0 ? {display: 'block'} : {display: 'none'}} />
+      <div className="c-canvas">
+        <div
+          id="cursor"
+          className="c-canvas__cursor"
+          ref={cursorRef}
+          onClick={handleAddPixel}
+        ></div>
+        <canvas
+          id="game"
+          ref={gameRef}
+          onClick={() => handleAddPixel()}
+          onMouseMove={(e) => handleFollowMouse(e)}
+          className="c-canvas__game"
+        ></canvas>
+        <div ref={addPixelAnimRef} className="pixelAdd">
+          +1
+        </div>
+        {time && 
+          <HudInfo hide={hide} totalTimeInSec={time} x={xPosition} y={yPosition} />
+        }
+        {gameParams.gameTimer && (
+          
+        <ColorBar
+            hide={hide}
+            currentColor={currentColor}
+            setCurrentColor={setCurrentColor}
+            gameTimer={gameParams.gameTimer}
+          />
+        )}
+        <ActionMenus setHide={setHide} hide={hide} />
+        <ProgressBar hide={hide} progress={progress} setProgress={setProgress} />
+        {stillTest && (
+          <div className="test-war">
+            <img src={ghost} alt="" />
+            <p>
+              Cette war est un test ! Pas d’authentification donc pas de
+              comptabilisation de points{" "}
+            </p>
+          </div>
+        )}
+        <LogOutButton/>
+        {pause 
+        ? <div className="pause-war">
+            <img src={pause_icon} alt="" />
+          </div>
+        : null}
       </div>
-      {time && 
-        <HudInfo hide={hide} totalTimeInSec={time} x={xPosition} y={yPosition} />
-      }
-      {gameParams.gameTimer && (
-        
-      <ColorBar
-          hide={hide}
-          currentColor={currentColor}
-          setCurrentColor={setCurrentColor}
-          gameTimer={gameParams.gameTimer}
-        />
-      )}
-      <ActionMenus setHide={setHide} hide={hide} />
-      <ProgressBar hide={hide} progress={progress} setProgress={setProgress} />
-      {stillTest && (
-        <div className="test-war">
-          <img src={ghost} alt="" />
-          <p>
-            Cette war est un test ! Pas d’authentification donc pas de
-            comptabilisation de points{" "}
-          </p>
-        </div>
-      )}
-      <LogOutButton/>
-      {pause 
-      ? <div className="pause-war">
-          <img src={pause_icon} alt="" />
-        </div>
-      : null}
-    </div>
+    </>
   );
 };
 

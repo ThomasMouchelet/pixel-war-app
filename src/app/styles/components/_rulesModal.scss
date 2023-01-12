@@ -8,7 +8,7 @@
  background-color: white;
  padding: 40px;
  border: solid 1px $main-orange;
- z-index: 11;
+ z-index: 12;
  transition: 0.4s ease-in-out all;
 
  &__content {
@@ -61,3 +61,11 @@
  top: 50%;
 }
 
+.images {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 40%;
+    margin: 3rem 0 0 0;
+ }
