@@ -86,6 +86,12 @@ export const resetPassword = (email) => {
     });
 };
 
+export const logOut = () => {
+  const auth = getAuth();
+  localStorage.removeItem("token");
+  localStorage.removeItem("uid");
+  return auth.signOut();
+}
 // export const getRequest = (url) => {
 //   const headers = {
 //     Authorization: "Bearer " + token,

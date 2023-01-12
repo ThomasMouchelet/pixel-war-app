@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import ColorBar from "../ColorBar/ColorBar";
 import HudInfo from "../HudInfos/HudInfos";
-import ActionMenus from "../ActionsMenus/ActionsMenus";
+import ActionMenus from "../Actions/ActionsMenus";
 import ghost from "../../assets/images/ghost.png";
 import pause_icon from "../../assets/images/pause_icon.svg";
 import {
@@ -16,6 +16,7 @@ import {
 import useTimer from "../../../setup/context/timerContext";
 import ProgressBar from "../ProgressBar/ProgressBar";
 import { createCookie, readCookie } from "../../../setup/utils/cookies";
+import LogOutButton from "../Actions/LogOut/LogOutButton";
 
 const Canva = ({
   currentColor,
@@ -215,6 +216,7 @@ const Canva = ({
           </p>
         </div>
       )}
+      <LogOutButton/>
       {pause 
       ? <div className="pause-war">
           <img src={pause_icon} alt="" />
