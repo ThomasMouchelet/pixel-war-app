@@ -63,7 +63,7 @@ const Canva = ({
 
   const handleAddPixel = () => {
     console.log("handleAddPixel gameParams : ", gameParams);
-    if( gameParams.isOpen === false) {
+    if( gameParams.isPlaying === false) {
       setPause(true);
       return;
     }
