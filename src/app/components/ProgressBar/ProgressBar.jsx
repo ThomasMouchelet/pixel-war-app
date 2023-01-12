@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import coin from "../../assets/images/coin.png";
 import trophy from "../../assets/images/trophy.png";
 
-const ProgressBar = ({ progress, setProgress, hide }) => {
+const ProgressBar = ({ progress, hide }) => {
   const [coins, setCoins] = useState(0);
   const [popupVisible, setPopupVisible] = useState(false);
   const [popupConcours, setPopupConcours] = useState(false);
@@ -12,34 +12,10 @@ const ProgressBar = ({ progress, setProgress, hide }) => {
   useEffect(() => {
     const reste = progress % 20
     const coinsInitValue = (progress - reste) / 20
-    // const progressInitValue = progress * reste
-    console.log('reste => ',reste);
-    console.log('coinsInitValue => ',coinsInitValue);
-    // console.log('progressInitValue => ',progressInitValue);
 
     setCoins(coinsInitValue)
     setValueProgress(reste)
-  },[progress])
-
-  // useEffect(() => {
-  //   // if (progress >= 20) {
-  //   //   setProgress(0);
-  //   //   setCoins(coins + 1);
-  //   // }
-  //   const reste = progress % 20;
-  //   console.log('reste => ',reste);
-  //   if(progress >= 20){
-      
-  //   }
-  //   // if (reste === 0) {
-  //   //   setProgress(0);
-  //   //   setCoins(coins + 1);
-  //   // }else{
-  //   //   setProgress(reste);
-  //   // }
-  // }, [progress]);
-
-  useEffect(() => {
+    
     if (coins < 9) {
       if (progress === 20) {
         setPopupVisible(true);
@@ -48,20 +24,15 @@ const ProgressBar = ({ progress, setProgress, hide }) => {
         }, 5000);
       }
     }
-  }, [progress]);
+  },[progress])
 
   useEffect(() => {
     if (coins === 10) {
       setPopupConcours(true);
+      setBarProgress(false);
       setTimeout(() => {
         setPopupConcours(false);
       }, 5000);
-    }
-  }, [coins]);
-
-  useEffect(() => {
-    if (coins === 10) {
-      setBarProgress(false);
     }
   }, [coins]);
 
