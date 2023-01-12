@@ -1,12 +1,12 @@
 import { useState } from "react";
 import Canva from "./app/components/Canva/Canva";
-import Layout from "./app/components/Layout";
+import PrimaryRouter from "./app/router/PrimaryRouter";
 
 function App() {
   
   return (
     <div className="App">
-      <Layout />
+      <PrimaryRouter />
     </div>
   );
 }

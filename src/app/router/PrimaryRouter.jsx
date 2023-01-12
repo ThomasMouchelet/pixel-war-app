@@ -5,10 +5,10 @@ import HomePage from "../pages/HomePage";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import ResetPassword from "../pages/ResetPassword";
-import Canva from "./Canva/Canva";
-import ProtectedRoute from "./ProtectedRoutes";
+import Canva from "../components/Canva/Canva";
+import ProtectedRoute from "../components/ProtectedRoutes";
 
-const Layout = () => {
+const PrimaryRouter = () => {
   const [currentColor, setCurrentColor] = useState("#4287f5");
   const [pixelColor, setPixelColor] = useState([]);
 
@@ -38,4 +38,4 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+export default PrimaryRouter;
