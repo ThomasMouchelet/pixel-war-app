@@ -1,5 +1,5 @@
 import { login } from "../../setup/services/auth.service";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link} from "react-router-dom";
 import { useContext, useState } from "react";
 import { UserContext } from "../../setup/context/UserContext";
 
@@ -33,16 +33,40 @@ const Login = () => {
   }
 
   return (
-    <>
-      <h1>Login</h1>
-      {error && <p>Les informations ne sont pas correctes</p>}
+    <div className="l-login">
+      <h1>
+        Connecte-toi et rejoins la
+        <br /> bataille !
+      </h1>
+      {error && (
+        <p className="l-login__error">Les informations ne sont pas correctes</p>
+      )}
       <form onSubmit={handleSubmit}>
-        <input type="text" name="email" required />
-        <input type="password" name="password" required />
+        <div>
+          <input
+            type="text"
+            name="email"
+            placeholder="Adresse email"
+            required
+          />
+        </div>
+        <div>
+          <input
+            type="password"
+            name="password"
+            placeholder="Mot de passe"
+            required
+          />
+        </div>
         <button type="submit">Connexion</button>
       </form>
-      <button onClick={handleResetPassword}>Mot de passe oubliée</button>
-    </>
+      <Link to="/reset" className="l-login__forgot">
+        Mot de passe oubliée
+      </Link>
+      <p className="l-login__register">
+        Pas de compte ? <Link to="/inscription">Inscris-toi</Link>
+      </p>
+    </div>
   );
 };
 

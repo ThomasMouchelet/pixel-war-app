@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link} from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { useState } from "react";
 import { createUser } from "../../setup/utils/useApi";
@@ -57,39 +57,38 @@ const Register = () => {
   }, []);
 
   return (
-    <>
-      <h1>Register</h1>
-      {error !== "" && <p>{error}</p>}
+    <div className="l-register">
+      <h1>
+        Créé ton compte pour rejoindre la <br /> bataille !
+      </h1>
+      {error !== "" && <p className="l-login__error">{error}</p>}
       <form onSubmit={handleSubmit}>
-        <label htmlFor="username">Nom d'utilisateur</label>
-        <input type="text" name="username" id="username" required />
-        <label htmlFor="email">Email</label>
-        <input type="email" name="email" id="email" required />
-        <label htmlFor="teams">Equipe</label>
-        <select name="teams" id="teams">
-          <option value="" style={{ display: "none" }}>
-            Choisir une équipe
-          </option>
-          {teams.map((team) => {
-            return (
-              <option key={team.id} value={team.id}>
-                {team.name}
-              </option>
-            );
-          })}
-        </select>
-        <label htmlFor="password">Mot de passe</label>
-        <input type="password" name="password" required />
-        <label htmlFor="password-confirm">Confirmer le mot de passe</label>
         <input
-          type="password"
-          name="password-confirm"
-          id="password-confirm"
+          type="email"
+          name="email"
+          id="email"
+          placeholder="E-mail"
           required
         />
-        <button type="submit">Inscription</button>
+        <input
+          type="text"
+          name="username"
+          id="username"
+          placeholder="Nom d'utilisateur"
+          required
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Mot de passe"
+          required
+        />
+        <button type="submit">S'inscrire</button>
       </form>
-    </>
+      <p className="l-login__register">
+        Déjà un compte ? <Link to="/connexion">Connecte-toi</Link>
+      </p>
+    </div>
   );
 };
 export default Register;
