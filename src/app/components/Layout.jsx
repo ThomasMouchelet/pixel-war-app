@@ -28,7 +28,7 @@ const Layout = () => {
                 />
               </ProtectedRoute>
             }
-          />
+          />          
           <Route path="/connexion" element={<Login />} />
           <Route path="/inscription" element={<Register />} />
           <Route path="/reset" element={<ResetPassword />} />

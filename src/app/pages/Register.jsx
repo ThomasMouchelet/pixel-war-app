@@ -3,6 +3,7 @@ import { useContext, useEffect } from "react";
 import { useState } from "react";
 import { createUser } from "../../setup/utils/useApi";
 import {UserContext} from "../../setup/context/UserContext";
+import AuthLayout from "../layout/AuthLayout";
 
 const Register = () => {
   const [result, setResult] = useState("");
@@ -70,43 +71,45 @@ const Register = () => {
   // }, []);
 
   return (
-    <div className="l-register">
-      <h1>
-        Créé ton compte pour rejoindre la <br /> bataille !
-      </h1>
-      {renderResult()}
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          name="email"
-          id="email"
-          placeholder="E-mail"
-          required
-        />
-        <input
-          type="text"
-          name="username"
-          id="username"
-          placeholder="Nom d'utilisateur"
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Mot de passe"
-          minLength={6}
-          required
-        />
-        <button type="submit">
-          <div className="l-login__before"></div>
-          S'inscrire
-          <div className="l-login__after"></div>
-        </button>
-      </form>
-      <p className="l-login__register">
-        Déjà un compte ? <Link to="/connexion">Connecte-toi</Link>
-      </p>
-    </div>
+    <AuthLayout>
+      <div className="l-register">
+        <h1>
+          Créé ton compte pour rejoindre la <br /> bataille !
+        </h1>
+        {renderResult()}
+        <form onSubmit={handleSubmit}>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="E-mail"
+            required
+          />
+          <input
+            type="text"
+            name="username"
+            id="username"
+            placeholder="Nom d'utilisateur"
+            required
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Mot de passe"
+            minLength={6}
+            required
+          />
+          <button type="submit">
+            <div className="l-login__before"></div>
+            S'inscrire
+            <div className="l-login__after"></div>
+          </button>
+        </form>
+        <p className="l-login__register">
+          Déjà un compte ? <Link to="/connexion">Connecte-toi</Link>
+        </p>
+      </div>
+    </AuthLayout>
   );
 };
 export default Register;
