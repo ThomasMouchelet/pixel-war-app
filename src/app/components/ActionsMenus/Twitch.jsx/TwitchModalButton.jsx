@@ -68,11 +68,11 @@ const TwitchModalButton = () => {
                         zIndex: 10
                     }}
                 >
-                    {/* <iframe src="https://www.twitch.tv/embed/pixelwaresd/chat?parent=pixel-war-app.vercel.app"
+                    <iframe src="https://www.twitch.tv/embed/pixelwaresd/chat?parent=pixel-war-app.vercel.app"
                         height="300px"
                         width="300px">
-                    </iframe> */}
-                    <iframe src="https://www.twitch.tv/embed/pixelwaresd/chat?parent=localhost"
+                    </iframe>
+                    {/* <iframe src="https://www.twitch.tv/embed/pixelwaresd/chat?parent=localhost"
                         height="100%"
                         width="100%"
                         style={{
@@ -80,7 +80,7 @@ const TwitchModalButton = () => {
                             border: "none",
                         }}
                     >
-                    </iframe>
+                    </iframe> */}
                 </div>
             )}
         </div>
