@@ -3,7 +3,7 @@ import TwitchIcon from "../../../assets/images/twitch-icon.png";
 import CloseIcon from "../../../assets/images/close_icon.png";
 
 const TwitchModalButton = () => {
-    const [isModalActive, setIsModalActive] = useState(true);
+    const [isModalActive, setIsModalActive] = useState(false);
 
     useEffect(() => {
         // let embed;
@@ -69,7 +69,7 @@ const TwitchModalButton = () => {
                     }}
                 >
                     <iframe src="https://www.twitch.tv/embed/pixelwaresd/chat?parent=pixel-war-app.vercel.app"
-                        height="100vh"
+                        height="100%"
                         width="100%"
                         style={{
                             opacity: ".9",
