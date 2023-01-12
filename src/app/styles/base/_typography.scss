@@ -1,1 +1,24 @@
-// FONTS
+// FONT
+@import url('https://fonts.googleapis.com/css2?family=Gantari&display=swap');
+@font-face {
+    font-family: 'Unibody-black';
+    src: url('../../assets/font/Unibody_8_Black.ttf');
+}
+@font-face {
+    font-family: 'Unibody-bold';
+    src: url('../../assets/font/Unibody_8_Bold.ttf');
+}
+@font-face {
+    font-family: 'Unibody-regular';
+    src: url('../../assets/font/Unibody 8 Regular.ttf');
+}
+@font-face {
+    font-family: 'VT323';
+    src: url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+}
+
+$Unibody-black: "Unibody-black";
+$Unibody-bold: "Unibody-bold";
+$Unibody-regular: "Unibody-regular";
+$Gantari: "Gantari";
+$VT323: "VT323";
