@@ -3,6 +3,7 @@ import ColorBar from "../ColorBar/ColorBar";
 import HudInfo from "../HudInfos/HudInfos";
 import ActionMenus from "../ActionsMenus/ActionsMenus";
 import ghost from "../../assets/images/ghost.png";
+import pause_icon from "../../assets/images/pause_icon.svg";
 import {
   createPixelService,
   getPixel,
@@ -28,6 +29,7 @@ const Canva = ({
   const [stillTest, setStillTest] = useState(true);
   const [progress, setProgress] = useState(0);
   const [hide, setHide] = useState(false);
+  const [pause, setPause] = useState(false);
 
   const [gameParams, setGameParams] = useState({})
   const gameRef = useRef(null);
@@ -61,8 +63,12 @@ const Canva = ({
 
   const handleAddPixel = () => {
     console.log("handleAddPixel gameParams : ", gameParams);
-    if( gameParams.isOpen === false) return;
+    if( gameParams.isOpen === false) {
+      setPause(true);
+      return;
+    }
     addPixelIntoGame();
+    setPause(false);
     if(!newPixelIsCreated){
       setProgress(progress + 1);
     }
@@ -208,6 +214,11 @@ const Canva = ({
           </p>
         </div>
       )}
+      {pause 
+      ? <div className="pause-war">
+          <img src={pause_icon} alt="" />
+        </div>
+      : null}
     </div>
   );
 };

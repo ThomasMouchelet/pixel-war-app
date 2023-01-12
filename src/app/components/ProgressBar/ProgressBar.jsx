@@ -7,13 +7,37 @@ const ProgressBar = ({ progress, setProgress, hide }) => {
   const [popupVisible, setPopupVisible] = useState(false);
   const [popupConcours, setPopupConcours] = useState(false);
   const [barProgress, setBarProgress] = useState(true);
+  const [valueProgress, setValueProgress] = useState(0);
 
   useEffect(() => {
-    if (progress >= 20) {
-      setProgress(0);
-      setCoins(coins + 1);
-    }
-  }, [progress]);
+    const reste = progress % 20
+    const coinsInitValue = (progress - reste) / 20
+    // const progressInitValue = progress * reste
+    console.log('reste => ',reste);
+    console.log('coinsInitValue => ',coinsInitValue);
+    // console.log('progressInitValue => ',progressInitValue);
+
+    setCoins(coinsInitValue)
+    setValueProgress(reste)
+  },[progress])
+
+  // useEffect(() => {
+  //   // if (progress >= 20) {
+  //   //   setProgress(0);
+  //   //   setCoins(coins + 1);
+  //   // }
+  //   const reste = progress % 20;
+  //   console.log('reste => ',reste);
+  //   if(progress >= 20){
+      
+  //   }
+  //   // if (reste === 0) {
+  //   //   setProgress(0);
+  //   //   setCoins(coins + 1);
+  //   // }else{
+  //   //   setProgress(reste);
+  //   // }
+  // }, [progress]);
 
   useEffect(() => {
     if (coins < 9) {
@@ -69,7 +93,7 @@ const ProgressBar = ({ progress, setProgress, hide }) => {
             <div className="c-progressbar__bar">
               <div
                 className="c-progressbar__fill"
-                style={{ height: `calc(${progress} * 5%)` }}
+                style={{ height: `calc(${valueProgress} * 5%)` }}
               ></div>
             </div>
             <div>
