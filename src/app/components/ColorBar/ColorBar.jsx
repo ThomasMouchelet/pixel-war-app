@@ -56,6 +56,7 @@ const ColorBar = ({ currentColor, setCurrentColor, hide, gameTimer }) => {
 
   useEffect(() => {
     const timestampTimer = readCookie("Google Analytics");
+    console.log("timestampTimer : ", timestampTimer);
     if (timestampTimer) {
       const currentTime = Math.floor(new Date().getTime() / 1000);
       console.log(timestampTimer < currentTime);
@@ -120,7 +121,8 @@ const ColorBar = ({ currentColor, setCurrentColor, hide, gameTimer }) => {
     }
     if (time === 0) {
       setNewPixelIsCreated(false);
-      setTime(60);
+      console.log("useMemo : ", gameTimer);
+      setTime(gameTimer);
     }
   }, [newPixelIsCreated, time, setNewPixelIsCreated]);
 
