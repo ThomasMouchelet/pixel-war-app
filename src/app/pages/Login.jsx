@@ -42,6 +42,7 @@ const Login = () => {
         <button type="submit">Connexion</button>
       </form>
       <button onClick={handleResetPassword}>Mot de passe oubliée</button>
+      <iframe height="378" width="300" frameborder="0" scrolling="no" src="https://www.twitch.tv/pixelwaresd/chat"></iframe>
     </>
   );
 };

@@ -6,6 +6,7 @@ import CloseIcon from "../../assets/images/close_icon.png";
 import RulesModal from "./RulesModal/RulesModal";
 import { useState } from "react";
 import LastPixelMenu from "./LastPixelMenu/LastPixelMenu";
+import TwitchModalButton from "./Twitch.jsx/TwitchModalButton";
 
 const ActionMenus = ({ setHide, hide }) => {
   const [isModalActive, setIsModalActive] = useState(false);
@@ -41,6 +42,10 @@ const ActionMenus = ({ setHide, hide }) => {
             onClick={() => handleActiveModal()}
           >
             <img src={Consigne} alt="" className="menu" />
+          </div>
+
+          <div>
+            <TwitchModalButton />
           </div>
 
           {!isMenuOpen ? (
