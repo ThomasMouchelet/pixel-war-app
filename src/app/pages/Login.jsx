@@ -43,7 +43,7 @@ const Login = () => {
       </form>
       <button onClick={handleResetPassword}>Mot de passe oubliée</button>
       
-      <iframe src="https://www.twitch.tv/embed/pixelwaresd/chat?parent=https://pixel-war-app.vercel.app"
+      <iframe src="https://www.twitch.tv/embed/pixelwaresd/chat?parent=pixel-war-app.vercel.app"
         height="300px"
         width="300px">
       </iframe>
