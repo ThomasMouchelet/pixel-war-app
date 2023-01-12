@@ -68,7 +68,7 @@ const TwitchModalButton = () => {
                         zIndex: 10
                     }}
                 >
-                    <iframe src="https://www.twitch.tv/embed/pixelwaresd/chat?parent=pixel-war-app.vercel.app"
+                    <iframe src="https://www.twitch.tv/embed/pixelwaresd/chat?parent=app.pixel-war-esd.fr"
                         height="100%"
                         width="100%"
                         style={{

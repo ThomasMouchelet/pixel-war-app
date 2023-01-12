@@ -2,15 +2,12 @@ import { firestoreDb } from "../config/firebase.config";
 import {
   collection,
   getDocs,
-  query,
-  where,
-  Timestamp,
-  addDoc,
   setDoc,
   doc,
   onSnapshot,
   getDoc,
   updateDoc,
+  query,
 } from "firebase/firestore";
 const paramCollection = collection(firestoreDb, "param");
 
@@ -87,16 +84,20 @@ const updatePixelsGrid = async (game, createPixel) => {
   });
 };
 
-// const updateGameParams = async () => {
-//   const q = query(paramCollection, where("state", "==", "CA"));
-//   const unsubscribe = onSnapshot(q, (querySnapshot) => {
-//     const cities = [];
-//     querySnapshot.forEach((doc) => {
-//         cities.push(doc.data().name);
-//     });
-//     console.log("Current cities in CA: ", cities.join(", "));
-//   });
-// }
+const getUserScore = async (setProgress) => {
+    const userId = localStorage.getItem('uid')
+    const user = await getDoc(doc(firestoreDb, 'users', userId))
+    setProgress(user.data().totalScore)
+}
+
+const getTimer = async (setTime) => {
+    const game = await getDoc(doc(firestoreDb, 'param', `game-${process.env.REACT_APP_GAME_KEY}`))
+    console.log("game => ", game.data());
+    const now = Date.now() / 1000
+    const timeLeft = game.data().finishAt.seconds - now
+    console.log("timeLeft => ", parseInt(timeLeft));
+    setTime(parseInt(timeLeft))
+}
 
 const updateGameParams = async (setGameParams) => {
   onSnapshot(paramCollection, (snapshot) => {
@@ -113,4 +114,4 @@ const updateGameParams = async (setGameParams) => {
   });
 };
 
-export { getPixel, createPixelService, updatePixelsGrid, updateGameParams };
+export { getPixel, createPixelService, updatePixelsGrid, getUserScore, getTimer, updateGameParams };

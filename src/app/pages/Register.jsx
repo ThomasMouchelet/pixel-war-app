@@ -1,12 +1,11 @@
-import { useNavigate, Link} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { useState } from "react";
 import { createUser } from "../../setup/utils/useApi";
 import {UserContext} from "../../setup/context/UserContext";
 
 const Register = () => {
-  const [error, setError] = useState("");
-  const [teams, setTeams] = useState([]);
+  const [result, setResult] = useState("");
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
 
@@ -14,21 +13,26 @@ const Register = () => {
     e.preventDefault();
     const username = e.target.username.value;
     const email = e.target.email.value;
-    const team = e.target.teams.value;
+    // const team = e.target.teams.value;
     const password = e.target.password.value;
-    const passwordConfirm = e.target["password-confirm"].value;
-    if (password !== passwordConfirm) {
-      setError("Les mots de passe ne correspondent pas");
-      return;
-    }
     const data = {
       username: username,
       password: password,
-      email: email
-    }
+      email: email,
+    };
     createUser(data)
-    setUser(data)
-    navigate('/')
+      .then(() => {
+        setResult("Le compte a bien été créé");
+        setUser(data)
+        navigate("/");
+      })
+      .catch((e) => {
+        if (e.stack.includes("email-already-in-use")) {
+          setResult("L'email est déjà utilisé");
+        } else {
+          setResult("Une erreur est survenue");
+        }
+      });
     // const data = { username, password, email, team };
     // fetch(process.env.REACT_APP_API + "/auth/signup", {
     //   method: "POST",
@@ -46,22 +50,31 @@ const Register = () => {
     //   });
   };
 
-  useEffect(() => {
-    fetch(process.env.REACT_APP_API + "/team")
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        setTeams(data);
-      });
-  }, []);
+  const renderResult = () => {
+    if (result === "") return;
+    if (result === "Le compte a bien été créé") {
+      return <p className="l-login__success">{result}</p>;
+    } else {
+      return <p className="l-login__error">{result}</p>;
+    }
+  };
+
+  // useEffect(() => {
+  //   fetch(process.env.REACT_APP_API + "/team")
+  //     .then((res) => {
+  //       return res.json();
+  //     })
+  //     .then((data) => {
+  //       setTeams(data);
+  //     });
+  // }, []);
 
   return (
     <div className="l-register">
       <h1>
         Créé ton compte pour rejoindre la <br /> bataille !
       </h1>
-      {error !== "" && <p className="l-login__error">{error}</p>}
+      {renderResult()}
       <form onSubmit={handleSubmit}>
         <input
           type="email"
@@ -81,9 +94,14 @@ const Register = () => {
           type="password"
           name="password"
           placeholder="Mot de passe"
+          minLength={6}
           required
         />
-        <button type="submit">S'inscrire</button>
+        <button type="submit">
+          <div className="l-login__before"></div>
+          S'inscrire
+          <div className="l-login__after"></div>
+        </button>
       </form>
       <p className="l-login__register">
         Déjà un compte ? <Link to="/connexion">Connecte-toi</Link>

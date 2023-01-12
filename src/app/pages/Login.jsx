@@ -1,5 +1,5 @@
 import { login } from "../../setup/services/auth.service";
-import { useNavigate, Link} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { UserContext } from "../../setup/context/UserContext";
 
@@ -28,9 +28,9 @@ const Login = () => {
       }
   };
 
-  const handleResetPassword = () => {
-    navigate('/reset')
-  }
+  // const handleResetPassword = () => {
+  //   navigate("/reset");
+  // };
 
   return (
     <div className="l-login">
@@ -58,7 +58,11 @@ const Login = () => {
             required
           />
         </div>
-        <button type="submit">Connexion</button>
+        <button type="submit">
+          <div className="l-login__before"></div>
+          Connexion
+          <div className="l-login__after"></div>
+        </button>
       </form>
       <Link to="/reset" className="l-login__forgot">
         Mot de passe oubliée
