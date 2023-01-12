@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { resetPassword } from "../../setup/utils/useApi";
+import AuthLayout from "../layout/AuthLayout";
 
 const ResetPassword = () => {
   const [result, setResult] = useState("");
@@ -39,27 +40,29 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="l-reset">
-      <h1>Tu as oublié ton mot de passe ?</h1>
-      {renderResult()}
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          name="email"
-          id="email"
-          placeholder="Adresse mail"
-          onInput={handleChange}
-        />
-        <button type="submit">
-          <div className="l-login__before"></div>
-          Envoyer la demande
-          <div className="l-login__after"></div>
-        </button>
-      </form>
-      <Link className="l-login__forgot" to="/connexion">
-        Annuler
-      </Link>
-    </div>
+    <AuthLayout>
+      <div className="l-reset">
+        <h1>Tu as oublié ton mot de passe ?</h1>
+        {renderResult()}
+        <form onSubmit={handleSubmit}>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="Adresse mail"
+            onInput={handleChange}
+          />
+          <button type="submit">
+            <div className="l-login__before"></div>
+            Envoyer la demande
+            <div className="l-login__after"></div>
+          </button>
+        </form>
+        <Link className="l-login__forgot" to="/connexion">
+          Annuler
+        </Link>
+      </div>
+    </AuthLayout>
   );
 };
 

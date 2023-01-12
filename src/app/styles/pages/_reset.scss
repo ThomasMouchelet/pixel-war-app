@@ -14,6 +14,7 @@
         margin-bottom: 22px;
     }
     input {
+        outline: none;
         width: 100%;
         font-family: $Gantari;
         font-size: 24px;
@@ -27,6 +28,11 @@
         }
         &:first-of-type {
             margin-bottom: 24px;
+        }
+        transition: all .3s ease;
+        opacity: .8;
+        &:focus{
+            opacity: 1;
         }
     }
     button {
@@ -47,6 +53,10 @@
         margin-bottom: 32px;
         width: 100%;
         cursor: pointer;
+        transition: all .3s ease;
+        &:hover{
+            opacity: .8;
+        }
     }
     &__forgot {
         display: block;
