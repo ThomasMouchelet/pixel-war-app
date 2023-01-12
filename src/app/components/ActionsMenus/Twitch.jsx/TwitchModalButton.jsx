@@ -69,8 +69,13 @@ const TwitchModalButton = () => {
                     }}
                 >
                     <iframe src="https://www.twitch.tv/embed/pixelwaresd/chat?parent=pixel-war-app.vercel.app"
-                        height="300px"
-                        width="300px">
+                        height="100vh"
+                        width="100%"
+                        style={{
+                            opacity: ".9",
+                            border: "none",
+                        }}
+                    >
                     </iframe>
                     {/* <iframe src="https://www.twitch.tv/embed/pixelwaresd/chat?parent=localhost"
                         height="100%"
