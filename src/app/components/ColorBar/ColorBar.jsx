@@ -5,6 +5,7 @@ import arrowIcon from "../../assets/images/arrow.png";
 
 const ColorBar = ({ currentColor, setCurrentColor, hide, gameTimer }) => {
   const [time, setTime] = useState(0);
+  const [isRotated, setIsRotated] = useState(false)
   const { newPixelIsCreated, setNewPixelIsCreated } = useTimer();
 
   useEffect(() => {
@@ -52,14 +53,13 @@ const ColorBar = ({ currentColor, setCurrentColor, hide, gameTimer }) => {
 
   const colorListRef = useRef(null);
   const arrowRef = useRef(null);
-  let isRotate = false;
+  const colorBarRef = useRef(null)
+  
 
   useEffect(() => {
     const timestampTimer = readCookie("Google Analytics");
-    console.log("timestampTimer : ", timestampTimer);
     if (timestampTimer) {
       const currentTime = Math.floor(new Date().getTime() / 1000);
-      console.log(timestampTimer < currentTime);
       if (currentTime < timestampTimer) {
         setNewPixelIsCreated(true);
         setTime(timestampTimer - currentTime);
@@ -68,25 +68,26 @@ const ColorBar = ({ currentColor, setCurrentColor, hide, gameTimer }) => {
   }, []);
 
   const handleColorListNavigation = () => {
-    if (isRotate == false) {
-      colorListRef.current.scrollLeft += colorListRef.current.offsetWidth / 10;
+    console.log(colorListRef.current.clientWidth, colorListRef.current.scrollLeft, isRotated)
+    if (!isRotated) {
+      colorListRef.current.scrollBy(colorListRef.current.clientWidth/10, 0)
       if (
         colorListRef.current.scrollLeft >
-        colorListRef.current.offsetWidth * 0.9
+        colorListRef.current.clientWidth * .9
       ) {
         arrowRef.current.classList.add("rotate");
-        isRotate = true;
+        setIsRotated(true);
       }
       return;
     }
-    if (isRotate == true) {
-      colorListRef.current.scrollLeft -= colorListRef.current.offsetWidth / 10;
+    if (isRotated == true) {
+      colorListRef.current.scrollBy(colorListRef.current.clientWidth/-10, 0)
       if (
         colorListRef.current.scrollLeft <
-        colorListRef.current.offsetWidth * 0.1
+        colorListRef.current.clientWidth * .1 
       ) {
         arrowRef.current.classList.remove("rotate");
-        isRotate = false;
+        setIsRotated(false);
       }
       return;
     }
@@ -121,7 +122,6 @@ const ColorBar = ({ currentColor, setCurrentColor, hide, gameTimer }) => {
     }
     if (time === 0) {
       setNewPixelIsCreated(false);
-      console.log("useMemo : ", gameTimer);
       setTime(gameTimer);
     }
   }, [newPixelIsCreated, time, setNewPixelIsCreated]);
@@ -130,6 +130,7 @@ const ColorBar = ({ currentColor, setCurrentColor, hide, gameTimer }) => {
     <div
       className={!hide ? "colorBar" : "hide"}
       style={newPixelIsCreated ? { width: "16rem", height: "4rem" } : null}
+      ref={colorBarRef}
     >
       <div className="color-list" ref={colorListRef}>
         {newPixelIsCreated === false ? (
