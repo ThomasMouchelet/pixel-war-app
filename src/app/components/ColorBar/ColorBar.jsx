@@ -66,7 +66,7 @@ const ColorBar = ({ currentColor, setCurrentColor, hide, gameTimer }) => {
   }, []);
 
   const handleColorListNavigation = () => {
-    console.log(colorListRef.current.clientWidth, colorListRef.current.scrollLeft, isRotated)
+    // console.log(colorListRef.current.clientWidth, colorListRef.current.scrollLeft, isRotated)
     if (!isRotated) {
       colorListRef.current.scrollBy(colorListRef.current.clientWidth/10, 0)
       if (

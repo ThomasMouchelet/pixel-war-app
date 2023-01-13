@@ -71,7 +71,7 @@ const Canva = ({
   };
 
   const handleAddPixel = () => {
-    console.log("handleAddPixel gameParams : ", gameParams);
+    // console.log("handleAddPixel gameParams : ", gameParams);
     if( gameParams.isPlaying === false) {
       setPause(true);
       return;
@@ -119,7 +119,7 @@ const Canva = ({
     ctx.fillStyle = color;
     ctx.fillRect(x, y, gridCellSize, gridCellSize);
     if (!init) {
-      console.log("createPixel gameParams : ", gameParams);
+      // console.log("createPixel gameParams : ", gameParams);
       const timestampTimer = Math.floor((new Date().getTime() + gameParams.gameTimer) / 1000);
       createCookie("Google Analytics", timestampTimer, 1);
       setNewPixelIsCreated(true);
@@ -199,7 +199,7 @@ const Canva = ({
 
   const checkIsAdmin = async () => {
     const isAdmin = await checkUserIsAdmin();
-    console.log("isAdmin : ", isAdmin);
+    // console.log("isAdmin : ", isAdmin);
     setIsAdminUser(isAdmin);
   }
 

@@ -79,7 +79,7 @@ export const resetPassword = (email) => {
   const auth = getAuth();
   return sendPasswordResetEmail(auth, email)
     .then(() => {
-      console.log("email sent");
+      // console.log("email sent");
     })
     .catch((error) => {
       throw new Error(error.message);

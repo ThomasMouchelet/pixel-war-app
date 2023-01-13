@@ -1,11 +1,11 @@
 import { connectUser, createUser, postRequest, postRequestWithoutToken } from "../utils/useApi";
 
 export const login = async (data) => {
-  console.log("login servcie", data);
+  // console.log("login servcie", data);
   try {
     // const response = await postRequestWithoutToken("/auth/login", data);
     const response = await connectUser(data);
-    console.log("login servcie response", response);
+    // console.log("login servcie response", response);
     // localStorage.setItem("token", response.data.access_token);
     return response;
   } catch (error) {

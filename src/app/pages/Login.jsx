@@ -16,16 +16,16 @@ const Login = () => {
     const password = e.target.password.value;
     const data = { email, password };
     
-    console.log(data);
+    // console.log(data);
       try{
         const response = await login(data)
-        console.log(response);
+        // console.log(response);
         if(response){
           setUser(response)
           navigate("/");
         }
       }catch(e){
-        console.log(e);
+        // console.log(e);
         setError(true);
       }
   };

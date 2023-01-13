@@ -11,7 +11,7 @@ export const verifyToken = async () => {
     // const tokenVerification = await auth().verifyIdToken(token);
     // return tokenVerification;
   }catch(error){
-    console.log(error.message);
+    // console.log(error.message);
   }
 }
 

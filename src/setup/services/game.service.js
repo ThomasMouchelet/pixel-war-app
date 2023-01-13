@@ -31,22 +31,22 @@ const getPixel = async () => {
 
 const getUser = async (userId) => {
     const user = await getDoc(doc(userCollection, userId))
-    console.log("getUser user => ", user.data());
+    // console.log("getUser user => ", user.data());
     return user.data()
 }
 
 const checkUserIsAdmin = async () => {
   const userId = localStorage.getItem('uid')
-  console.log("checkUserIsAdmin userId => ", userId);
+  // console.log("checkUserIsAdmin userId => ", userId);
   const user = await getUser(userId)
-  console.log("checkUserIsAdmin user => ", user);
+  // console.log("checkUserIsAdmin user => ", user);
   return user.isAdmin
 }
 
 const updateScore = async (userId) => {
     try {
         const user = await getUser(userId)
-        console.log("user score => ", user.totalScore);
+        // console.log("user score => ", user.totalScore);
         await updateDoc(doc(userCollection, userId), {
             totalScore: user.totalScore + 1
         })
@@ -56,7 +56,7 @@ const updateScore = async (userId) => {
         }
         return updatedUser
     } catch (error) {
-        console.log(error.message);
+        // console.log(error.message);
     }
 }
 
@@ -88,7 +88,7 @@ const updatePixelsGrid = async (game, createPixel) => {
         createPixel(ctx, doc.x, doc.y, doc.color, true);
       },
       (error) => {
-        console.log("error => ", error);
+        // console.log("error => ", error);
       }
     );
   });
@@ -102,10 +102,10 @@ const getUserScore = async (setProgress) => {
 
 const getTimer = async (setTime) => {
     const game = await getDoc(doc(firestoreDb, 'param', `game-${process.env.REACT_APP_GAME_KEY}`))
-    console.log("game => ", game.data());
+    // console.log("game => ", game.data());
     const now = Date.now() / 1000
     const timeLeft = game.data().finishAt.seconds - now
-    console.log("timeLeft => ", parseInt(timeLeft));
+    // console.log("timeLeft => ", parseInt(timeLeft));
     setTime(parseInt(timeLeft))
 }
 
@@ -118,7 +118,7 @@ const updateGameParams = async (setGameParams) => {
           }
       },
       (error) => {
-        console.log("error => ", error);
+        // console.log("error => ", error);
       }
     );
   });
