@@ -53,9 +53,7 @@ const ColorBar = ({ currentColor, setCurrentColor, hide, gameTimer }) => {
 
   const colorListRef = useRef(null);
   const arrowRef = useRef(null);
-  const colorBarRef = useRef(null)
   
-
   useEffect(() => {
     const timestampTimer = readCookie("Google Analytics");
     if (timestampTimer) {
@@ -130,7 +128,6 @@ const ColorBar = ({ currentColor, setCurrentColor, hide, gameTimer }) => {
     <div
       className={!hide ? "colorBar" : "hide"}
       style={newPixelIsCreated ? { width: "16rem", height: "4rem" } : null}
-      ref={colorBarRef}
     >
       <div className="color-list" ref={colorListRef}>
         {newPixelIsCreated === false ? (
