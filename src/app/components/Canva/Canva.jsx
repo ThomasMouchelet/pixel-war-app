@@ -12,6 +12,7 @@ import {
   getTimer,
   getUserScore,
   updatePixelsGrid,
+  pausingGame,
 } from "../../../setup/services/game.service";
 
 import useTimer from "../../../setup/context/timerContext";
@@ -41,7 +42,7 @@ const Canva = ({
   let currentColorChoice = currentColor;
   const gridCellSize = 10;
 
-  const startDateEvent = new Date("2023-01-13T12:00:00");
+  const startDateEvent = new Date("2023-01-12T12:00:00");
   const dateNow = new Date();
 
   const handleDefineTimer = () => {
@@ -170,7 +171,12 @@ const Canva = ({
     drawGrids(gridCtx, game.width, game.height, gridCellSize, gridCellSize);
     drawPixelOnInit();
     updatePixelsGrid(game, createPixel);
-    updateGameParams(setGameParams);
+    updateGameParams(setGameParams)
+    pausingGame(setPause)
+
+    setTimeout(() => {
+      setStillTest(false);
+    }, 5000);
   }, []);
 
   useEffect(() => {
