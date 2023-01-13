@@ -1,7 +1,7 @@
 .action-menus {
  position: absolute;
  right: 4%;
- top: 4%;
+ top: 5%;
 
  &__menu {
   display: flex;
@@ -17,6 +17,19 @@
    }
   }
  }
+}
+
+.btn-logout {
+ width: 51px;
+ height: 51px;
+ background: #FFF;
+ border-radius: 100px;
+ bottom: 30px;
+ right: 5%;
+ position: absolute;
+ display: flex;
+ align-items: center;
+ justify-content: center
 }
 
 .hide {

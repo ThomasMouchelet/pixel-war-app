@@ -13,7 +13,8 @@ import {
   getUserScore,
   updatePixelsGrid,
   pausingGame,
-  checkUserIsAdmin
+  checkUserIsAdmin,
+  closingGame,
 } from "../../../setup/services/game.service";
 
 import useTimer from "../../../setup/context/timerContext";
@@ -30,16 +31,19 @@ const Canva = ({
   const { setNewPixelIsCreated, newPixelIsCreated } = useTimer();
   const [xPosition, setXPosition] = useState(0);
   const [yPosition, setYPosition] = useState(0);
+  const [cursorColor, setCursorColor] = useState("");
   const [progress, setProgress] = useState(0);
   const [hide, setHide] = useState(false);
   const [pause, setPause] = useState(false);
+  const [isClosing, setIsClosing] = useState(false)
 
-  const [gameParams, setGameParams] = useState({});
+  const [gameParams, setGameParams] = useState({})
   const gameRef = useRef(null);
   const addPixelAnimRef = useRef(null);
   const cursorRef = useRef(null);
   const [time, setTime] = useState(0);
   const [isAdminUser, setIsAdminUser] = useState(false);
+
 
   let currentColorChoice = currentColor;
   const gridCellSize = 10;
@@ -47,10 +51,10 @@ const Canva = ({
   const startDateEvent = new Date("2023-01-12T12:00:00");
   const dateNow = new Date();
 
-  const handleDefineTimer = () => {
-    const difference = startDateEvent.getTime() - dateNow.getTime();
-    setTime(difference);
-  };
+  // const handleDefineTimer = () => {
+  //   const difference = startDateEvent.getTime() - dateNow.getTime();
+  //   setTimeEnd(difference);
+  // };
 
   const hours = Math.floor(time / 1000 / 3600);
   let minutes = Math.floor((time % 3600) / 60);
@@ -68,14 +72,22 @@ const Canva = ({
 
   const handleAddPixel = () => {
     console.log("handleAddPixel gameParams : ", gameParams);
-    if (gameParams.isPlaying === false) {
+    if( gameParams.isPlaying === false) {
       setPause(true);
       return;
     }
     addPixelIntoGame();
     setPause(false);
-    if (!newPixelIsCreated) {
+    if(!newPixelIsCreated){
       setProgress(progress + 1);
+      const test = setInterval(() => {
+        setCursorColor(getRandomColor());
+      }, 10); 
+  
+      setTimeout(() => {
+        clearInterval(test);
+        setCursorColor("black");
+      }, 600);
     }
   };
 
@@ -93,15 +105,22 @@ const Canva = ({
       Math.floor(cursorTop / gridCellSize) * gridCellSize + "px";
   };
 
+  function getRandomColor() {
+    const letters = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+
   function createPixel(ctx, x, y, color, init = false) {
     ctx.beginPath();
     ctx.fillStyle = color;
     ctx.fillRect(x, y, gridCellSize, gridCellSize);
     if (!init) {
       console.log("createPixel gameParams : ", gameParams);
-      const timestampTimer = Math.floor(
-        (new Date().getTime() + gameParams.gameTimer * 1000) / 1000
-      );
+      const timestampTimer = Math.floor((new Date().getTime() + gameParams.gameTimer) / 1000);
       createCookie("Google Analytics", timestampTimer, 1);
       setNewPixelIsCreated(true);
     }
@@ -164,7 +183,7 @@ const Canva = ({
   }
 
   useEffect(() => {
-    getTimer(setTime);
+    getTimer(setTime)
     getUserScore(setProgress);
     const game = gameRef.current;
     game.width = document.body.clientWidth;
@@ -186,22 +205,32 @@ const Canva = ({
 
   useEffect(() => {
     handleDefineTimer();
+    closingGame(setIsClosing)
   }, []);
 
-  useEffect(() => {
-    setTimeout(() => {
-      return setTime(time - 1);
-    }, 1000);
-  }, [time]);
+  // useEffect(() => {
+  //   handleDefineTimer();
+  // }, []);
+
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     return setTime(time - 1);
+  //   }, 1000);
+  // }, [time]);
 
   return (
     <>
-      {/* <EndGameScreen time={renderTime()} dateNow={dateNow.getTime()} startedAt={startDateEvent.getTime()} style={time < 0 ? {display: 'block'} : {display: 'none'}} /> */}
+    {
+      isClosing
+      ? <EndGameScreen time={renderTime()} dateNow={dateNow.getTime()} startedAt={startDateEvent.getTime()} style={time < 0 ? {display: 'block'} : {display: 'none'}} />
+      : null
+    }
       <div className="c-canvas">
         <div
           id="cursor"
           className="c-canvas__cursor"
           ref={cursorRef}
+          style={{ borderColor: cursorColor }}
           onClick={handleAddPixel}
         ></div>
         <canvas
@@ -214,16 +243,12 @@ const Canva = ({
         <div ref={addPixelAnimRef} className="pixelAdd">
           +1
         </div>
-        {time && (
-          <HudInfo
-            hide={hide}
-            totalTimeInSec={time}
-            x={xPosition}
-            y={yPosition}
-          />
-        )}
+        {time && 
+          <HudInfo hide={hide} totalTimeInSec={time} x={xPosition} y={yPosition} />
+        }
         {gameParams.gameTimer && (
-          <ColorBar
+          
+        <ColorBar
             hide={hide}
             currentColor={currentColor}
             setCurrentColor={setCurrentColor}
@@ -231,19 +256,14 @@ const Canva = ({
           />
         )}
         <ActionMenus setHide={setHide} hide={hide} />
-        <ProgressBar hide={hide} progress={progress} setProgress={setProgress} />
-        {/* {stillTest && (
-          <div className="test-war">
-            <img src={ghost} alt="" />
-            <p>
-              Cette war est un test ! Pas d’authentification donc pas de
-              comptabilisation de points{" "}
-            </p>
-          </div>
-        )} */}
-        <LogOutButton/>
-        {pause 
-        ? <div className="pause-war">
+        <ProgressBar
+          hide={hide}
+          progress={progress}
+          setProgress={setProgress}
+        />
+        <LogOutButton hide={hide} />
+        {pause ? 
+          <div className="pause-war">
             <img src={pause_icon} alt="" />
           </div>
          : null}
