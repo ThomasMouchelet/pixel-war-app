@@ -19,8 +19,10 @@ const updatePixelsGrid = async (game, createPixel) => {
             const doc = change.doc.data();
             const ctx = game.getContext("2d");
             createPixel(ctx, doc.x, doc.y, doc.color, true);
+        },
+        (error) => {
+            throw new Error(error)
         }
-
       );
     });
 };

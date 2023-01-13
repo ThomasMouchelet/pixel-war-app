@@ -1,18 +1,8 @@
 import { firestoreDb } from "../config/firebase.config";
-import {
-  collection,
-  doc,
-  onSnapshot,
-  getDoc,
-  updateDoc,
-  query,
-} from "firebase/firestore";
-const paramCollection = collection(firestoreDb, "param");
+import { collection, doc, onSnapshot, getDoc, updateDoc } from "firebase/firestore";
 
-const userCollection = collection(
-    firestoreDb,
-    'users'
-)
+const paramCollection = collection(firestoreDb, "param");
+const userCollection = collection(firestoreDb, 'users')
 
 
 const getUser = async (userId) => {
@@ -33,7 +23,6 @@ const checkUserIsAdmin = async () => {
 const updateScore = async (userId) => {
     try {
         const user = await getUser(userId)
-        // console.log("user score => ", user.totalScore);
         await updateDoc(doc(userCollection, userId), {
             totalScore: user.totalScore + 1
         })
@@ -43,27 +32,29 @@ const updateScore = async (userId) => {
         }
         return updatedUser
     } catch (error) {
-        // console.log(error.message);
+      throw new Error(error)
     }
 }
 
-
-
-
-
 const getUserScore = async (setProgress) => {
     const userId = localStorage.getItem('uid')
-    const user = await getDoc(doc(firestoreDb, 'users', userId))
-    setProgress(user.data().totalScore)
+    try {
+      const user = await getDoc(doc(firestoreDb, 'users', userId))
+      setProgress(user.data().totalScore)
+    } catch (error) {
+      throw new Error(error)
+    }
 }
 
 const getTimer = async (setTime) => {
-    const game = await getDoc(doc(firestoreDb, 'param', `game-${process.env.REACT_APP_GAME_KEY}`))
-    // console.log("game => ", game.data());
     const now = Date.now() / 1000
-    const timeLeft = game.data().finishAt.seconds - now
-    // console.log("timeLeft => ", parseInt(timeLeft));
-    setTime(parseInt(timeLeft))
+    try {
+      const game = await getDoc(doc(firestoreDb, 'param', `game-${process.env.REACT_APP_GAME_KEY}`))
+      const timeLeft = game.data().finishAt.seconds - now
+      setTime(parseInt(timeLeft))
+    } catch (error) {
+      throw new Error(error)
+    }
 }
 
 const updateGameParams = async (setGameParams) => {
@@ -75,7 +66,7 @@ const updateGameParams = async (setGameParams) => {
           }
       },
       (error) => {
-        // console.log("error => ", error);
+        throw new Error(error)
       }
     );
   });
@@ -90,6 +81,9 @@ const pausingGame = async (setPause) => {
           }else if(change.doc.data().isPlaying === true){
             setPause(false)
           }
+        },
+        (error) => {
+          throw new Error(error)
         }
       )
   })
@@ -104,6 +98,9 @@ const closingGame = async (setIsClose) => {
           }else if(change.doc.data().isClosing === false){
             setIsClose(false)
           }
+        },
+        (error) => {
+          throw new Error(error)
         }
       )
   })
