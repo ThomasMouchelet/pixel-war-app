@@ -28,17 +28,15 @@ const Canva = ({
   const { setNewPixelIsCreated, newPixelIsCreated } = useTimer();
   const [xPosition, setXPosition] = useState(0);
   const [yPosition, setYPosition] = useState(0);
-  const [stillTest, setStillTest] = useState(true);
   const [progress, setProgress] = useState(0);
   const [hide, setHide] = useState(false);
   const [pause, setPause] = useState(false);
 
-  const [gameParams, setGameParams] = useState({})
+  const [gameParams, setGameParams] = useState({});
   const gameRef = useRef(null);
   const addPixelAnimRef = useRef(null);
   const cursorRef = useRef(null);
   const [time, setTime] = useState(0);
-
 
   let currentColorChoice = currentColor;
   const gridCellSize = 10;
@@ -67,13 +65,13 @@ const Canva = ({
 
   const handleAddPixel = () => {
     console.log("handleAddPixel gameParams : ", gameParams);
-    if( gameParams.isPlaying === false) {
+    if (gameParams.isPlaying === false) {
       setPause(true);
       return;
     }
     addPixelIntoGame();
     setPause(false);
-    if(!newPixelIsCreated){
+    if (!newPixelIsCreated) {
       setProgress(progress + 1);
     }
   };
@@ -98,7 +96,9 @@ const Canva = ({
     ctx.fillRect(x, y, gridCellSize, gridCellSize);
     if (!init) {
       console.log("createPixel gameParams : ", gameParams);
-      const timestampTimer = Math.floor((new Date().getTime() + gameParams.gameTimer) / 1000);
+      const timestampTimer = Math.floor(
+        (new Date().getTime() + gameParams.gameTimer * 1000) / 1000
+      );
       createCookie("Google Analytics", timestampTimer, 1);
       setNewPixelIsCreated(true);
     }
@@ -161,7 +161,7 @@ const Canva = ({
   }
 
   useEffect(() => {
-    getTimer(setTime)
+    getTimer(setTime);
     getUserScore(setProgress);
     const game = gameRef.current;
     game.width = document.body.clientWidth;
@@ -170,11 +170,7 @@ const Canva = ({
     drawGrids(gridCtx, game.width, game.height, gridCellSize, gridCellSize);
     drawPixelOnInit();
     updatePixelsGrid(game, createPixel);
-    updateGameParams(setGameParams)
-
-    setTimeout(() => {
-      setStillTest(false);
-    }, 5000);
+    updateGameParams(setGameParams);
   }, []);
 
   useEffect(() => {
@@ -207,12 +203,16 @@ const Canva = ({
         <div ref={addPixelAnimRef} className="pixelAdd">
           +1
         </div>
-        {time && 
-          <HudInfo hide={hide} totalTimeInSec={time} x={xPosition} y={yPosition} />
-        }
+        {time && (
+          <HudInfo
+            hide={hide}
+            totalTimeInSec={time}
+            x={xPosition}
+            y={yPosition}
+          />
+        )}
         {gameParams.gameTimer && (
-          
-        <ColorBar
+          <ColorBar
             hide={hide}
             currentColor={currentColor}
             setCurrentColor={setCurrentColor}
@@ -235,7 +235,7 @@ const Canva = ({
         ? <div className="pause-war">
             <img src={pause_icon} alt="" />
           </div>
-        : null}
+         : null}
       </div>
     </>
   );

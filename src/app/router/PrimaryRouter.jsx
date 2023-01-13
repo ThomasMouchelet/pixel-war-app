@@ -8,6 +8,7 @@ import ResetPassword from "../pages/ResetPassword";
 import Canva from "../components/Canva/Canva";
 import ProtectedRoute from "../components/ProtectedRoutes";
 
+
 const PrimaryRouter = () => {
   const [currentColor, setCurrentColor] = useState("#4287f5");
   const [pixelColor, setPixelColor] = useState([]);
