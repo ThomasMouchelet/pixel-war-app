@@ -5,7 +5,7 @@
   transform: translate(-50%, 0);
   z-index: 2;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   width: 70vw;
   margin-bottom: 15px;
   background-color: white;
@@ -29,7 +29,7 @@
   height: 35px;
   min-width: 35px;
   border-radius: 50%;
-  border: 1px solid transparent;
+  border: 1px solid black;
   transition: all 0.3s;
   cursor: pointer;
   display: flex;
@@ -43,14 +43,18 @@
   height: fit-content;
   cursor: pointer;
   position: fixed;
-  right: 3%;
+  right: 4%;
   transition: .5s;
+  &-2 {
+    left: 4%;
+    transform: rotate(180deg)
+  }
 }
 
 .color-list {
   display: flex;
   justify-content: space-between;
-  max-width: 95%;
+  max-width: 90%;
   overflow-x: auto;
   scroll-snap-type: x;
   scroll-behavior: smooth;

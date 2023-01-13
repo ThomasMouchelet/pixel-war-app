@@ -13,6 +13,7 @@ const ColorBar = ({ currentColor, setCurrentColor, hide, gameTimer }) => {
   }, []);
 
   const colorList = [
+    "#FFFFFF",
     "#FFEBEE",
     "#FCE4EC",
     "#F3E5F5",
@@ -53,6 +54,7 @@ const ColorBar = ({ currentColor, setCurrentColor, hide, gameTimer }) => {
 
   const colorListRef = useRef(null);
   const arrowRef = useRef(null);
+  const arrowRef2 = useRef(null);
   
   useEffect(() => {
     const timestampTimer = readCookie("Google Analytics");
@@ -65,26 +67,49 @@ const ColorBar = ({ currentColor, setCurrentColor, hide, gameTimer }) => {
     }
   }, []);
 
-  const handleColorListNavigation = () => {
-    // console.log(colorListRef.current.clientWidth, colorListRef.current.scrollLeft, isRotated)
+  const handleColorListNavigationLeft = () => {
+    arrowRef2.current.style.opacity = "1";
     if (!isRotated) {
       colorListRef.current.scrollBy(colorListRef.current.clientWidth/10, 0)
       if (
         colorListRef.current.scrollLeft >
-        colorListRef.current.clientWidth * .9
+        colorListRef.current.clientWidth * .90
       ) {
-        arrowRef.current.classList.add("rotate");
+        setIsRotated(true);
+      }
+      return;
+    }
+    if (isRotated == true) {
+      colorListRef.current.scrollBy(colorListRef.current.clientWidth/10, 0)
+      if (
+        colorListRef.current.scrollLeft <
+        colorListRef.current.clientWidth * .1 
+      ) {
+        setIsRotated(false);
+      }
+      return;
+    }
+  }
+
+  const handleColorListNavigationRight = () => {
+    if (!isRotated) {
+      if (
+        colorListRef.current.scrollLeft >
+        colorListRef.current.clientWidth * .01
+      ) {
+        arrowRef.current.style.opacity = "1";
+        colorListRef.current.scrollBy(colorListRef.current.clientWidth/-10, 0)
         setIsRotated(true);
       }
       return;
     }
     if (isRotated == true) {
       colorListRef.current.scrollBy(colorListRef.current.clientWidth/-10, 0)
+      arrowRef.current.style.opacity = "1";
       if (
         colorListRef.current.scrollLeft <
         colorListRef.current.clientWidth * .1 
       ) {
-        arrowRef.current.classList.remove("rotate");
         setIsRotated(false);
       }
       return;
@@ -129,7 +154,13 @@ const ColorBar = ({ currentColor, setCurrentColor, hide, gameTimer }) => {
       className={!hide ? "colorBar" : "hide"}
       style={newPixelIsCreated ? { width: "16rem", height: "4rem" } : null}
     >
-      <div className="color-list" ref={colorListRef}>
+      <div className="color-list" ref={colorListRef} >
+      <img
+              ref={arrowRef2}
+              src={arrowIcon}
+              className="arrow-icon arrow-icon-2"
+              onClick={handleColorListNavigationRight}
+            />
         {newPixelIsCreated === false ? (
           <>
             {colorList.map((color, index) => (
@@ -144,7 +175,7 @@ const ColorBar = ({ currentColor, setCurrentColor, hide, gameTimer }) => {
               ref={arrowRef}
               src={arrowIcon}
               className="arrow-icon"
-              onClick={handleColorListNavigation}
+              onClick={handleColorListNavigationLeft}
             />
           </>
         ) : (
