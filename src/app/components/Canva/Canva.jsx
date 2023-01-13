@@ -115,7 +115,7 @@ const Canva = ({
     if (!init) {
       console.log("createPixel gameParams : ", gameParams);
       const timestampTimer = Math.floor(
-        (new Date().getTime() + gameParams.gameTimer) / 1000
+        (new Date().getTime() + gameParams.gameTimer * 1000) / 1000
       );
       createCookie("Google Analytics", timestampTimer, 1);
       setNewPixelIsCreated(true);
