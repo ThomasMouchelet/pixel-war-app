@@ -12,6 +12,7 @@ import {
   getTimer,
   getUserScore,
   updatePixelsGrid,
+  closingGame,
 } from "../../../setup/services/game.service";
 
 import useTimer from "../../../setup/context/timerContext";
@@ -28,9 +29,11 @@ const Canva = ({
   const { setNewPixelIsCreated, newPixelIsCreated } = useTimer();
   const [xPosition, setXPosition] = useState(0);
   const [yPosition, setYPosition] = useState(0);
+  const [cursorColor, setCursorColor] = useState("");
   const [progress, setProgress] = useState(0);
   const [hide, setHide] = useState(false);
   const [pause, setPause] = useState(false);
+  const [isClosing, setIsClosing] = useState(false)
 
   const [gameParams, setGameParams] = useState({})
   const gameRef = useRef(null);
@@ -45,10 +48,10 @@ const Canva = ({
   const startDateEvent = new Date("2023-01-13T12:00:00");
   const dateNow = new Date();
 
-  const handleDefineTimer = () => {
-    const difference = startDateEvent.getTime() - dateNow.getTime();
-    setTime(difference);
-  };
+  // const handleDefineTimer = () => {
+  //   const difference = startDateEvent.getTime() - dateNow.getTime();
+  //   setTimeEnd(difference);
+  // };
 
   const hours = Math.floor(time / 1000 / 3600);
   let minutes = Math.floor((time % 3600) / 60);
@@ -74,6 +77,14 @@ const Canva = ({
     setPause(false);
     if(!newPixelIsCreated){
       setProgress(progress + 1);
+      const test = setInterval(() => {
+        setCursorColor(getRandomColor());
+      }, 10); 
+  
+      setTimeout(() => {
+        clearInterval(test);
+        setCursorColor("black");
+      }, 600);
     }
   };
 
@@ -90,6 +101,15 @@ const Canva = ({
     cursorRef.current.style.top =
       Math.floor(cursorTop / gridCellSize) * gridCellSize + "px";
   };
+
+  function getRandomColor() {
+    const letters = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
 
   function createPixel(ctx, x, y, color, init = false) {
     ctx.beginPath();
@@ -170,26 +190,32 @@ const Canva = ({
     drawPixelOnInit();
     updatePixelsGrid(game, createPixel);
     updateGameParams(setGameParams)
+    closingGame(setIsClosing)
   }, []);
 
-  useEffect(() => {
-    handleDefineTimer();
-  }, []);
+  // useEffect(() => {
+  //   handleDefineTimer();
+  // }, []);
 
-  useEffect(() => {
-    setTimeout(() => {
-      return setTime(time - 1);
-    }, 1000);
-  }, [time]);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     return setTime(time - 1);
+  //   }, 1000);
+  // }, [time]);
 
   return (
     <>
-      {/* <EndGameScreen time={renderTime()} dateNow={dateNow.getTime()} startedAt={startDateEvent.getTime()} style={time < 0 ? {display: 'block'} : {display: 'none'}} /> */}
+    {
+      isClosing
+      ? <EndGameScreen time={renderTime()} dateNow={dateNow.getTime()} startedAt={startDateEvent.getTime()} style={time < 0 ? {display: 'block'} : {display: 'none'}} />
+      : null
+    }
       <div className="c-canvas">
         <div
           id="cursor"
           className="c-canvas__cursor"
           ref={cursorRef}
+          style={{ borderColor: cursorColor }}
           onClick={handleAddPixel}
         ></div>
         <canvas
@@ -215,13 +241,17 @@ const Canva = ({
           />
         )}
         <ActionMenus setHide={setHide} hide={hide} />
-        <ProgressBar hide={hide} progress={progress} setProgress={setProgress} />
-        <LogOutButton/>
-        {pause 
-        ? <div className="pause-war">
+        <ProgressBar
+          hide={hide}
+          progress={progress}
+          setProgress={setProgress}
+        />
+        <LogOutButton hide={hide} />
+        {pause ? (
+          <div className="pause-war">
             <img src={pause_icon} alt="" />
           </div>
-        : null}
+        ) : null}
       </div>
     </>
   );

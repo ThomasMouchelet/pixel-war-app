@@ -9,8 +9,8 @@ const ColorBar = ({ currentColor, setCurrentColor, hide, gameTimer }) => {
   const { newPixelIsCreated, setNewPixelIsCreated } = useTimer();
 
   useEffect(() => {
-    setTime(gameTimer)
-  }, [])
+    setTime(gameTimer);
+  }, []);
 
   const colorList = [
     "#FFEBEE",
