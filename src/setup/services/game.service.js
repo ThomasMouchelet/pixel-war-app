@@ -114,4 +114,39 @@ const updateGameParams = async (setGameParams) => {
   });
 };
 
-export { getPixel, createPixelService, updatePixelsGrid, getUserScore, getTimer, updateGameParams };
+const pausingGame = async (setPause) => {
+  onSnapshot(paramCollection, (snapshot) => {
+      snapshot.docChanges().forEach(
+        async (change) => {
+          if(change.doc.data().isPlaying === false) {
+            setPause(true)
+          }else if(change.doc.data().isPlaying === true){
+            setPause(false)
+          }
+        }
+      )
+  })
+}
+
+const closingGame = async (setIsClose) => {
+  onSnapshot(paramCollection, (snapshot) => {
+      snapshot.docChanges().forEach(
+        async (change) => {
+          if(change.doc.data().isClosing === true ){
+            setIsClose(true)
+          }
+        }
+      )
+  })
+}
+
+export { 
+  getPixel,
+  createPixelService,
+  updatePixelsGrid,
+  getUserScore,
+  getTimer,
+  updateGameParams,
+  pausingGame,
+  closingGame
+};

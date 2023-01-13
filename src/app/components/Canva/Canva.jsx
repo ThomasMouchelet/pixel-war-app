@@ -12,6 +12,10 @@ import {
   getTimer,
   getUserScore,
   updatePixelsGrid,
+<<<<<<< Updated upstream
+=======
+  closingGame,
+>>>>>>> Stashed changes
 } from "../../../setup/services/game.service";
 
 import useTimer from "../../../setup/context/timerContext";
@@ -28,16 +32,22 @@ const Canva = ({
   const { setNewPixelIsCreated, newPixelIsCreated } = useTimer();
   const [xPosition, setXPosition] = useState(0);
   const [yPosition, setYPosition] = useState(0);
+<<<<<<< Updated upstream
   const [cursorColor, setCursorColor] = useState("");
+=======
+  const [stillTest, setStillTest] = useState(true);
+>>>>>>> Stashed changes
   const [progress, setProgress] = useState(0);
   const [hide, setHide] = useState(false);
   const [pause, setPause] = useState(false);
+  const [isClosing, setIsClosing] = useState(false)
 
-  const [gameParams, setGameParams] = useState({});
+  const [gameParams, setGameParams] = useState({})
   const gameRef = useRef(null);
   const addPixelAnimRef = useRef(null);
   const cursorRef = useRef(null);
   const [time, setTime] = useState(0);
+
 
   let currentColorChoice = currentColor;
   const gridCellSize = 10;
@@ -45,10 +55,10 @@ const Canva = ({
   const startDateEvent = new Date("2023-01-13T12:00:00");
   const dateNow = new Date();
 
-  const handleDefineTimer = () => {
-    const difference = startDateEvent.getTime() - dateNow.getTime();
-    setTime(difference);
-  };
+  // const handleDefineTimer = () => {
+  //   const difference = startDateEvent.getTime() - dateNow.getTime();
+  //   setTimeEnd(difference);
+  // };
 
   const hours = Math.floor(time / 1000 / 3600);
   let minutes = Math.floor((time % 3600) / 60);
@@ -66,13 +76,13 @@ const Canva = ({
 
   const handleAddPixel = () => {
     console.log("handleAddPixel gameParams : ", gameParams);
-    if (gameParams.isPlaying === false) {
+    if( gameParams.isPlaying === false) {
       setPause(true);
       return;
     }
     addPixelIntoGame();
     setPause(false);
-    if (!newPixelIsCreated) {
+    if(!newPixelIsCreated){
       setProgress(progress + 1);
       const test = setInterval(() => {
         setCursorColor(getRandomColor());
@@ -114,9 +124,7 @@ const Canva = ({
     ctx.fillRect(x, y, gridCellSize, gridCellSize);
     if (!init) {
       console.log("createPixel gameParams : ", gameParams);
-      const timestampTimer = Math.floor(
-        (new Date().getTime() + gameParams.gameTimer * 1000) / 1000
-      );
+      const timestampTimer = Math.floor((new Date().getTime() + gameParams.gameTimer) / 1000);
       createCookie("Google Analytics", timestampTimer, 1);
       setNewPixelIsCreated(true);
     }
@@ -179,7 +187,7 @@ const Canva = ({
   }
 
   useEffect(() => {
-    getTimer(setTime);
+    getTimer(setTime)
     getUserScore(setProgress);
     const game = gameRef.current;
     game.width = document.body.clientWidth;
@@ -188,22 +196,35 @@ const Canva = ({
     drawGrids(gridCtx, game.width, game.height, gridCellSize, gridCellSize);
     drawPixelOnInit();
     updatePixelsGrid(game, createPixel);
+<<<<<<< Updated upstream
     updateGameParams(setGameParams);
-  }, []);
+=======
+    updateGameParams(setGameParams)
+    closingGame(setIsClosing)
 
-  useEffect(() => {
-    handleDefineTimer();
-  }, []);
-
-  useEffect(() => {
     setTimeout(() => {
-      return setTime(time - 1);
-    }, 1000);
-  }, [time]);
+      setStillTest(false);
+    }, 5000);
+>>>>>>> Stashed changes
+  }, []);
+
+  // useEffect(() => {
+  //   handleDefineTimer();
+  // }, []);
+
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     return setTime(time - 1);
+  //   }, 1000);
+  // }, [time]);
 
   return (
     <>
-      {/* <EndGameScreen time={renderTime()} dateNow={dateNow.getTime()} startedAt={startDateEvent.getTime()} style={time < 0 ? {display: 'block'} : {display: 'none'}} /> */}
+    {
+      isClosing
+      ? <EndGameScreen time={renderTime()} dateNow={dateNow.getTime()} startedAt={startDateEvent.getTime()} style={time < 0 ? {display: 'block'} : {display: 'none'}} />
+      : null
+    }
       <div className="c-canvas">
         <div
           id="cursor"
@@ -222,16 +243,12 @@ const Canva = ({
         <div ref={addPixelAnimRef} className="pixelAdd">
           +1
         </div>
-        {time && (
-          <HudInfo
-            hide={hide}
-            totalTimeInSec={time}
-            x={xPosition}
-            y={yPosition}
-          />
-        )}
+        {time && 
+          <HudInfo hide={hide} totalTimeInSec={time} x={xPosition} y={yPosition} />
+        }
         {gameParams.gameTimer && (
-          <ColorBar
+          
+        <ColorBar
             hide={hide}
             currentColor={currentColor}
             setCurrentColor={setCurrentColor}
@@ -239,6 +256,7 @@ const Canva = ({
           />
         )}
         <ActionMenus setHide={setHide} hide={hide} />
+<<<<<<< Updated upstream
         <ProgressBar
           hide={hide}
           progress={progress}
@@ -250,6 +268,24 @@ const Canva = ({
             <img src={pause_icon} alt="" />
           </div>
         ) : null}
+=======
+        <ProgressBar hide={hide} progress={progress} setProgress={setProgress} />
+        {stillTest && (
+          <div className="test-war">
+            <img src={ghost} alt="" />
+            <p>
+              Cette war est un test ! Pas d’authentification donc pas de
+              comptabilisation de points{" "}
+            </p>
+          </div>
+        )}
+        <LogOutButton/>
+        {pause 
+        ? <div className="pause-war">
+            <img src={pause_icon} alt="" />
+          </div>
+        : null}
+>>>>>>> Stashed changes
       </div>
     </>
   );
