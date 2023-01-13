@@ -120,7 +120,7 @@ const Canva = ({
     ctx.fillRect(x, y, gridCellSize, gridCellSize);
     if (!init) {
       // console.log("createPixel gameParams : ", gameParams);
-      const timestampTimer = Math.floor((new Date().getTime() + gameParams.gameTimer) / 1000);
+      const timestampTimer = Math.floor((new Date().getTime() + gameParams.gameTimer * 1000) / 1000);
       createCookie("Google Analytics", timestampTimer, 1);
       setNewPixelIsCreated(true);
     }
