@@ -134,6 +134,8 @@ const closingGame = async (setIsClose) => {
         async (change) => {
           if(change.doc.data().isClosing === true ){
             setIsClose(true)
+          }else if(change.doc.data().isClosing === false){
+            setIsClose(false)
           }
         }
       )

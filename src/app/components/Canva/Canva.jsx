@@ -12,10 +12,7 @@ import {
   getTimer,
   getUserScore,
   updatePixelsGrid,
-<<<<<<< Updated upstream
-=======
   closingGame,
->>>>>>> Stashed changes
 } from "../../../setup/services/game.service";
 
 import useTimer from "../../../setup/context/timerContext";
@@ -32,11 +29,7 @@ const Canva = ({
   const { setNewPixelIsCreated, newPixelIsCreated } = useTimer();
   const [xPosition, setXPosition] = useState(0);
   const [yPosition, setYPosition] = useState(0);
-<<<<<<< Updated upstream
   const [cursorColor, setCursorColor] = useState("");
-=======
-  const [stillTest, setStillTest] = useState(true);
->>>>>>> Stashed changes
   const [progress, setProgress] = useState(0);
   const [hide, setHide] = useState(false);
   const [pause, setPause] = useState(false);
@@ -196,16 +189,8 @@ const Canva = ({
     drawGrids(gridCtx, game.width, game.height, gridCellSize, gridCellSize);
     drawPixelOnInit();
     updatePixelsGrid(game, createPixel);
-<<<<<<< Updated upstream
-    updateGameParams(setGameParams);
-=======
     updateGameParams(setGameParams)
     closingGame(setIsClosing)
-
-    setTimeout(() => {
-      setStillTest(false);
-    }, 5000);
->>>>>>> Stashed changes
   }, []);
 
   // useEffect(() => {
@@ -256,7 +241,6 @@ const Canva = ({
           />
         )}
         <ActionMenus setHide={setHide} hide={hide} />
-<<<<<<< Updated upstream
         <ProgressBar
           hide={hide}
           progress={progress}
@@ -268,24 +252,6 @@ const Canva = ({
             <img src={pause_icon} alt="" />
           </div>
         ) : null}
-=======
-        <ProgressBar hide={hide} progress={progress} setProgress={setProgress} />
-        {stillTest && (
-          <div className="test-war">
-            <img src={ghost} alt="" />
-            <p>
-              Cette war est un test ! Pas d’authentification donc pas de
-              comptabilisation de points{" "}
-            </p>
-          </div>
-        )}
-        <LogOutButton/>
-        {pause 
-        ? <div className="pause-war">
-            <img src={pause_icon} alt="" />
-          </div>
-        : null}
->>>>>>> Stashed changes
       </div>
     </>
   );
