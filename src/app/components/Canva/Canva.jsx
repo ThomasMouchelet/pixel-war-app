@@ -2,16 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import ColorBar from "../ColorBar/ColorBar";
 import HudInfo from "../HudInfos/HudInfos";
 import ActionMenus from "../Actions/ActionsMenus";
-import ghost from "../../assets/images/ghost.png";
 import pause_icon from "../../assets/images/pause_icon.svg";
 import EndGameScreen from "../EndGameScreen/EndGameScreen";
 import {
-  createPixelService,
-  getPixel,
   updateGameParams,
   getTimer,
   getUserScore,
-  updatePixelsGrid,
   pausingGame,
   checkUserIsAdmin,
   closingGame,
@@ -21,6 +17,7 @@ import useTimer from "../../../setup/context/timerContext";
 import ProgressBar from "../ProgressBar/ProgressBar";
 import { createCookie, readCookie } from "../../../setup/utils/cookies";
 import LogOutButton from "../Actions/LogOut/LogOutButton";
+import { createPixelService, getPixel, updatePixelsGrid } from "../../../setup/services/pixel.service";
 
 const Canva = ({
   currentColor,
