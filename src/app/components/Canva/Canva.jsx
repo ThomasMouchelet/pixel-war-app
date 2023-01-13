@@ -204,7 +204,7 @@ const Canva = ({
   }
 
   useEffect(() => {
-    handleDefineTimer();
+    // handleDefineTimer();
     closingGame(setIsClosing)
   }, []);
 

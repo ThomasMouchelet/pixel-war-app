@@ -160,5 +160,6 @@ export {
   getTimer,
   updateGameParams,
   pausingGame,
-  closingGame
+  closingGame,
+  checkUserIsAdmin
 };
