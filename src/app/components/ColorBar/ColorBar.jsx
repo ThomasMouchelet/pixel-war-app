@@ -8,8 +8,8 @@ const ColorBar = ({ currentColor, setCurrentColor, hide, gameTimer }) => {
   const { newPixelIsCreated, setNewPixelIsCreated } = useTimer();
 
   useEffect(() => {
-    setTime(gameTimer)
-  }, [])
+    setTime(gameTimer);
+  }, []);
 
   const colorList = [
     "#FFEBEE",
@@ -56,10 +56,8 @@ const ColorBar = ({ currentColor, setCurrentColor, hide, gameTimer }) => {
 
   useEffect(() => {
     const timestampTimer = readCookie("Google Analytics");
-    console.log("timestampTimer : ", timestampTimer);
     if (timestampTimer) {
       const currentTime = Math.floor(new Date().getTime() / 1000);
-      console.log(timestampTimer < currentTime);
       if (currentTime < timestampTimer) {
         setNewPixelIsCreated(true);
         setTime(timestampTimer - currentTime);
