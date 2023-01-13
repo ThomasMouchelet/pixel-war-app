@@ -23,7 +23,7 @@ const RulesModal = ({ isModalActive, setIsModalActive }) => {
             Sélectionne une couleur puis place ton pixel sur la fresque.
             L’objectif est de placer le plus de pixels possibles au cours de la
             période de jeu. Attention, il te faudra patienter{" "}
-            <span>une minute</span> entre deux poses de pixels, le sélecteur de
+            <span>10 secondes</span> entre deux poses de pixels, le sélecteur de
             couleur changé en chronomètre te l’indiquera.
           </p>
           <p>
