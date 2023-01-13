@@ -244,7 +244,7 @@ const Canva = ({
           progress={progress}
           setProgress={setProgress}
         />
-        <LogOutButton />
+        <LogOutButton hide={hide} />
         {pause ? (
           <div className="pause-war">
             <img src={pause_icon} alt="" />

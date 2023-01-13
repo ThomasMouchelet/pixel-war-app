@@ -45,7 +45,7 @@ const ActionMenus = ({ setHide, hide }) => {
           </div>
 
           <div>
-            <TwitchModalButton />
+            <TwitchModalButton hide={hide} />
           </div>
 
           {!isMenuOpen ? (

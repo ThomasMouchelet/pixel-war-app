@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import TwitchIcon from "../../../assets/images/twitch-icon.png";
 import CloseIcon from "../../../assets/images/close_icon.png";
 
-const TwitchModalButton = () => {
+const TwitchModalButton = ({hide}) => {
   const [isModalActive, setIsModalActive] = useState(false);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ const TwitchModalButton = () => {
   }, []);
 
   return (
-    <div>
+    <div className={hide ? "hide" : ""}>
       {!isModalActive ? (
         <div
           className="action-menus__menu__item"
