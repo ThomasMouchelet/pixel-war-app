@@ -48,7 +48,7 @@ const Canva = ({
   let currentColorChoice = currentColor;
   const gridCellSize = 10;
 
-  const startDateEvent = new Date("2023-01-12T12:00:00");
+  const startDateEvent = new Date("2023-01-13T13:00:00");
   const dateNow = new Date();
 
   // const handleDefineTimer = () => {

@@ -10,14 +10,14 @@ const ProgressBar = ({ progress, hide }) => {
   const [valueProgress, setValueProgress] = useState(0);
 
   useEffect(() => {
-    const reste = progress % 20
-    const coinsInitValue = (progress - reste) / 20
+    const reste = progress % 100
+    const coinsInitValue = (progress - reste) / 100
 
     setCoins(coinsInitValue)
     setValueProgress(reste)
-    
+
     if (coins < 9) {
-      if (progress === 20) {
+      if (progress === 100) {
         setPopupVisible(true);
         setTimeout(() => {
           setPopupVisible(false);
