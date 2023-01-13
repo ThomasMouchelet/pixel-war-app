@@ -191,7 +191,7 @@ const Canva = ({
 
   return (
     <>
-      <EndGameScreen time={renderTime()} dateNow={dateNow.getTime()} startedAt={startDateEvent.getTime()} style={time < 0 ? {display: 'block'} : {display: 'none'}} />
+      {/* <EndGameScreen time={renderTime()} dateNow={dateNow.getTime()} startedAt={startDateEvent.getTime()} style={time < 0 ? {display: 'block'} : {display: 'none'}} /> */}
       <div className="c-canvas">
         <div
           id="cursor"
