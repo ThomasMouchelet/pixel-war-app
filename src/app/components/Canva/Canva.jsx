@@ -28,7 +28,6 @@ const Canva = ({
   const { setNewPixelIsCreated, newPixelIsCreated } = useTimer();
   const [xPosition, setXPosition] = useState(0);
   const [yPosition, setYPosition] = useState(0);
-  const [stillTest, setStillTest] = useState(true);
   const [progress, setProgress] = useState(0);
   const [hide, setHide] = useState(false);
   const [pause, setPause] = useState(false);
@@ -171,10 +170,6 @@ const Canva = ({
     drawPixelOnInit();
     updatePixelsGrid(game, createPixel);
     updateGameParams(setGameParams)
-
-    setTimeout(() => {
-      setStillTest(false);
-    }, 5000);
   }, []);
 
   useEffect(() => {
@@ -221,15 +216,6 @@ const Canva = ({
         )}
         <ActionMenus setHide={setHide} hide={hide} />
         <ProgressBar hide={hide} progress={progress} setProgress={setProgress} />
-        {stillTest && (
-          <div className="test-war">
-            <img src={ghost} alt="" />
-            <p>
-              Cette war est un test ! Pas d’authentification donc pas de
-              comptabilisation de points{" "}
-            </p>
-          </div>
-        )}
         <LogOutButton/>
         {pause 
         ? <div className="pause-war">
