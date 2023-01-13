@@ -34,12 +34,6 @@ const getUser = async (userId) => {
     return user.data()
 }
 
-const getUsers = async () => {
-  const users = await getDocs(userCollection);
-  console.log("users => ", users.docs.map((user) => user.data()));
-}
-getUsers()
-
 const updateScore = async (userId) => {
     try {
         const user = await getUser(userId)
