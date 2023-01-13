@@ -31,7 +31,16 @@ const getPixel = async () => {
 
 const getUser = async (userId) => {
     const user = await getDoc(doc(userCollection, userId))
+    console.log("getUser user => ", user.data());
     return user.data()
+}
+
+const checkUserIsAdmin = async () => {
+  const userId = localStorage.getItem('uid')
+  console.log("checkUserIsAdmin userId => ", userId);
+  const user = await getUser(userId)
+  console.log("checkUserIsAdmin user => ", user);
+  return user.isAdmin
 }
 
 const updateScore = async (userId) => {
@@ -57,7 +66,8 @@ const createPixelService = async ({ x, y, color, userId }) => {
     x,
     y,
     color,
-    user
+    user,
+    createdAt: new Date(),
   };
   await setDoc(
     doc(
@@ -128,4 +138,4 @@ const pausingGame = async (setPause) => {
   })
 }
 
-export { getPixel, createPixelService, updatePixelsGrid, getUserScore, getTimer, updateGameParams, pausingGame };
+export { getPixel, createPixelService, updatePixelsGrid, getUserScore, getTimer, updateGameParams, pausingGame, checkUserIsAdmin };

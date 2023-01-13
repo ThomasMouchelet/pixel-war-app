@@ -13,6 +13,7 @@ import {
   getUserScore,
   updatePixelsGrid,
   pausingGame,
+  checkUserIsAdmin
 } from "../../../setup/services/game.service";
 
 import useTimer from "../../../setup/context/timerContext";
@@ -38,6 +39,7 @@ const Canva = ({
   const addPixelAnimRef = useRef(null);
   const cursorRef = useRef(null);
   const [time, setTime] = useState(0);
+  const [isAdminUser, setIsAdminUser] = useState(false);
 
   let currentColorChoice = currentColor;
   const gridCellSize = 10;
@@ -127,10 +129,10 @@ const Canva = ({
       userId: userId,
     };
     const currentTime = Math.floor(new Date().getTime() / 1000);
-    if (timestampTimer > currentTime) {
+    if (timestampTimer > currentTime && isAdminUser !== true) {
       return;
     }
-    if (newPixelIsCreated) {
+    if (newPixelIsCreated && isAdminUser !== true) {
       return;
     }
     createPixelService(payload);
@@ -173,8 +175,14 @@ const Canva = ({
     updatePixelsGrid(game, createPixel);
     updateGameParams(setGameParams)
     pausingGame(setPause)
-
+    checkIsAdmin()
   }, []);
+
+  const checkIsAdmin = async () => {
+    const isAdmin = await checkUserIsAdmin();
+    console.log("isAdmin : ", isAdmin);
+    setIsAdminUser(isAdmin);
+  }
 
   useEffect(() => {
     handleDefineTimer();
