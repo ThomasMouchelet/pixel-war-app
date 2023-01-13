@@ -221,7 +221,7 @@ const Canva = ({
         )}
         <ActionMenus setHide={setHide} hide={hide} />
         <ProgressBar hide={hide} progress={progress} setProgress={setProgress} />
-        {stillTest && (
+        {/* {stillTest && (
           <div className="test-war">
             <img src={ghost} alt="" />
             <p>
@@ -229,7 +229,7 @@ const Canva = ({
               comptabilisation de points{" "}
             </p>
           </div>
-        )}
+        )} */}
         <LogOutButton/>
         {pause 
         ? <div className="pause-war">
