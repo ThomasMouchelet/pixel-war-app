@@ -29,12 +29,12 @@ const ActionMenus = ({ setHide, hide }) => {
     <>
       <div className="action-menus">
         <div className="action-menus__menu">
-          <div
+          {/* <div
             className={!hide ? "action-menus__menu__item" : "hide"}
             onClick={() => handleActiveMenu()}
           >
             <img src={LastPixel} alt="" className="menu" />
-          </div>
+          </div> */}
 
           <div
             className={!hide ? "action-menus__menu__item" : "hide"}

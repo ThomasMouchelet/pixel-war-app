@@ -24,6 +24,7 @@ const TwitchModalButton = ({hide}) => {
     <div className={hide ? "hide" : ""}>
       {!isModalActive ? (
         <div
+        onClick={() => setIsModalActive(true)} 
           className="action-menus__menu__item"
           style={{
             backgroundColor: "rgba(255, 255, 255, 1)",
@@ -35,7 +36,7 @@ const TwitchModalButton = ({hide}) => {
             borderRadius: "50%",
           }}
         >
-          <img src={TwitchIcon} onClick={() => setIsModalActive(true)} />
+          <img src={TwitchIcon} />
         </div>
       ) : (
         <div

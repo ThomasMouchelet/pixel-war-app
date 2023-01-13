@@ -24,10 +24,11 @@
                 @include main-title;
                 color: $main-orange;
                 position: relative;
-                display: inline;
+                display: inline-block;
+                margin-bottom: 24px;
                 &::before {
                     position: absolute;
-                    top: 17px;
+                    top: 4px;
                     left: calc(50% + 4px);
                     z-index: -1;
                     transform: translateX(-50%);
@@ -43,10 +44,11 @@
         }
 
         &__body {
+            height: 100%;
             display: flex;
             flex-direction: column;
             gap: 20px;
-            margin-top: 75px;
+            // margin-top: 75px;
             font-family: $Gantari;
             span {
                 color: $main-orange;
@@ -76,6 +78,9 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    height: 40%;
-    margin: 3rem 0 0 0;
+    @media screen and (max-width: 1024px) {
+        img {
+            width: 25%;
+        }
+    }
 }
