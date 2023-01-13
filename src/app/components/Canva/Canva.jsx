@@ -214,7 +214,7 @@ const Canva = ({
 
   // useEffect(() => {
   //   setTimeout(() => {
-  //     return setTime(time - 1);
+  //     return setTimeEnd(time - 1);
   //   }, 1000);
   // }, [time]);
 

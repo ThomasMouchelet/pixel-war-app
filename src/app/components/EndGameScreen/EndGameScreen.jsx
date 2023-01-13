@@ -28,9 +28,10 @@ const EndGameScreen = ({time, dateNow, startedAt}) => {
         </div>
       </nav>
       <div className="timer-container">
-        <p className="timer-sentence">La prochaine partie commence dans :</p>
+        <p className="timer-sentence">La prochaine partie commence à :</p>
         <div className="timer">
-            <p>{time}</p>
+            {/* <p>{time}</p> */}
+            <p>13 : 00</p>
         </div>
       </div>
     </div>
