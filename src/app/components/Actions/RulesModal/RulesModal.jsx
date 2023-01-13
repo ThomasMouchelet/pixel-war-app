@@ -1,18 +1,21 @@
 import CloseIcon from "../../../assets/images/close_icon.png";
 import coin from "../../../assets/images/coin.png";
 import illustrationPose from "../../../assets/images/Illustration_pose_pixels.png";
-import illustrationGain from "../../../assets/images/Illustration_gains.png";
 import illustrationTemps from "../../../assets/images/Illustration_temps_pause.png";
+import illustrationGain from "../../../assets/images/Illustration_gains.png";
 
 const RulesModal = ({ isModalActive, setIsModalActive }) => {
   return (
     <div className={isModalActive ? "rules-modal modal-active" : "rules-modal"}>
       <div className="rules-modal__content">
-        <img className="close-icon" src={CloseIcon} alt="" onClick={() => setIsModalActive(false)} />
+        <img
+          className="close-icon"
+          src={CloseIcon}
+          alt=""
+          onClick={() => setIsModalActive(false)}
+        />
         <div className="rules-modal__content__header">
-          <h2>
-            Consignes<span>Consignes</span>
-          </h2>
+          <h2>Consignes</h2>
         </div>
 
         <div className="rules-modal__content__body">
@@ -24,20 +27,19 @@ const RulesModal = ({ isModalActive, setIsModalActive }) => {
             couleur changé en chronomètre te l’indiquera.
           </p>
           <p>
-            Tous les 20 pixels placés, tu gagneras un <img className="coin-rules" src={coin} alt=""/> . Afin d’être éligible au
-            tirage au sort, il te faudra avoir gagné au mois
+            Tous les 20 pixels placés, tu gagneras un{" "}
+            <img className="coin-rules" src={coin} alt="" /> . Afin d’être
+            éligible au tirage au sort, il te faudra avoir gagné au mois
             <span> 10 coins</span>.
           </p>
           <p>Que la bataille des pixels commence ! </p>
           <div className="images">
             <img src={illustrationPose} alt="" />
-            <img src={illustrationGain} alt="" />
             <img src={illustrationTemps} alt="" />
+            <img src={illustrationGain} alt="" />
           </div>
 
-          <div className="rules-card-container">
-
-          </div>
+          <div className="rules-card-container"></div>
         </div>
       </div>
     </div>

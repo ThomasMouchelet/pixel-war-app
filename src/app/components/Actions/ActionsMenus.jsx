@@ -24,7 +24,7 @@ const ActionMenus = ({ setHide, hide }) => {
     if (isModalActive) {
       setIsModalActive(false);
     }
-  }
+  };
   return (
     <>
       <div className="action-menus">
@@ -38,7 +38,6 @@ const ActionMenus = ({ setHide, hide }) => {
 
           <div
             className={!hide ? "action-menus__menu__item" : "hide"}
-            style={isMenuOpen ? { zIndex: 12 } : null}
             onClick={() => handleActiveModal()}
           >
             <img src={Consigne} alt="" className="menu" />
