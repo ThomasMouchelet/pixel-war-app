@@ -155,14 +155,14 @@ const ColorBar = ({ currentColor, setCurrentColor, hide, gameTimer }) => {
       style={newPixelIsCreated ? { width: "16rem", height: "4rem" } : null}
     >
       <div className="color-list" ref={colorListRef} >
-      <img
+        {newPixelIsCreated === false ? (
+          <>
+            <img
               ref={arrowRef2}
               src={arrowIcon}
               className="arrow-icon arrow-icon-2"
               onClick={handleColorListNavigationRight}
             />
-        {newPixelIsCreated === false ? (
-          <>
             {colorList.map((color, index) => (
               <div
                 key={index}
