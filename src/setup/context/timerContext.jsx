@@ -21,7 +21,6 @@ export const TimerContextProvider = ({ children }) => {
     </timerContext.Provider>
   );
 };
-
 const useTimer = () => useContext(timerContext);
 
 export default useTimer;

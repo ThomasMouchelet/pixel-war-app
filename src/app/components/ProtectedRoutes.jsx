@@ -1,5 +1,5 @@
-import { getTokenFromLocalstorage } from "../../setup/utils/authorization";
 import { Navigate } from "react-router-dom";
+import { getTokenFromLocalstorage } from "../../setup/utils/token";
 
 const ProtectedRoute = ({ children }) => {
   const token = getTokenFromLocalstorage();

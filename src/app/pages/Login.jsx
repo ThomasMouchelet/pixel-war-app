@@ -2,7 +2,6 @@ import { login } from "../../setup/services/auth.service";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { UserContext } from "../../setup/context/UserContext";
-import Background from "../assets/images/backgroung222.png"
 import AuthLayout from "../layout/AuthLayout";
 
 const Login = () => {
@@ -29,10 +28,6 @@ const Login = () => {
         setError(true);
       }
   };
-
-  // const handleResetPassword = () => {
-  //   navigate("/reset");
-  // };
 
   return (
     <AuthLayout>

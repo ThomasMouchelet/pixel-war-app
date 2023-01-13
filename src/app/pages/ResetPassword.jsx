@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { resetPassword } from "../../setup/utils/useApi";
+import { resetPassword } from "../../setup/services/auth.service";
 import AuthLayout from "../layout/AuthLayout";
 
 const ResetPassword = () => {

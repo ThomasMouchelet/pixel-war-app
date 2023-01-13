@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import { logOut } from "../../../../setup/utils/useApi";
+import { logout } from "../../../../setup/services/auth.service";
 import logoutlogo from "../../../assets/images/logout-logo.png";
 const LogOutButton = ({hide}) => {
     const navigate = useNavigate()
 
     const handleLogOut = () => {
-        logOut()
+        logout()
         navigate('/connexion')
     }
 
