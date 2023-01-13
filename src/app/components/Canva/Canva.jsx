@@ -174,9 +174,6 @@ const Canva = ({
     updateGameParams(setGameParams)
     pausingGame(setPause)
 
-    setTimeout(() => {
-      setStillTest(false);
-    }, 5000);
   }, []);
 
   useEffect(() => {
