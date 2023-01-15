@@ -13,25 +13,17 @@ const ResetPassword = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    resetPassword(credentials)
-      .then(() => {
-        setResult(
-          "Un email de réinitialisation de mot de passe a été envoyé à l'adresse indiquée"
-        );
-      })
-      .catch((err) => {
-        setResult(
-          "Une erreur est survenue, veuillez vérifier votre adresse mail avant de renvoyer une demande"
-        );
-      });
+    try {
+      resetPassword(credentials)
+      setResult("Un email de réinitialisation de mot de passe a été envoyé à l'adresse indiquée");
+    } catch (error) {
+      setResult("Une erreur est survenue, veuillez vérifier votre adresse mail avant de renvoyer une demande");
+    }
   };
 
   const renderResult = () => {
     if (result !== "") {
-      if (
-        result ===
-        "Un email de réinitialisation de mot de passe a été envoyé à l'adresse indiquée"
-      ) {
+      if (result === "Un email de réinitialisation de mot de passe a été envoyé à l'adresse indiquée") {
         return <p className="l-reset__success">{result}</p>;
       } else {
         return <p className="l-reset__error">{result}</p>;

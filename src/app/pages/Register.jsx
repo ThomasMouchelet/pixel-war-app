@@ -20,19 +20,19 @@ const Register = () => {
       password: password,
       email: email,
     };
-    register(data)
-      .then(() => {
-        setResult("Le compte a bien été créé");
-        setUser(data)
-        navigate("/");
-      })
-      .catch((e) => {
-        if (e.stack.includes("email-already-in-use")) {
-          setResult("L'email est déjà utilisé");
-        } else {
-          setResult("Une erreur est survenue");
-        }
-      });
+    
+    try {
+      register(data)
+      setResult("Le compte a bien été créé");
+      setUser(data)
+      navigate("/");
+    } catch (error) {
+      if (e.stack.includes("email-already-in-use")) {
+        setResult("L'email est déjà utilisé");
+      } else {
+        setResult("Une erreur est survenue");
+      }
+    }
   };
 
   const renderResult = () => {

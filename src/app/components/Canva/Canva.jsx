@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState } from "react";
+
 import ColorBar from "../ColorBar/ColorBar";
 import HudInfo from "../HudInfos/HudInfos";
 import ActionMenus from "../Actions/ActionsMenus";
-import pause_icon from "../../assets/images/pause_icon.svg";
 import EndGameScreen from "../EndGameScreen/EndGameScreen";
+import ProgressBar from "../ProgressBar/ProgressBar";
+import LogOutButton from "../Actions/LogOut/LogOutButton";
+
 import {
   updateGameParams,
   getTimer,
@@ -12,12 +15,12 @@ import {
   checkUserIsAdmin,
   closingGame,
 } from "../../../setup/services/game.service";
-
 import useTimer from "../../../setup/context/timerContext";
-import ProgressBar from "../ProgressBar/ProgressBar";
 import { createCookie, readCookie } from "../../../setup/utils/cookies";
-import LogOutButton from "../Actions/LogOut/LogOutButton";
 import { createPixelService, getPixel, updatePixelsGrid } from "../../../setup/services/pixel.service";
+
+import pause_icon from "../../assets/images/pause_icon.svg";
+
 
 const Canva = ({
   currentColor,
@@ -192,6 +195,8 @@ const Canva = ({
     updateGameParams(setGameParams)
     pausingGame(setPause)
     checkIsAdmin()
+    // handleDefineTimer();
+    closingGame(setIsClosing)
   }, []);
 
   const checkIsAdmin = async () => {
@@ -199,11 +204,6 @@ const Canva = ({
     // console.log("isAdmin : ", isAdmin);
     setIsAdminUser(isAdmin);
   }
-
-  useEffect(() => {
-    // handleDefineTimer();
-    closingGame(setIsClosing)
-  }, []);
 
   // useEffect(() => {
   //   handleDefineTimer();

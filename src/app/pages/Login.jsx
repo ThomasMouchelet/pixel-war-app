@@ -14,19 +14,16 @@ const Login = () => {
     const email = e.target.email.value;
     const password = e.target.password.value;
     const data = { email, password };
-    
-    // console.log(data);
-      try{
-        const response = await login(data)
-        // console.log(response);
-        if(response){
-          setUser(response)
-          navigate("/");
-        }
-      }catch(e){
-        // console.log(e);
-        setError(true);
+
+    try{
+      const response = await login(data)
+      if(response){
+        setUser(response)
+        navigate("/");
       }
+    }catch(e){
+      setError(true);
+    }
   };
 
   return (
