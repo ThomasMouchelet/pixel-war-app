@@ -27,6 +27,7 @@ import {
 
 import pause_icon from "../../assets/images/pause_icon.svg";
 import Draggable from "react-draggable";
+import { getUidFromLocalstorage } from "../../../setup/utils/uid";
 
 const Canva = ({
   currentColor,
@@ -125,30 +126,6 @@ const Canva = ({
     });
   }
 
-  // function addPixelIntoGame() {
-  //   const timestampTimer = readCookie("Google Analytics");
-  //   const game = gameRef.current;
-  //   const ctx = game.getContext("2d");
-  //   const x = cursorRef.current.offsetLeft;
-  //   const y = cursorRef.current.offsetTop - game.offsetTop;
-  //   const userId = localStorage.getItem("uid");
-  //   const payload = {
-  //     x: x,
-  //     y: y,
-  //     color: currentColor,
-  //     userId: userId,
-  //   };
-  //   const currentTime = Math.floor(new Date().getTime() / 1000);
-  //   if (timestampTimer > currentTime && isAdminUser !== true) {
-  //     return;
-  //   }
-  //   if (newPixelIsCreated && isAdminUser !== true) {
-  //     return;
-  //   }
-  //   createPixelService(payload);
-  //   createPixel(ctx, x, y, currentColorChoice);
-  // }
-
   async function drawPixelOnInit() {
     const game = gameRef.current;
     const ctx = game.getContext("2d");
@@ -200,13 +177,13 @@ const Canva = ({
         if (newPixelIsCreated && isAdminUser !== true) {
           return;
         }
-        createPixel(ctx, x, y, currentColorChoice);
+        const userId = localStorage.getItem("uid");
+        createPixelService({x: x, y: y, color: currentColorChoice, userId: userId});
 
         if (gameParams.isPlaying === false) {
           setPause(true);
           return;
         }
-        // addPixelIntoGame();
         setPause(false);
         if (!newPixelIsCreated) {
           setProgress(progress + 1);
