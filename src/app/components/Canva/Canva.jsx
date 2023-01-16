@@ -364,8 +364,6 @@ const Canva = ({
           <HudInfo
             hide={hide}
             totalTimeInSec={time}
-            x={xPosition}
-            y={yPosition}
           />
         )}
         {gameParams.gameTimer && (
