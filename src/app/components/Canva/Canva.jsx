@@ -6,6 +6,7 @@ import ActionMenus from "../Actions/ActionsMenus";
 import EndGameScreen from "../EndGameScreen/EndGameScreen";
 import ProgressBar from "../ProgressBar/ProgressBar";
 import LogOutButton from "../Actions/LogOut/LogOutButton";
+import ScaleButton from "../Actions/ScaleButton/ScaleButton"
 
 import {
   updateGameParams,
@@ -314,9 +315,6 @@ const Canva = ({
         />
       ) : null}
       <div className="c-canvas">
-        <button className="scale-btn" onClick={handleScale}>
-          Scale
-        </button>
         <div
           id="cursor"
           className="c-canvas__cursor"
@@ -375,6 +373,7 @@ const Canva = ({
           progress={progress}
           setProgress={setProgress}
         />
+        <ScaleButton handleScale={handleScale} isScaled={isScaled} />
         <LogOutButton hide={hide} />
         {pause ? (
           <div className="pause-war">
