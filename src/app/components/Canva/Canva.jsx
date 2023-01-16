@@ -382,7 +382,7 @@ const Canva = ({
           progress={progress}
           setProgress={setProgress}
         />
-        <ScaleButton handleScale={handleScale} isScaled={isScaled} />
+        <ScaleButton handleScale={handleScale} isScaled={isScaled} hide={hide} />
         <LogOutButton hide={hide} />
         {pause ? (
           <div className="pause-war">
