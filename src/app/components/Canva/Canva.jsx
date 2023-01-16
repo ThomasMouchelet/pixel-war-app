@@ -14,6 +14,7 @@ import {
   pausingGame,
   checkUserIsAdmin,
   closingGame,
+  disableKeyboardKeys,
 } from "../../../setup/services/game.service";
 import useTimer from "../../../setup/context/timerContext";
 import { createCookie, readCookie } from "../../../setup/utils/cookies";
@@ -197,6 +198,7 @@ const Canva = ({
     checkIsAdmin()
     // handleDefineTimer();
     closingGame(setIsClosing)
+    disableKeyboardKeys()
   }, []);
 
   const checkIsAdmin = async () => {

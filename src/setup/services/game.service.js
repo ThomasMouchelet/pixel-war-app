@@ -106,6 +106,12 @@ const closingGame = async (setIsClose) => {
   })
 }
 
+const disableKeyboardKeys = () => {
+  window.addEventListener('keydown', (e) => {
+    console.log("e => ", e);
+  })
+}
+
 export { 
   getUserScore,
   getTimer,
@@ -113,5 +119,6 @@ export {
   pausingGame,
   closingGame,
   checkUserIsAdmin,
-  updateScore
+  updateScore,
+  disableKeyboardKeys
 };
