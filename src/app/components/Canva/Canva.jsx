@@ -28,6 +28,7 @@ import {
 import pause_icon from "../../assets/images/pause_icon.svg";
 import Draggable from "react-draggable";
 import { getUidFromLocalstorage } from "../../../setup/utils/uid";
+import { getLastTwentyUser } from "../../../setup/services/user.service";
 
 const Canva = ({
   currentColor,
@@ -125,6 +126,7 @@ const Canva = ({
       addPixelAnimRef.current.style.animation = "";
     });
   }
+
 
   async function drawPixelOnInit() {
     const game = gameRef.current;
@@ -273,6 +275,7 @@ const Canva = ({
     // handleDefineTimer();
     closingGame(setIsClosing)
     disableKeyboardKeys()
+    getLastTwentyUser()
   }, []);
 
   const checkIsAdmin = async () => {
