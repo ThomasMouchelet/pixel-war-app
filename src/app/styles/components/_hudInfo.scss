@@ -6,6 +6,7 @@
     z-index: 10;
     display: flex;
     align-items: center;
+
     &__container {
         position: relative;
         width: 320px;
@@ -14,11 +15,8 @@
         justify-content: center;
         padding: 14.5px 0;
         border: 3px solid $main-orange;
-        border: 3px solid $main-orange;
         background-color: #fff;
-        &:first-child {
-            margin-right: 90px;
-        }
+
         p {
             font-family: $Unibody-bold;
             color: $main-orange;
@@ -27,6 +25,22 @@
             text-align: left;
         }
     }
+
+    .orange-timer {
+        background-color: $main-orange;
+
+        p {
+            color: white;
+        }
+
+        .c-hud-info__right,
+        .c-hud-info__left,
+        .c-hud-info__left::before,
+        .c-hud-info__right::before {
+            background-color: $main-orange;
+        }
+    }
+
     &__left {
         width: 8px;
         height: 48px;
@@ -36,6 +50,7 @@
         border-bottom: 3px solid $main-orange;
         position: absolute;
         left: -8px;
+
         &::before {
             content: "";
             position: absolute;
@@ -50,6 +65,7 @@
             border-bottom: 3px solid $main-orange;
         }
     }
+
     &__right {
         width: 8px;
         height: 48px;
@@ -59,6 +75,7 @@
         border-bottom: 3px solid $main-orange;
         position: absolute;
         right: -8px;
+
         &::before {
             content: "";
             position: absolute;

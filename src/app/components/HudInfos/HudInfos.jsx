@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 const HudInfo = ({ totalTimeInSec, hide }) => {
   const [time, setTime] = useState(totalTimeInSec);
+  const [isOrange, setIsOrange] = useState(false);
 
   const hours = Math.floor(time / 3600);
   let minutes = Math.floor((time % 3600) / 60);
@@ -17,15 +18,22 @@ const HudInfo = ({ totalTimeInSec, hide }) => {
     return hours + ":" + minutes + ":" + seconds;
   };
 
+  const handleLastFiveMinutes = () => {
+    setIsOrange(!isOrange);
+  };
+
   useEffect(() => {
     setTimeout(() => {
+      if (time <= 300) {
+        handleLastFiveMinutes();
+      }
       setTime(time - 1);
     }, 1000);
   }, [time]);
 
   return (
-    <div className={!hide ? "c-hud-info" : "hide"}> 
-      <div className="c-hud-info__container">
+    <div className={!hide ? "c-hud-info" : "hide"}>
+      <div className={!isOrange ? "c-hud-info__container" : "c-hud-info__container orange-timer"}>
         <div className="c-hud-info__left"></div>
         <p>Temps: {renderTime()}</p>
         <div className="c-hud-info__right"></div>
