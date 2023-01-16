@@ -3,9 +3,66 @@
     &__totalcoins {
         position: absolute;
         top: 6%;
-        left: 30px;
-        background-color: #180F24;
-        padding: 6px 17px 6px 17px;
+        left: 50px;
+        width: 51px;
+        height: 51px;
+        cursor: pointer;
+
+        img {
+            position: relative;
+            z-index: 999;
+        }
+
+        .coin-modal {
+            width: 10vw;
+            opacity: 0;
+            position: absolute;
+            top: -100%;
+            left: 20px;
+            transition: .3s ease-in-out all;
+            background-color: white;
+            z-index: 3;
+
+            &__header {
+                width: 100%;
+                background-color: #9D6891;
+                padding: 20px 30px;
+                text-align: center;
+
+                span {
+                    font-family: $Unibody-black;
+                    color: white;
+                    font-size: 11px;
+                }
+            }
+
+            &__body {
+                padding: 20px;
+            }
+
+            &__footer {
+                background-color: #9D6891;
+                color: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 10px 0;
+                gap: 8px;
+
+                img{
+                    width: 16px
+                }
+
+                span{
+                    font-family: $Unibody-bold;
+                }
+            }
+        }
+
+        .coin-modal-active {
+            opacity: 1;
+            top: 25%;
+        }
     }
 
     &__coins {
@@ -126,6 +183,4 @@
         color: #FFCC66;
         padding-left: 14px;
     }
-
-
 }

@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import coin from "../../assets/images/coin.png";
 import trophy from "../../assets/images/trophy.png";
+import present from "../../assets/images/present.png";
+import openPresent from "../../assets/images/open-present.png";
+import close from "../../assets/images/close_icon.png";
 
 const ProgressBar = ({ progress, hide }) => {
   const [coins, setCoins] = useState(0);
@@ -8,13 +11,14 @@ const ProgressBar = ({ progress, hide }) => {
   const [popupConcours, setPopupConcours] = useState(false);
   const [barProgress, setBarProgress] = useState(true);
   const [valueProgress, setValueProgress] = useState(0);
+  const [coinModal, setCoinModal] = useState(false);
 
   useEffect(() => {
-    const reste = progress % 100
-    const coinsInitValue = (progress - reste) / 100
+    const reste = progress % 100;
+    const coinsInitValue = (progress - reste) / 100;
 
-    setCoins(coinsInitValue)
-    setValueProgress(reste)
+    setCoins(coinsInitValue);
+    setValueProgress(reste);
 
     if (coins < 9) {
       if (progress === 100) {
@@ -24,7 +28,7 @@ const ProgressBar = ({ progress, hide }) => {
         }, 5000);
       }
     }
-  },[progress])
+  }, [progress]);
 
   useEffect(() => {
     if (coins === 10) {
@@ -39,11 +43,24 @@ const ProgressBar = ({ progress, hide }) => {
   return (
     <div className={!hide ? "c-progressbar" : "hide"}>
       {coins < 10 ? (
-        <div className="c-progressbar__totalcoins">
-          <span className="c-progressbar__coins">
-            <img src={coin} alt="" />
-            {coins}/10
-          </span>
+        <div
+          className="c-progressbar__totalcoins"
+          onClick={() => setCoinModal(!coinModal)}
+        >
+          <img src={!coinModal ? present : close} alt="" />
+
+          <div className={!coinModal ? "coin-modal" : "coin-modal coin-modal-active"}>
+            <div className="coin-modal__header">
+              <span>Gagne des Airpods 3</span>
+            </div>
+            <div className="coin-modal__body">
+              <img src={openPresent} alt="" />
+            </div>
+            <div className="coin-modal__footer">
+              <img src={coin} alt="" />
+              <span>{coins} / 10</span>
+            </div>
+          </div>
         </div>
       ) : (
         <div className="c-progressbar__totalcoins">
@@ -91,7 +108,11 @@ const ProgressBar = ({ progress, hide }) => {
 
       {popupConcours ? (
         <div className="c-progressbar__concours">
-          <img src={trophy} className="c-progressbar__concours__trophy" alt="" />
+          <img
+            src={trophy}
+            className="c-progressbar__concours__trophy"
+            alt=""
+          />
           <p className="c-progressbar__p">
             Vous êtes maintenant éligible au tirage au sort
           </p>
