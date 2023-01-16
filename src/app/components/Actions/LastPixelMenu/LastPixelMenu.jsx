@@ -1,7 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getLastTwentyUser } from "../../../../setup/services/user.service";
 
 const LastPixelMenu = ({ isMenuOpen, setIsMenuOpen }) => {
   const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    getLastTwentyUser(setUsers)
+  }, [])
+  useEffect(() => {
+    console.log("users => ", users);
+  }, [users]);
   return (
     <div className={isMenuOpen ? "lastPixel menu-active" : "lastPixel"}>
       <div className="lastPixel__content">
