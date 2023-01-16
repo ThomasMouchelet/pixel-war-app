@@ -7,8 +7,13 @@ const getLastTwentyUser = (setLastUsers) => {
     onSnapshot(gamesCollection, (snapshot) => {
         snapshot.docChanges().forEach(
             async (change) => {
-                const doc = await change.doc.data().user;
-                setLastUsers((lastUsers) => [...lastUsers, doc])
+                const doc = await change.doc.data();
+                setLastUsers((lastUsers) => {
+                    lastUsers = lastUsers.sort((a, b) => {
+                        return b.createdAt - a.createdAt
+                    }).slice(0, 19)
+                    return [doc, ...lastUsers]
+                })
                 
             }
         )
