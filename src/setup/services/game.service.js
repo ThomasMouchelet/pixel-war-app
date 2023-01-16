@@ -106,6 +106,20 @@ const closingGame = async (setIsClose) => {
   })
 }
 
+const disableKeyboardKeys = () => {
+  window.addEventListener('keydown', (e) => {
+    if(e.shiftKey && e.metaKey && e.keyCode === 82){
+      e.preventDefault()
+    }else if(e.metaKey && e.keyCode === 82){
+      e.preventDefault()
+    }else if(e.keyCode === 116){
+      e.preventDefault()
+    }else if(e.ctrlKey && e.keyCode === 82){
+      e.preventDefault()
+    }
+  })
+}
+
 export { 
   getUserScore,
   getTimer,
@@ -113,5 +127,6 @@ export {
   pausingGame,
   closingGame,
   checkUserIsAdmin,
-  updateScore
+  updateScore,
+  disableKeyboardKeys
 };
