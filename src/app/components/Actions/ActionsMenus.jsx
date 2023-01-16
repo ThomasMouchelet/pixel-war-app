@@ -32,6 +32,7 @@ const ActionMenus = ({ setHide, hide }) => {
           {/* <div
             className={!hide ? "action-menus__menu__item" : "hide"}
             onClick={() => handleActiveMenu()}
+            id="people"
           >
             <img src={LastPixel} alt="" className="menu" />
           </div> */}
@@ -51,6 +52,7 @@ const ActionMenus = ({ setHide, hide }) => {
             <div
               className="action-menus__menu__item"
               onClick={() => setHide(!hide)}
+              id="eye"
             >
               <img src={!hide ? OpenEye : CloseEye} alt="" className="menu" />
             </div>

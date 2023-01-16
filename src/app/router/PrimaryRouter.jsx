@@ -7,6 +7,7 @@ import Register from "../pages/Register";
 import ResetPassword from "../pages/ResetPassword";
 import Canva from "../components/Canva/Canva";
 import ProtectedRoute from "../components/ProtectedRoutes";
+import Tutorial from "../components/Tutorial/Tutorial";
 
 const PrimaryRouter = () => {
   const [currentColor, setCurrentColor] = useState("#4287f5");
@@ -19,14 +20,17 @@ const PrimaryRouter = () => {
           <Route
             path="/"
             element={
-              <ProtectedRoute>
+              // <ProtectedRoute>
+              <>
                 <Canva
                   currentColor={currentColor}
                   setCurrentColor={setCurrentColor}
                   pixelColor={pixelColor}
                   setPixelColor={setPixelColor}
                 />
-              </ProtectedRoute>
+                <Tutorial />
+              </>
+              // </ProtectedRoute>
             }
           />
           <Route path="/connexion" element={<Login />} />

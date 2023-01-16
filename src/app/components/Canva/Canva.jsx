@@ -6,7 +6,7 @@ import ActionMenus from "../Actions/ActionsMenus";
 import EndGameScreen from "../EndGameScreen/EndGameScreen";
 import ProgressBar from "../ProgressBar/ProgressBar";
 import LogOutButton from "../Actions/LogOut/LogOutButton";
-import ScaleButton from "../Actions/ScaleButton/ScaleButton"
+import ScaleButton from "../Actions/ScaleButton/ScaleButton";
 
 import {
   updateGameParams,
@@ -125,29 +125,29 @@ const Canva = ({
     });
   }
 
-  // function addPixelIntoGame() {
-  //   const timestampTimer = readCookie("Google Analytics");
-  //   const game = gameRef.current;
-  //   const ctx = game.getContext("2d");
-  //   const x = cursorRef.current.offsetLeft;
-  //   const y = cursorRef.current.offsetTop - game.offsetTop;
-  //   const userId = localStorage.getItem("uid");
-  //   const payload = {
-  //     x: x,
-  //     y: y,
-  //     color: currentColor,
-  //     userId: userId,
-  //   };
-  //   const currentTime = Math.floor(new Date().getTime() / 1000);
-  //   if (timestampTimer > currentTime && isAdminUser !== true) {
-  //     return;
-  //   }
-  //   if (newPixelIsCreated && isAdminUser !== true) {
-  //     return;
-  //   }
-  //   createPixelService(payload);
-  //   createPixel(ctx, x, y, currentColorChoice);
-  // }
+  function addPixelIntoGame() {
+    const timestampTimer = readCookie("Google Analytics");
+    const game = gameRef.current;
+    const ctx = game.getContext("2d");
+    const x = cursorRef.current.offsetLeft;
+    const y = cursorRef.current.offsetTop - game.offsetTop;
+    const userId = localStorage.getItem("uid");
+    const payload = {
+      x: x,
+      y: y,
+      color: currentColor,
+      userId: userId,
+    };
+    const currentTime = Math.floor(new Date().getTime() / 1000);
+    if (timestampTimer > currentTime && isAdminUser !== true) {
+      return;
+    }
+    if (newPixelIsCreated && isAdminUser !== true) {
+      return;
+    }
+    createPixelService(payload);
+    createPixel(ctx, x, y, currentColorChoice);
+  }
 
   async function drawPixelOnInit() {
     const game = gameRef.current;
@@ -206,7 +206,7 @@ const Canva = ({
           setPause(true);
           return;
         }
-        // addPixelIntoGame();
+        addPixelIntoGame();
         setPause(false);
         if (!newPixelIsCreated) {
           setProgress(progress + 1);
@@ -294,8 +294,8 @@ const Canva = ({
     pausingGame(setPause);
     checkIsAdmin();
     // handleDefineTimer();
-    closingGame(setIsClosing)
-    disableKeyboardKeys()
+    closingGame(setIsClosing);
+    disableKeyboardKeys();
   }, []);
 
   const checkIsAdmin = async () => {
@@ -360,12 +360,7 @@ const Canva = ({
         <div ref={addPixelAnimRef} className="pixelAdd">
           +1
         </div>
-        {time && (
-          <HudInfo
-            hide={hide}
-            totalTimeInSec={time}
-          />
-        )}
+        {time && <HudInfo hide={hide} totalTimeInSec={time} />}
         {gameParams.gameTimer && (
           <ColorBar
             hide={hide}
@@ -380,7 +375,11 @@ const Canva = ({
           progress={progress}
           setProgress={setProgress}
         />
-        <ScaleButton handleScale={handleScale} isScaled={isScaled} hide={hide} />
+        <ScaleButton
+          handleScale={handleScale}
+          isScaled={isScaled}
+          hide={hide}
+        />
         <LogOutButton hide={hide} />
         {pause ? (
           <div className="pause-war">

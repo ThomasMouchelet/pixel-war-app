@@ -24,7 +24,7 @@ const HudInfo = ({ totalTimeInSec, hide }) => {
   }, [time]);
 
   return (
-    <div className={!hide ? "c-hud-info" : "hide"}> 
+    <div className={!hide ? "c-hud-info" : "hide"} id="time">
       <div className="c-hud-info__container">
         <div className="c-hud-info__left"></div>
         <p>Temps: {renderTime()}</p>

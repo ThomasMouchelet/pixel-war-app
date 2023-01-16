@@ -5,7 +5,7 @@ import arrowIcon from "../../assets/images/arrow.png";
 
 const ColorBar = ({ currentColor, setCurrentColor, hide, gameTimer }) => {
   const [time, setTime] = useState(0);
-  const [isRotated, setIsRotated] = useState(false)
+  const [isRotated, setIsRotated] = useState(false);
   const { newPixelIsCreated, setNewPixelIsCreated } = useTimer();
 
   useEffect(() => {
@@ -55,7 +55,7 @@ const ColorBar = ({ currentColor, setCurrentColor, hide, gameTimer }) => {
   const colorListRef = useRef(null);
   const arrowRef = useRef(null);
   const arrowRef2 = useRef(null);
-  
+
   useEffect(() => {
     const timestampTimer = readCookie("Google Analytics");
     if (timestampTimer) {
@@ -70,45 +70,48 @@ const ColorBar = ({ currentColor, setCurrentColor, hide, gameTimer }) => {
   const handleColorListNavigationLeft = () => {
     arrowRef2.current.style.opacity = "1";
     if (!isRotated) {
-      colorListRef.current.scrollBy(colorListRef.current.clientWidth/10, 0)
+      colorListRef.current.scrollBy(colorListRef.current.clientWidth / 10, 0);
       if (
         colorListRef.current.scrollLeft >
-        colorListRef.current.clientWidth * .90
+        colorListRef.current.clientWidth * 0.9
       ) {
         setIsRotated(true);
       }
       return;
     }
     if (isRotated == true) {
-      colorListRef.current.scrollBy(colorListRef.current.clientWidth/10, 0)
+      colorListRef.current.scrollBy(colorListRef.current.clientWidth / 10, 0);
       if (
         colorListRef.current.scrollLeft <
-        colorListRef.current.clientWidth * .1 
+        colorListRef.current.clientWidth * 0.1
       ) {
         setIsRotated(false);
       }
       return;
     }
-  }
+  };
 
   const handleColorListNavigationRight = () => {
     if (!isRotated) {
       if (
         colorListRef.current.scrollLeft >
-        colorListRef.current.clientWidth * .01
+        colorListRef.current.clientWidth * 0.01
       ) {
         arrowRef.current.style.opacity = "1";
-        colorListRef.current.scrollBy(colorListRef.current.clientWidth/-10, 0)
+        colorListRef.current.scrollBy(
+          colorListRef.current.clientWidth / -10,
+          0
+        );
         setIsRotated(true);
       }
       return;
     }
     if (isRotated == true) {
-      colorListRef.current.scrollBy(colorListRef.current.clientWidth/-10, 0)
+      colorListRef.current.scrollBy(colorListRef.current.clientWidth / -10, 0);
       arrowRef.current.style.opacity = "1";
       if (
         colorListRef.current.scrollLeft <
-        colorListRef.current.clientWidth * .1 
+        colorListRef.current.clientWidth * 0.1
       ) {
         setIsRotated(false);
       }
@@ -152,9 +155,10 @@ const ColorBar = ({ currentColor, setCurrentColor, hide, gameTimer }) => {
   return (
     <div
       className={!hide ? "colorBar" : "hide"}
+      id="colors"
       style={newPixelIsCreated ? { width: "16rem", height: "4rem" } : null}
     >
-      <div className="color-list" ref={colorListRef} >
+      <div className="color-list" ref={colorListRef}>
         {newPixelIsCreated === false ? (
           <>
             <img
