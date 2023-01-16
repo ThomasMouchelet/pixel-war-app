@@ -174,12 +174,14 @@ const Canva = ({
   function handleMouseUp(e) {
     if (isMoving === false) {
       const timestampTimer = readCookie("Google Analytics");
+
       let oldx;
       let oldy;
 
       if (window.matchMedia("(max-width: 768px)").matches) {
-        oldx = e.changedTouches[0].clientX;
-        oldy = e.changedTouches[0].clientY;
+        var rect = gameRef.current.getBoundingClientRect()
+        oldx = (rect.x - e.changedTouches[0].clientX) * -1
+        oldy = (rect.y - e.changedTouches[0].clientY) * -1
       } else {
         oldx = e.offsetX;
         oldy = e.offsetY;
@@ -191,6 +193,8 @@ const Canva = ({
 
       let x = Math.round(oldx / 10) * 10;
       let y = Math.round(oldy / 10) * 10;
+
+      console.log(x, y)
 
       if (!isScaled) {
         const currentTime = Math.floor(new Date().getTime() / 1000);
@@ -332,7 +336,7 @@ const Canva = ({
           onMouseUp={(e) => handleMouseUp(e)}
         ></div>
         <div className="canva-container" ref={gameContainerRef} id="container">
-          {window.matchMedia("(max-width: 768px)").matches ? (
+          {window.matchMedia("(min-width: 768px)").matches ? (
             <canvas
               id="game"
               ref={gameRef}

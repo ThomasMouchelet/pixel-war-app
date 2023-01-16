@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 const HudInfo = ({ totalTimeInSec, x, y, hide }) => {
   const [time, setTime] = useState(totalTimeInSec);
+
 
   const hours = Math.floor(time / 3600);
   let minutes = Math.floor((time % 3600) / 60);
@@ -21,11 +22,11 @@ const HudInfo = ({ totalTimeInSec, x, y, hide }) => {
     setTimeout(() => {
       setTime(time - 1);
     }, 1000);
-  }, [time]);
+  }, [time])
 
   return (
     <div className={!hide ? "c-hud-info" : "hide"}> 
-      <div className="c-hud-info__container">
+      <div className="c-hud-info__container c-hud-info-coor">
         <div className="c-hud-info__left"></div>
         <p>
           Coordonées : {x}, {y}

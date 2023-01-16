@@ -29,15 +29,15 @@ const ActionMenus = ({ setHide, hide }) => {
     <>
       <div className="action-menus">
         <div className="action-menus__menu">
-          {/* <div
+          <div
             className={!hide ? "action-menus__menu__item" : "hide"}
             onClick={() => handleActiveMenu()}
           >
             <img src={LastPixel} alt="" className="menu" />
-          </div> */}
+          </div>
 
           <div
-            className={!hide ? "action-menus__menu__item" : "hide"}
+            className={!hide ? "action-menus__menu__item action-menus__menu__item_2" : "hide"}
             onClick={() => handleActiveModal()}
           >
             <img src={Consigne} alt="" className="menu" />
@@ -46,7 +46,6 @@ const ActionMenus = ({ setHide, hide }) => {
           <div>
             <TwitchModalButton hide={hide} />
           </div>
-
           {!isMenuOpen ? (
             <div
               className="action-menus__menu__item"

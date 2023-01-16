@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import coin from "../../assets/images/coin.png";
 import trophy from "../../assets/images/trophy.png";
 

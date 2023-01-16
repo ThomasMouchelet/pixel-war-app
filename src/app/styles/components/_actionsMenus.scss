@@ -49,3 +49,14 @@
   transform: scale(1);
  }
 }
+
+@media (max-width: 600px) {
+  .action-menus__menu {
+    display: block;
+    right: 15px;
+  }
+  .action-menus__menu__item_2, .btn-logout {
+    display: none;
+  }
+
+  }

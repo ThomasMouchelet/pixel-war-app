@@ -77,3 +77,12 @@
         height: 100%;
     }
 }
+
+@media (max-width: 600px) {
+    #cursor {
+      display: none
+    }
+    #game {
+        overflow: hidden;
+    }
+  }

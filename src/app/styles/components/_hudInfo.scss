@@ -75,3 +75,20 @@
         }
     }
 }
+
+@media (max-width: 600px) {
+    .c-hud-info__container p {
+        font-size: 10px;
+        text-align: center;
+    }
+    .c-hud-info__container {
+        width: 200px;
+    }
+    .c-hud-info {
+        display: block;
+        align-items: center;
+    }
+    .c-hud-info-coor {
+        display: none;
+    }
+  }
