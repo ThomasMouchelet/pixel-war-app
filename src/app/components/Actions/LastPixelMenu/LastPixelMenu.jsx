@@ -1,11 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { getLastTwentyUser } from "../../../../setup/services/user.service";
 
 const LastPixelMenu = ({ isMenuOpen, setIsMenuOpen }) => {
   const [users, setUsers] = useState([]);
+  const [displayUserCard, setDisplayUserCard] = useState(true);
+  const userCard = useRef(null);
 
   useEffect(() => {
-    getLastTwentyUser(setUsers)
+    getLastTwentyUser(setUsers);
+    setTimeout(() => {
+      setDisplayUserCard(false);
+    }, 2000)
   }, [])
   useEffect(() => {
     console.log("users => ", users);
@@ -15,7 +20,7 @@ const LastPixelMenu = ({ isMenuOpen, setIsMenuOpen }) => {
       <div className="lastPixel__content">
         <h2>Dernières actions</h2>
         <ul className="user-list">
-        <li className="user-card">User1</li>
+          {users ? users.map(user => <li key={user.user.uuid} className="user-card">{user.user.username}</li>) : null}
         </ul>
       </div>
     </div>
