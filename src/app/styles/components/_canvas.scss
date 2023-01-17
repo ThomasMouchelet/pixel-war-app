@@ -78,6 +78,10 @@
     }
 }
 
+#game {
+    overflow: hidden;
+}
+
 .modal {
     position: fixed;
     right: 120px;
@@ -97,9 +101,6 @@
 @media (max-width: 1000px) {
     #cursor {
       display: none
-    }
-    #game {
-        overflow: hidden;
     }
     .modal {
         left: 0;
