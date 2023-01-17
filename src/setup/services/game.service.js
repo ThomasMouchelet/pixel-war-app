@@ -1,5 +1,5 @@
 import { firestoreDb } from "../config/firebase.config";
-import { collection, doc, onSnapshot, getDoc, updateDoc } from "firebase/firestore";
+import { collection, doc, onSnapshot, getDoc, updateDoc, setDoc } from "firebase/firestore";
 
 const paramCollection = collection(firestoreDb, "param");
 const userCollection = collection(firestoreDb, 'users')
@@ -120,6 +120,21 @@ const disableKeyboardKeys = () => {
   })
 }
 
+const getImage = async (setImages) => {
+  const images = await getDoc(doc(firestoreDb, 'screenshot', `game-${process.env.REACT_APP_GAME_KEY}`))
+  setImages(images.data().urlImg)
+}
+const addImage = async (urlImg) => {
+  await setDoc(doc(firestoreDb, 'screenshot', `game-${process.env.REACT_APP_GAME_KEY}`), {
+    urlImg: urlImg
+  })
+}
+const listenImage = async (setImages) => {
+  onSnapshot(doc(firestoreDb, 'screenshot', `game-${process.env.REACT_APP_GAME_KEY}`), (snapshot) => {
+    setImages(snapshot.data().urlImg)
+  })
+}
+
 export { 
   getUserScore,
   getTimer,
@@ -128,5 +143,8 @@ export {
   closingGame,
   checkUserIsAdmin,
   updateScore,
-  disableKeyboardKeys
+  disableKeyboardKeys,
+  getImage,
+  addImage,
+  listenImage
 };

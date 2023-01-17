@@ -16,6 +16,7 @@ import {
   checkUserIsAdmin,
   closingGame,
   disableKeyboardKeys,
+  getImage,
 } from "../../../setup/services/game.service";
 import useTimer from "../../../setup/context/timerContext";
 import { createCookie, readCookie } from "../../../setup/utils/cookies";
@@ -54,6 +55,7 @@ const Canva = ({
   const [time, setTime] = useState(0);
   const [isAdminUser, setIsAdminUser] = useState(false);
   const [scale, setScale] = useState(1);
+  const [image, setImage] = useState(null);
 
   let currentColorChoice = currentColor;
   const gridCellSize = 10;
@@ -130,10 +132,8 @@ const Canva = ({
   async function drawPixelOnInit() {
     const game = gameRef.current;
     const ctx = game.getContext("2d");
-    const pixels = await getPixel();
-    pixels.forEach((pixel) => {
-      createPixel(ctx, pixel.x, pixel.y, pixel.color, true);
-    });
+    const img = await getImage(setImage)
+    ctx.drawImage(img, 0, 0);
   }
 
   function handleMouseDown() {
@@ -178,14 +178,17 @@ const Canva = ({
         if (newPixelIsCreated && isAdminUser !== true) {
           return;
         }
-        console.log("placepixel");
         const userId = localStorage.getItem("uid");
+        var dataURL = localStorage.getItem(gameRef.current);
+        var img = new Image();
+        img.src = dataURL;
         createPixel(ctx, x, y, currentColorChoice);
         createPixelService({
           x: x,
           y: y,
           color: currentColorChoice,
           userId: userId,
+          urlImg: img.src
         });
 
         if (gameParams.isPlaying === false) {
@@ -278,10 +281,10 @@ const Canva = ({
     updateGameParams(setGameParams);
     pausingGame(setPause);
     checkIsAdmin();
-    // handleDefineTimer();
     closingGame(setIsClosing);
     disableKeyboardKeys();
     getLastTwentyUser();
+    getImage()
   }, []);
 
   const checkIsAdmin = async () => {

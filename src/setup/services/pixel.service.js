@@ -1,6 +1,6 @@
 import { collection, doc, getDocs, onSnapshot, setDoc } from "firebase/firestore";
 import { firestoreDb } from "../config/firebase.config";
-import { updateScore } from "./game.service";
+import { addImage, updateScore } from "./game.service";
 
 const gamesCollection = collection(firestoreDb, `game-${process.env.REACT_APP_GAME_KEY}`)
 
@@ -27,7 +27,7 @@ const updatePixelsGrid = async (game, createPixel) => {
     });
 };
 
-const createPixelService = async ({ x, y, color, userId }) => {
+const createPixelService = async ({ x, y, color, userId, urlImg }) => {
     const user = await updateScore(userId)
     const newPixel = {
       x,
@@ -44,6 +44,7 @@ const createPixelService = async ({ x, y, color, userId }) => {
       ),
       newPixel
     );
+    await addImage(urlImg)
   };
 
 export {
