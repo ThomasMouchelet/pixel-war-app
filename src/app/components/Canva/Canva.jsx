@@ -342,9 +342,9 @@ const Canva = ({
     listenAllUsers(setAllUsers);
   }, []);
 
-  // useEffect(() => {
-  //   console.log(allUsers);
-  // }, [allUsers]);
+  useEffect(() => {
+    console.log(allUsers);
+  }, [allUsers]);
 
   const checkIsAdmin = async () => {
     const isAdmin = await checkUserIsAdmin();
