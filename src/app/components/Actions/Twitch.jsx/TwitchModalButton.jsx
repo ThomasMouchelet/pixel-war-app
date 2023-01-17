@@ -25,7 +25,7 @@ const TwitchModalButton = ({ hide, isTwitchModalActive }) => {
             src={CloseIcon}
             alt=""
             className="menu action-menus_menu_item_cross"
-            style={{ position: "absolute", zIndex: "100", top: "5px", right: "5px" }}
+            style={{ position: "fixed", zIndex: "100", top: "10px", right: "10px" }}
           />
         </div>
       )}
