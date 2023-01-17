@@ -31,7 +31,7 @@ import Draggable from "react-draggable";
 import { getUidFromLocalstorage } from "../../../setup/utils/uid";
 import {
   getLastTwentyUser,
-  // getAllUsers,
+  listenAllUsers,
 } from "../../../setup/services/user.service";
 
 const Canva = ({
@@ -288,9 +288,12 @@ const Canva = ({
     closingGame(setIsClosing);
     disableKeyboardKeys();
     getLastTwentyUser();
-    // getAllUsers(allUsers, setAllUsers);
-    console.log("allUsers", allUsers);
+    listenAllUsers(setAllUsers);
   }, []);
+
+  useEffect(() => {
+    console.log(allUsers);
+  }, [allUsers]);
 
   const checkIsAdmin = async () => {
     const isAdmin = await checkUserIsAdmin();

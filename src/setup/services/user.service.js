@@ -32,18 +32,24 @@ const getLastTwentyUser = (setLastUsers) => {
   });
 };
 
-// const getAllUsers = async (users, setUsers) => {
-//   const usersData = await getDocs();
-//   const usersDataArray = usersData.docs.map((doc) => doc.data());
-//   setUsers(usersDataArray);
-//   onSnapshot(userCollection, (snapshot) => {
-//     snapshot.docChanges().forEach(async (change) => {
-//       const document = await change.doc.data();
-//       setUsers([...users, document]);
-//       console.log(users);
-//     });
-//   });
-// };
+const getAllUsers = async (setUsers) => {
+  const usersData = await getDocs(userCollection);
+  const usersDataArray = usersData.docs.map((doc) => doc.data());
+  setUsers(usersDataArray);
+};
+
+const listenAllUsers = (setUsers) => {
+  onSnapshot(userCollection, (snapshot) => {
+    snapshot.docChanges().forEach(
+      async (change) => {
+        getAllUsers(setUsers);
+      },
+      (error) => {
+        throw new Error(error);
+      }
+    );
+  });
+};
 
 const getUserByPixelPositions = async (x, y) => {
   const q = await query(
@@ -61,4 +67,4 @@ const getUserByPixelPositions = async (x, y) => {
   return { username: user.username, totalScore: user.totalScore };
 };
 
-export { getLastTwentyUser, getUserByPixelPositions };
+export { getLastTwentyUser, getUserByPixelPositions, listenAllUsers };
