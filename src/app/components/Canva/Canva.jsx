@@ -6,7 +6,7 @@ import ActionMenus from "../Actions/ActionsMenus";
 import EndGameScreen from "../EndGameScreen/EndGameScreen";
 import ProgressBar from "../ProgressBar/ProgressBar";
 import LogOutButton from "../Actions/LogOut/LogOutButton";
-import ScaleButton from "../Actions/ScaleButton/ScaleButton"
+import ScaleButton from "../Actions/ScaleButton/ScaleButton";
 
 import {
   updateGameParams,
@@ -127,7 +127,6 @@ const Canva = ({
     });
   }
 
-
   async function drawPixelOnInit() {
     const game = gameRef.current;
     const ctx = game.getContext("2d");
@@ -179,8 +178,15 @@ const Canva = ({
         if (newPixelIsCreated && isAdminUser !== true) {
           return;
         }
+        console.log("placepixel");
         const userId = localStorage.getItem("uid");
-        createPixelService({x: x, y: y, color: currentColorChoice, userId: userId});
+        createPixel(ctx, x, y, currentColorChoice);
+        createPixelService({
+          x: x,
+          y: y,
+          color: currentColorChoice,
+          userId: userId,
+        });
 
         if (gameParams.isPlaying === false) {
           setPause(true);
@@ -273,9 +279,9 @@ const Canva = ({
     pausingGame(setPause);
     checkIsAdmin();
     // handleDefineTimer();
-    closingGame(setIsClosing)
-    disableKeyboardKeys()
-    getLastTwentyUser()
+    closingGame(setIsClosing);
+    disableKeyboardKeys();
+    getLastTwentyUser();
   }, []);
 
   const checkIsAdmin = async () => {
@@ -340,12 +346,7 @@ const Canva = ({
         <div ref={addPixelAnimRef} className="pixelAdd">
           +1
         </div>
-        {time && (
-          <HudInfo
-            hide={hide}
-            totalTimeInSec={time}
-          />
-        )}
+        {time && <HudInfo hide={hide} totalTimeInSec={time} />}
         {gameParams.gameTimer && (
           <ColorBar
             hide={hide}
@@ -360,7 +361,11 @@ const Canva = ({
           progress={progress}
           setProgress={setProgress}
         />
-        <ScaleButton handleScale={handleScale} isScaled={isScaled} hide={hide} />
+        <ScaleButton
+          handleScale={handleScale}
+          isScaled={isScaled}
+          hide={hide}
+        />
         <LogOutButton hide={hide} />
         {pause ? (
           <div className="pause-war">
