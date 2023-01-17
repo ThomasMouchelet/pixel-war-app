@@ -140,7 +140,7 @@ const Canva = ({
     if (window.matchMedia("(max-width: 768px)").matches) {
       document.addEventListener("touchmove", () => {
         setIsMoving(true);
-      });
+      }, { passive: false });
     } else {
       document.addEventListener("mousemove", () => {
         setIsMoving(true);
@@ -158,8 +158,8 @@ const Canva = ({
 
       if (window.matchMedia("(max-width: 768px)").matches) {
         var rect = gameRef.current.getBoundingClientRect()
-        oldx = (rect.x - e.changedTouches[0].clientX) * -1
-        oldy = (rect.y - e.changedTouches[0].clientY) * -1
+        oldx = (rect.x - e.changedTouches[0].pageX) * -1
+        oldy = (rect.y - e.changedTouches[0].pageY) * -1
       } else {
         oldx = e.offsetX;
         oldy = e.offsetY;
