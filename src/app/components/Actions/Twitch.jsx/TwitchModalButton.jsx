@@ -55,17 +55,7 @@ const TwitchModalButton = ({hide}) => {
 
       {isModalActive && (
         <div
-          className="modal"
-          style={{
-            position: "fixed",
-            top: "0",
-            right: "0",
-            width: "20%",
-            height: "100vh",
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
-            zIndex: 10,
-          }}
-        >
+          className="modal">
           <iframe
             src="https://www.twitch.tv/embed/pixelwaresd/chat?parent=app.pixel-war-esd.fr"
             height="100%"

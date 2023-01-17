@@ -194,8 +194,6 @@ const Canva = ({
       let x = Math.round(oldx / 10) * 10;
       let y = Math.round(oldy / 10) * 10;
 
-      console.log(x, y)
-
       if (!isScaled) {
         const currentTime = Math.floor(new Date().getTime() / 1000);
         if (timestampTimer > currentTime && isAdminUser !== true) {
@@ -336,20 +334,9 @@ const Canva = ({
           onMouseUp={(e) => handleMouseUp(e)}
         ></div>
         <div className="canva-container" ref={gameContainerRef} id="container">
-          {window.matchMedia("(min-width: 768px)").matches ? (
-            <canvas
-              id="game"
-              ref={gameRef}
-              onMouseMove={(e) => handleFollowMouse(e, scale)}
-              onTouchStart={(e) => handleMouseDown(e)}
-              onTouchEnd={(e) => handleMouseUp(e)}
-              className="c-canvas__game"
-            ></canvas>
-          ) : (
             <Draggable
               onStart={() => handleMouseDown()}
-              onStop={(e) => handleMouseUp(e)}
-            >
+              onStop={(e) => handleMouseUp(e)}>
               <canvas
                 id="game"
                 ref={gameRef}
@@ -359,7 +346,6 @@ const Canva = ({
                 className="c-canvas__game"
               ></canvas>
             </Draggable>
-          )}
         </div>
         <div ref={addPixelAnimRef} className="pixelAdd">
           +1
