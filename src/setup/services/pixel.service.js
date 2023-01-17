@@ -1,6 +1,6 @@
 import { collection, doc, getDocs, onSnapshot, setDoc } from "firebase/firestore";
 import { firestoreDb } from "../config/firebase.config";
-import { addImage, updateScore } from "./game.service";
+import { updateScore } from "./game.service";
 
 const gamesCollection = collection(firestoreDb, `game-${process.env.REACT_APP_GAME_KEY}`)
 
@@ -44,7 +44,7 @@ const createPixelService = async ({ x, y, color, userId, urlImg }) => {
     ),
     newPixel
   );
-  await addImage(urlImg)
+  // await addImage(urlImg)
 };
 
 export {

@@ -18,7 +18,7 @@ import {
   closingGame,
   disableKeyboardKeys,
   getImage,
-  addImage,
+  // addImage,
 } from "../../../setup/services/game.service";
 import useTimer from "../../../setup/context/timerContext";
 import { createCookie, readCookie } from "../../../setup/utils/cookies";
@@ -176,12 +176,12 @@ const Canva = ({
   async function drawPixelOnInit() {
     const game = gameRef.current;
     const ctx = game.getContext("2d");
-    const imgDatabase = await getImage();
-    const img = new Image();
-    img.src = imgDatabase;
-    img.onload = () => {
-      ctx.drawImage(img, 0, 0);
-    }
+    // const imgDatabase = await getImage();
+    // const img = new Image();
+    // img.src = imgDatabase;
+    // img.onload = () => {
+    //   ctx.drawImage(img, 0, 0);
+    // }
   }
 
   function handleMouseDown() {
@@ -297,12 +297,12 @@ const Canva = ({
     ctx.stroke();
     const game = gameRef.current;
     const gridCtx = game.getContext("2d");
-    var dataURL = await getImage()
-    var img = new Image();
-    img.src = dataURL;
-    img.onload = () => {
-      gridCtx.drawImage(img, 0, 0);
-    }
+    // var dataURL = await getImage()
+    // var img = new Image();
+    // img.src = dataURL;
+    // img.onload = () => {
+    //   gridCtx.drawImage(img, 0, 0);
+    // }
   }
 
   const handleScale = () => {
@@ -323,7 +323,7 @@ const Canva = ({
   };
 
   useEffect(() => {
-    getImage()
+    // getImage()
     getTimer(setTime);
     getUserScore(setProgress);
     const game = gameRef.current;

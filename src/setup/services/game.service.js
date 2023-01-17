@@ -124,18 +124,18 @@ const disableKeyboardKeys = () => {
   });
 };
 
-const getImage = async () => {
-  const image = await getDoc(doc(firestoreDb, 'screenshot', `game-${process.env.REACT_APP_GAME_KEY}`))
-  localStorage.setItem('urlImg', image.data().urlImg)
-  let img = image.data().urlImg
-  img = img.replace('"', '')
-  return img
-}
-const addImage = async (urlImg) => {
-  await setDoc(doc(firestoreDb, 'screenshot', `game-${process.env.REACT_APP_GAME_KEY}`), {
-    urlImg: urlImg
-  })
-}
+// const getImage = async () => {
+//   const image = await getDoc(doc(firestoreDb, 'screenshot', `game-${process.env.REACT_APP_GAME_KEY}`))
+//   localStorage.setItem('urlImg', image.data().urlImg)
+//   let img = image.data().urlImg
+//   img = img.replace('"', '')
+//   return img
+// }
+// const addImage = async (urlImg) => {
+//   await setDoc(doc(firestoreDb, 'screenshot', `game-${process.env.REACT_APP_GAME_KEY}`), {
+//     urlImg: urlImg
+//   })
+// }
 // const listenImage = async (setImages) => {
 //   onSnapshot(doc(firestoreDb, 'screenshot', `game-${process.env.REACT_APP_GAME_KEY}`), (snapshot) => {
 //     setImages(snapshot.data().urlImg)
@@ -143,6 +143,7 @@ const addImage = async (urlImg) => {
 // }
 
 export { 
+  getUser,
   getUserScore,
   getTimer,
   updateGameParams,
@@ -151,7 +152,7 @@ export {
   checkUserIsAdmin,
   updateScore,
   disableKeyboardKeys,
-  getImage,
-  addImage,
+  // getImage,
+  // addImage,
   // listenImage
 };
