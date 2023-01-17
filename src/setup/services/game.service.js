@@ -120,20 +120,23 @@ const disableKeyboardKeys = () => {
   })
 }
 
-const getImage = async (setImages) => {
-  const images = await getDoc(doc(firestoreDb, 'screenshot', `game-${process.env.REACT_APP_GAME_KEY}`))
-  setImages(images.data().urlImg)
+const getImage = async () => {
+  const image = await getDoc(doc(firestoreDb, 'screenshot', `game-${process.env.REACT_APP_GAME_KEY}`))
+  localStorage.setItem('urlImg', image.data().urlImg)
+  let img = image.data().urlImg
+  img = img.replace('"', '')
+  return img
 }
 const addImage = async (urlImg) => {
   await setDoc(doc(firestoreDb, 'screenshot', `game-${process.env.REACT_APP_GAME_KEY}`), {
     urlImg: urlImg
   })
 }
-const listenImage = async (setImages) => {
-  onSnapshot(doc(firestoreDb, 'screenshot', `game-${process.env.REACT_APP_GAME_KEY}`), (snapshot) => {
-    setImages(snapshot.data().urlImg)
-  })
-}
+// const listenImage = async (setImages) => {
+//   onSnapshot(doc(firestoreDb, 'screenshot', `game-${process.env.REACT_APP_GAME_KEY}`), (snapshot) => {
+//     setImages(snapshot.data().urlImg)
+//   })
+// }
 
 export { 
   getUserScore,
@@ -146,5 +149,5 @@ export {
   disableKeyboardKeys,
   getImage,
   addImage,
-  listenImage
+  // listenImage
 };

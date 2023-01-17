@@ -28,27 +28,27 @@ const updatePixelsGrid = async (game, createPixel) => {
 };
 
 const createPixelService = async ({ x, y, color, userId, urlImg }) => {
-    const user = await updateScore(userId)
-    const newPixel = {
-      x,
-      y,
-      color,
-      user,
-      createdAt: new Date(),
-    };
-    await setDoc(
-      doc(
-        firestoreDb,
-        `game-${process.env.REACT_APP_GAME_KEY}`,
-        `${newPixel.x}-${newPixel.y}`
-      ),
-      newPixel
-    );
-    await addImage(urlImg)
+  const user = await updateScore(userId)
+  const newPixel = {
+    x,
+    y,
+    color,
+    user,
+    createdAt: new Date(),
   };
+  await setDoc(
+    doc(
+      firestoreDb,
+      `game-${process.env.REACT_APP_GAME_KEY}`,
+      `${newPixel.x}-${newPixel.y}`
+    ),
+    newPixel
+  );
+  await addImage(urlImg)
+};
 
 export {
-    getPixel,
-    updatePixelsGrid,
-    createPixelService,
+  getPixel,
+  updatePixelsGrid,
+  createPixelService,
 }

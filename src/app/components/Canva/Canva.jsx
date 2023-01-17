@@ -17,6 +17,7 @@ import {
   closingGame,
   disableKeyboardKeys,
   getImage,
+  addImage,
 } from "../../../setup/services/game.service";
 import useTimer from "../../../setup/context/timerContext";
 import { createCookie, readCookie } from "../../../setup/utils/cookies";
@@ -108,7 +109,7 @@ const Canva = ({
     return color;
   }
 
-  function createPixel(ctx, x, y, color, init = false) {
+  async function createPixel(ctx, x, y, color, init = false) {
     ctx.beginPath();
     ctx.fillStyle = color;
     ctx.fillRect(x, y, gridCellSize, gridCellSize);
@@ -127,13 +128,19 @@ const Canva = ({
     addPixelAnimRef.current.addEventListener("animationend", () => {
       addPixelAnimRef.current.style.animation = "";
     });
+    let dataURL = localStorage.getItem(gameRef.current);
+    // await addImage(dataURL)
   }
 
   async function drawPixelOnInit() {
     const game = gameRef.current;
     const ctx = game.getContext("2d");
-    const img = await getImage(setImage)
-    ctx.drawImage(img, 0, 0);
+    const imgDatabase = await getImage();
+    const img = new Image();
+    img.src = imgDatabase;
+    img.onload = () => {
+      ctx.drawImage(img, 0, 0);
+    }
   }
 
   function handleMouseDown() {
@@ -179,8 +186,8 @@ const Canva = ({
           return;
         }
         const userId = localStorage.getItem("uid");
-        var dataURL = localStorage.getItem(gameRef.current);
-        var img = new Image();
+        let dataURL = localStorage.getItem(gameRef.current);
+        let img = new Image();
         img.src = dataURL;
         createPixel(ctx, x, y, currentColorChoice);
         createPixelService({
@@ -208,7 +215,7 @@ const Canva = ({
           }, 600);
         }
       }
-      localStorage.setItem(gameRef.current, gameRef.current.toDataURL());
+      localStorage.setItem(gameRef.current, gameRef.current.toDataURL("image/bmp"));
     }
 
     let transform = gameRef.current.style.transform;
@@ -229,7 +236,7 @@ const Canva = ({
     setIsMoving(false);
   }
 
-  function drawGrids(ctx, width, height, cellWidth, cellHeight) {
+  async function drawGrids(ctx, width, height, cellWidth, cellHeight) {
     ctx.beginPath();
     ctx.strokeStyle = "#ccc";
 
@@ -245,10 +252,12 @@ const Canva = ({
     ctx.stroke();
     const game = gameRef.current;
     const gridCtx = game.getContext("2d");
-    var dataURL = localStorage.getItem(gameRef.current);
+    var dataURL = await getImage()
     var img = new Image();
     img.src = dataURL;
-    gridCtx.drawImage(img, 0, 0);
+    img.onload = () => {
+      gridCtx.drawImage(img, 0, 0);
+    }
   }
 
   const handleScale = () => {
@@ -269,6 +278,7 @@ const Canva = ({
   };
 
   useEffect(() => {
+    getImage()
     getTimer(setTime);
     getUserScore(setProgress);
     const game = gameRef.current;
@@ -284,7 +294,6 @@ const Canva = ({
     closingGame(setIsClosing);
     disableKeyboardKeys();
     getLastTwentyUser();
-    getImage()
   }, []);
 
   const checkIsAdmin = async () => {
