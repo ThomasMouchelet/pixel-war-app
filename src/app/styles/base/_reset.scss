@@ -87,3 +87,9 @@ textarea:focus::placeholder {
 ::-webkit-scrollbar-thumb:hover {
  background: #888;
 }
+
+@media (max-width: 600px) {
+    #root {
+        overflow: hidden;
+    }
+  }

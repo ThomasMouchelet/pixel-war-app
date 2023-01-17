@@ -15,13 +15,13 @@ const Login = () => {
     const password = e.target.password.value;
     const data = { email, password };
 
-    try{
-      const response = await login(data)
-      if(response){
-        setUser(response)
+    try {
+      const response = await login(data);
+      if (response) {
+        setUser(response);
         navigate("/");
       }
-    }catch(e){
+    } catch (e) {
       setError(true);
     }
   };
@@ -29,12 +29,11 @@ const Login = () => {
   return (
     <AuthLayout>
       <div className="l-login">
-        <h1>
-          Connecte-toi et rejoins la
-          <br /> bataille !
-        </h1>
+        <h1>Connecte-toi et rejoins la bataille !</h1>
         {error && (
-          <p className="l-login__error">Les informations ne sont pas correctes</p>
+          <p className="l-login__error">
+            Les informations ne sont pas correctes
+          </p>
         )}
         <form onSubmit={handleSubmit}>
           <div>

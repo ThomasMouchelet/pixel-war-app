@@ -140,7 +140,7 @@ const Canva = ({
     if (window.matchMedia("(max-width: 768px)").matches) {
       document.addEventListener("touchmove", () => {
         setIsMoving(true);
-      });
+      }, { passive: false });
     } else {
       document.addEventListener("mousemove", () => {
         setIsMoving(true);
@@ -152,12 +152,14 @@ const Canva = ({
   function handleMouseUp(e) {
     if (isMoving === false) {
       const timestampTimer = readCookie("Google Analytics");
+
       let oldx;
       let oldy;
 
       if (window.matchMedia("(max-width: 768px)").matches) {
-        oldx = e.changedTouches[0].clientX;
-        oldy = e.changedTouches[0].clientY;
+        var rect = gameRef.current.getBoundingClientRect()
+        oldx = (rect.x - e.changedTouches[0].pageX) * -1
+        oldy = (rect.y - e.changedTouches[0].pageY) * -1
       } else {
         oldx = e.offsetX;
         oldy = e.offsetY;
@@ -318,20 +320,9 @@ const Canva = ({
           onMouseUp={(e) => handleMouseUp(e)}
         ></div>
         <div className="canva-container" ref={gameContainerRef} id="container">
-          {window.matchMedia("(max-width: 768px)").matches ? (
-            <canvas
-              id="game"
-              ref={gameRef}
-              onMouseMove={(e) => handleFollowMouse(e, scale)}
-              onTouchStart={(e) => handleMouseDown(e)}
-              onTouchEnd={(e) => handleMouseUp(e)}
-              className="c-canvas__game"
-            ></canvas>
-          ) : (
             <Draggable
               onStart={() => handleMouseDown()}
-              onStop={(e) => handleMouseUp(e)}
-            >
+              onStop={(e) => handleMouseUp(e)}>
               <canvas
                 id="game"
                 ref={gameRef}
@@ -341,7 +332,6 @@ const Canva = ({
                 className="c-canvas__game"
               ></canvas>
             </Draggable>
-          )}
         </div>
         <div ref={addPixelAnimRef} className="pixelAdd">
           +1

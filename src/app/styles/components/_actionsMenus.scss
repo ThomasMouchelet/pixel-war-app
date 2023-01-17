@@ -5,12 +5,15 @@
 
  &__menu {
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 34px;
 
   &__item {
    cursor: pointer;
    transition: 0.3s ease-in-out all;
+   width: 50px;
+   height: 50px;
 
    &:hover {
     animation: pulse 0.5s ease-in-out infinite;
@@ -48,4 +51,18 @@
  100% {
   transform: scale(1);
  }
+}
+
+@media (max-width: 600px) {
+  .action-menus__menu {
+    flex-direction: column;
+    right: 15px;
+  }
+  .action-menus__menu__item_2, .btn-logout {
+    display: none;
+  }
+  .action-menus__menu__item {
+    width: 50px;
+    height: 50px;
+  }
 }

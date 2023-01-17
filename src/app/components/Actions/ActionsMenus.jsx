@@ -11,6 +11,7 @@ import TwitchModalButton from "./Twitch.jsx/TwitchModalButton";
 const ActionMenus = ({ setHide, hide }) => {
   const [isModalActive, setIsModalActive] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isTwitchModalActive, setIsTwitchModalActive] = useState(true);
 
   const handleActiveModal = () => {
     setIsModalActive(!isModalActive);
@@ -29,12 +30,22 @@ const ActionMenus = ({ setHide, hide }) => {
     <>
       <div className="action-menus">
         <div className="action-menus__menu">
-          <div
-            className={!hide ? "action-menus__menu__item" : "hide"}
-            onClick={() => handleActiveMenu()}
-          >
-            <img src={LastPixel} alt="" className="menu" />
-          </div>
+          {!isMenuOpen ? (
+            <div
+              className={!hide ? "action-menus__menu__item" : "hide"}
+              onClick={() => handleActiveMenu()}
+            >
+              <img src={LastPixel} alt="" className="menu" />
+            </div>
+          ) : (
+            <div
+              className={!hide ? "action-menus__menu__item" : "hide"}
+              style={{ zIndex: "100", position: "fixed" }}
+              onClick={() => handleActiveMenu()}
+            >
+              <img src={CloseIcon} alt="" className="menu" />
+            </div>
+          )}
 
           <div
             className={!hide ? "action-menus__menu__item" : "hide"}
@@ -43,26 +54,22 @@ const ActionMenus = ({ setHide, hide }) => {
             <img src={Consigne} alt="" className="menu" />
           </div>
 
-          <div>
-            <TwitchModalButton hide={hide} />
+          <div
+            className={!hide ? "" : "hide"}
+            onClick={() => setIsTwitchModalActive(!isTwitchModalActive)}
+          >
+            <TwitchModalButton
+              hide={hide}
+              isTwitchModalActive={isTwitchModalActive}
+            />
           </div>
 
-          {!isMenuOpen ? (
-            <div
-              className="action-menus__menu__item"
-              onClick={() => setHide(!hide)}
-            >
-              <img src={!hide ? OpenEye : CloseEye} alt="" className="menu" />
-            </div>
-          ) : (
-            <div
-              className="action-menus__menu__item"
-              style={isMenuOpen ? { zIndex: 12 } : null}
-              onClick={() => setIsMenuOpen(false)}
-            >
-              <img src={CloseIcon} alt="" className="menu" />
-            </div>
-          )}
+          <div
+            className="action-menus__menu__item"
+            onClick={() => setHide(!hide)}
+          >
+            <img src={!hide ? OpenEye : CloseEye} alt="" className="menu" />
+          </div>
         </div>
       </div>
 
