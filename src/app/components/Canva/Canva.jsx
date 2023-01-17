@@ -391,7 +391,7 @@ const Canva = ({
             tutorialStep={tutorialStep}
           />
         )}
-        <ActionMenus setHide={setHide} hide={hide} tutorialStep={tutorialStep} />
+        <ActionMenus setHide={setHide} hide={hide} tutorialStep={tutorialStep} pause={pause} />
         <ProgressBar
           hide={hide}
           progress={progress}

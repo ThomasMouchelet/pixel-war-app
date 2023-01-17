@@ -1,4 +1,4 @@
-import TwitchIcon from "../../../assets/images/twitch-icon.png";
+import TwitchIcon from "../../../assets/images/dark-twitch-icon.svg";
 import CloseIcon from "../../../assets/images/close_icon.png";
 import { useEffect } from "react";
 
@@ -37,13 +37,7 @@ const TwitchModalButton = ({
         </div>
       ) : (
         <div
-          className="action-menus__menu__item"
-          style={{
-            position: "fixed",
-            zIndex: "100",
-            top: "10px",
-            right: "10px",
-          }}
+          className="action-menus__menu__item action-menus__menu__item__opened"
         >
           <img
             src={CloseIcon}
