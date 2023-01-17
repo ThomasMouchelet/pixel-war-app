@@ -32,6 +32,36 @@ const getLastTwentyUser = (setLastUsers) => {
   });
 };
 
+const getTopUser = async (setTopUsers) => {
+    const NUMBER_USER = 10
+    try {
+        const users = await getDocs(userCollection)
+        const topUsers = users.docs.map(user => {
+            if(user.data().email === 'admin@admin.com') {
+                return user.totalScore = 0
+            }
+            return user.data()
+        }).sort((a, b) => b.totalScore - a.totalScore).splice(0, NUMBER_USER)
+        console.log(topUsers);
+        setTopUsers(topUsers);
+    } catch (error) {
+        throw new Error(error)
+    }
+}
+
+const listenTopUser = async (setTopUsers) => {
+    onSnapshot(userCollection, (snapshot) => {
+        snapshot.docChanges().forEach(
+          async (change) => {
+            getTopUser(setTopUsers)
+          },
+          (error) => {
+            throw new Error(error)
+          }
+        )
+    })
+}
+
 const getAllUsers = async (setUsers) => {
   const usersData = await getDocs(userCollection);
   const usersDataArray = usersData.docs.map((doc) => doc.data());
@@ -67,4 +97,4 @@ const getUserByPixelPositions = async (x, y) => {
   return { username: user.username, totalScore: user.totalScore };
 };
 
-export { getLastTwentyUser, getUserByPixelPositions, listenAllUsers };
+export { getLastTwentyUser, getUserByPixelPositions, listenAllUsers, getTopUser, listenTopUser };
