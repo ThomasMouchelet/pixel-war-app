@@ -3,7 +3,7 @@ import TwitchIcon from "../../../assets/images/twitch-icon.png";
 import CloseIcon from "../../../assets/images/close_icon.png";
 
 const TwitchModalButton = ({hide}) => {
-  const [isModalActive, setIsModalActive] = useState(false);
+  const [isModalActive, setIsModalActive] = useState(true);
 
   useEffect(() => {
     // let embed;
