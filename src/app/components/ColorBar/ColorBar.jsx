@@ -3,8 +3,9 @@ import useTimer from "../../../setup/context/timerContext";
 import { readCookie } from "../../../setup/utils/cookies";
 import arrowIcon from "../../assets/images/arrow.png";
 
-const ColorBar = ({ currentColor, setCurrentColor, hide, gameTimer }) => {
+const ColorBar = ({ currentColor, setCurrentColor, hide, gameTimer, pageY, setPageY }) => {
   const [time, setTime] = useState(0);
+  const colorBarRef = useRef(null)
   const [isRotated, setIsRotated] = useState(false)
   const { newPixelIsCreated, setNewPixelIsCreated } = useTimer();
 
@@ -152,6 +153,7 @@ const ColorBar = ({ currentColor, setCurrentColor, hide, gameTimer }) => {
   return (
     <div
       className={!hide ? "colorBar" : "hide"}
+      ref={colorBarRef}
       style={newPixelIsCreated ? { width: "16rem", height: "4rem" } : null}
     >
       <div className="color-list" ref={colorListRef} >

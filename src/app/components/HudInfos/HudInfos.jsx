@@ -4,6 +4,7 @@ const HudInfo = ({ totalTimeInSec, hide }) => {
   const [time, setTime] = useState(totalTimeInSec);
   const [isOrange, setIsOrange] = useState(false);
 
+
   const hours = Math.floor(time / 3600);
   let minutes = Math.floor((time % 3600) / 60);
   let seconds = Math.floor(time % 60);
@@ -29,7 +30,7 @@ const HudInfo = ({ totalTimeInSec, hide }) => {
       }
       setTime(time - 1);
     }, 1000);
-  }, [time]);
+  }, [time])
 
   return (
     <div className={!hide ? "c-hud-info" : "hide"}>

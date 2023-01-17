@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { useState } from "react";
-import {UserContext} from "../../setup/context/UserContext";
+import { UserContext } from "../../setup/context/UserContext";
 import AuthLayout from "../layout/AuthLayout";
 import { register } from "../../setup/services/auth.service";
 
@@ -20,11 +20,11 @@ const Register = () => {
       password: password,
       email: email,
     };
-    
+
     try {
-      register(data)
+      register(data);
       setResult("Le compte a bien été créé");
-      setUser(data)
+      setUser(data);
       navigate("/");
     } catch (error) {
       if (e.stack.includes("email-already-in-use")) {
@@ -47,9 +47,7 @@ const Register = () => {
   return (
     <AuthLayout>
       <div className="l-register">
-        <h1>
-          Créé ton compte pour rejoindre la <br /> bataille !
-        </h1>
+        <h1>Créé ton compte pour rejoindre la bataille !</h1>
         {renderResult()}
         <form onSubmit={handleSubmit}>
           <input

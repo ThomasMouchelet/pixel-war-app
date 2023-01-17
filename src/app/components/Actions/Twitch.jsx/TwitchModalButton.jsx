@@ -42,30 +42,14 @@ const TwitchModalButton = ({hide}) => {
         <div
           className="action-menus__menu__item"
           onClick={() => setIsModalActive(false)}
-          style={{
-            zIndex: 12,
-            position: "fixed",
-            top: "10px",
-            right: "10px",
-          }}
         >
-          <img src={CloseIcon} alt="" className="menu" />
+          <img src={CloseIcon} alt="" className="menu action-menus_menu_item_cross" />
         </div>
       )}
 
       {isModalActive && (
         <div
-          className="modal"
-          style={{
-            position: "fixed",
-            top: "0",
-            right: "0",
-            width: "20%",
-            height: "100vh",
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
-            zIndex: 10,
-          }}
-        >
+          className="modal">
           <iframe
             src="https://www.twitch.tv/embed/pixelwaresd/chat?parent=app.pixel-war-esd.fr"
             height="100%"
