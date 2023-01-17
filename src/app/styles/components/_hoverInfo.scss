@@ -1,0 +1,13 @@
+.c-hoverInfo {
+    position: absolute;
+    bottom: 100%;
+    left: 100%;
+    background-color: $main-orange;
+    p {
+        padding: 4px;
+        font-family: $Gantari;
+        font-weight: 400;
+        font-size: 16px;
+        color: #fff;
+    }
+}

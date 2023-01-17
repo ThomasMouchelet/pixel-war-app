@@ -5,6 +5,7 @@ import HudInfo from "../HudInfos/HudInfos";
 import ActionMenus from "../Actions/ActionsMenus";
 import EndGameScreen from "../EndGameScreen/EndGameScreen";
 import ProgressBar from "../ProgressBar/ProgressBar";
+import HoverInfo from "../HoverInfo/HoverInfo";
 import LogOutButton from "../Actions/LogOut/LogOutButton";
 import ScaleButton from "../Actions/ScaleButton/ScaleButton";
 
@@ -28,8 +29,11 @@ import {
 import pause_icon from "../../assets/images/pause_icon.svg";
 import Draggable from "react-draggable";
 import { getUidFromLocalstorage } from "../../../setup/utils/uid";
-import { getLastTwentyUser } from "../../../setup/services/user.service";
 import Tutorial from "../Tutorial/Tutorial";
+import {
+  getLastTwentyUser,
+  listenAllUsers,
+} from "../../../setup/services/user.service";
 
 const Canva = ({
   currentColor,
@@ -56,6 +60,7 @@ const Canva = ({
   const [time, setTime] = useState(0);
   const [isAdminUser, setIsAdminUser] = useState(false);
   const [scale, setScale] = useState(1);
+  const [allUsers, setAllUsers] = useState([]);
 
   let currentColorChoice = currentColor;
   const gridCellSize = 10;
@@ -91,8 +96,8 @@ const Canva = ({
     const cursorTop = event.clientY + cursorHeightScale / 2;
     const x = cursorRef.current.offsetLeft;
     const y = cursorRef.current.offsetTop - game.offsetTop;
-    setXPosition(x / 10);
-    setYPosition(y / 10);
+    setXPosition(x);
+    setYPosition(y);
     cursorRef.current.style.left =
       Math.floor(cursorLeft / gridCellSizeScale) * gridCellSizeScale + "px";
     cursorRef.current.style.top =
@@ -206,7 +211,6 @@ const Canva = ({
         if (newPixelIsCreated && isAdminUser !== true) {
           return;
         }
-        console.log("placepixel");
         const userId = localStorage.getItem("uid");
         createPixel(ctx, x, y, currentColorChoice);
         createPixelService({
@@ -311,7 +315,12 @@ const Canva = ({
     closingGame(setIsClosing);
     disableKeyboardKeys();
     getLastTwentyUser();
+    listenAllUsers(setAllUsers);
   }, []);
+
+  useEffect(() => {
+    console.log(allUsers);
+  }, [allUsers]);
 
   const checkIsAdmin = async () => {
     const isAdmin = await checkUserIsAdmin();
@@ -345,20 +354,23 @@ const Canva = ({
           ref={cursorRef}
           style={{ borderColor: cursorColor }}
           onMouseUp={(e) => handleMouseUp(e)}
-        ></div>
+        >
+          <HoverInfo x={xPosition} y={yPosition} />
+        </div>
         <div className="canva-container" ref={gameContainerRef} id="container">
-            <Draggable
-              onStart={() => handleMouseDown()}
-              onStop={(e) => handleMouseUp(e)}>
-              <canvas
-                id="game"
-                ref={gameRef}
-                onMouseMove={(e) => handleFollowMouse(e, scale)}
-                onTouchStart={(e) => handleMouseDown(e)}
-                onTouchEnd={(e) => handleMouseUp(e)}
-                className="c-canvas__game"
-              ></canvas>
-            </Draggable>
+          <Draggable
+            onStart={() => handleMouseDown()}
+            onStop={(e) => handleMouseUp(e)}
+          >
+            <canvas
+              id="game"
+              ref={gameRef}
+              onMouseMove={(e) => handleFollowMouse(e, scale)}
+              onTouchStart={(e) => handleMouseDown(e)}
+              onTouchEnd={(e) => handleMouseUp(e)}
+              className="c-canvas__game"
+            ></canvas>
+          </Draggable>
         </div>
         <div ref={addPixelAnimRef} className="pixelAdd">
           +1
