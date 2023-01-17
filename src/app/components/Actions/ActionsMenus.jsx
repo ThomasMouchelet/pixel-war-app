@@ -45,7 +45,7 @@ const ActionMenus = ({ setHide, hide }) => {
           </div>
 
           <div
-            className={!hide ? "jejejej" : "hide"}
+            className={!hide ? "" : "hide"}
             onClick={() => setIsTwitchModalActive(!isTwitchModalActive)}
           >
             <TwitchModalButton
