@@ -378,11 +378,16 @@ const Canva = ({
             tutorialStep={tutorialStep}
           />
         )}
-        <ActionMenus setHide={setHide} hide={hide} />
+        <ActionMenus
+          setHide={setHide}
+          hide={hide}
+          tutorialStep={tutorialStep}
+        />
         <ProgressBar
           hide={hide}
           progress={progress}
           setProgress={setProgress}
+          tutorialStep={tutorialStep}
         />
         <ScaleButton
           handleScale={handleScale}

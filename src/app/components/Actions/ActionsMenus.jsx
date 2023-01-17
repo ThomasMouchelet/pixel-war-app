@@ -47,7 +47,7 @@ const ActionMenus = ({ setHide, hide, tutorialStep }) => {
           </div>
 
           <div>
-            <TwitchModalButton hide={hide} />
+            <TwitchModalButton hide={hide} tutorialStep={tutorialStep} />
           </div>
 
           {!isMenuOpen ? (

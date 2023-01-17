@@ -5,7 +5,7 @@ import present from "../../assets/images/present.png";
 import openPresent from "../../assets/images/open-present.png";
 import close from "../../assets/images/close_icon.png";
 
-const ProgressBar = ({ progress, hide }) => {
+const ProgressBar = ({ progress, hide, tutorialStep }) => {
   const [coins, setCoins] = useState(0);
   const [popupVisible, setPopupVisible] = useState(false);
   const [popupConcours, setPopupConcours] = useState(false);
@@ -74,7 +74,12 @@ const ProgressBar = ({ progress, hide }) => {
         </div>
       )}
 
-      <div className="c-progressbar__allbar" id="coins">
+      <div
+        className={`c-progressbar__allbar ${
+          tutorialStep === 6 ? "c-tutorial--active--absolute" : ""
+        }`}
+        id="coins"
+      >
         {barProgress ? (
           <div>
             <div>

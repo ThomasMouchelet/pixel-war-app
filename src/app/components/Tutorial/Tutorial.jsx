@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import arrowIcon from "../../assets/images/arrow.png";
+import openPresent from "../../assets/images/open-present-big.png";
 
 const tutorialData = [
   {
@@ -64,77 +65,6 @@ const Tutorial = ({ step, setStep }) => {
     if (step > 6) {
       localStorage.setItem("tutorial", true);
     }
-
-    switch (step) {
-      case 1:
-        document.querySelector("#eye").classList.add("c-tutorial--active");
-        document
-          .querySelector("#twitch")
-          .classList.remove("c-tutorial--active");
-        break;
-      case 2:
-        document.querySelector("#eye").classList.remove("c-tutorial--active");
-        document.querySelector("#twitch").classList.add("c-tutorial--active");
-        // document
-        //   .querySelector("#people")
-        //   .classList.remove("c-tutorial--active");
-        break;
-      case 3:
-        document
-          .querySelector("#twitch")
-          .classList.remove("c-tutorial--active");
-        // document.querySelector("#people").classList.add("c-tutorial--active");
-        // document
-        //   .querySelector("#time")
-        //   .classList.remove("c-tutorial--active--absolute");
-        break;
-      case 4:
-        // document
-        //   .querySelector("#people")
-        //   .classList.remove("c-tutorial--active");
-        // document
-        //   .querySelector("#time")
-        //   .classList.add("c-tutorial--active--absolute");
-        document
-          .querySelector("#colors")
-          .classList.remove("c-tutorial--active--absolute");
-        break;
-      case 5:
-        // document
-        //   .querySelector("#time")
-        //   .classList.remove("c-tutorial--active--absolute");
-        document
-          .querySelector("#colors")
-          .classList.add("c-tutorial--active--absolute");
-        document
-          .querySelector("#coins")
-          .classList.remove("c-tutorial--active--absolute");
-        break;
-      case 6:
-        document
-          .querySelector("#colors")
-          .classList.remove("c-tutorial--active--absolute");
-        document
-          .querySelector("#coins")
-          .classList.add("c-tutorial--active--absolute");
-        break;
-      default:
-        document.querySelector("#eye").classList.remove("c-tutorial--active");
-        document.querySelector("#coins").classList.remove("c-tutorial--active");
-        document
-          .querySelector("#twitch")
-          .classList.remove("c-tutorial--active");
-        // document.querySelector("#people").classList.remove("c-tutorial--active");
-        document
-          .querySelector("#time")
-          .classList.remove("c-tutorial--active--absolute");
-        document
-          .querySelector("#colors")
-          .classList.remove("c-tutorial--active--absolute");
-        document
-          .querySelector("#coins")
-          .classList.remove("c-tutorial--active--absolute");
-    }
   }, [step]);
 
   const renderButtons = () => {
@@ -197,6 +127,9 @@ const Tutorial = ({ step, setStep }) => {
               {tutorialData[step - 1].title}
             </h2>
             {tutorialData[step - 1].description}
+            {step === 6 && (
+              <img className="c-tutorial__image" src={openPresent} alt="" />
+            )}
             {renderButtons()}
             <div className="c-tutorial__wrapper__right"></div>
           </div>

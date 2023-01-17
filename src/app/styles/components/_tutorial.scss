@@ -258,4 +258,9 @@
         pointer-events: none;
         position: relative;
     }
+    &__image {
+        display: block;
+        margin: 0 auto;
+        margin-bottom: 12px;
+    }
 }
