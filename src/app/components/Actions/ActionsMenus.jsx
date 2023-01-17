@@ -11,7 +11,7 @@ import LastPixelMenu from "./LastPixelMenu/LastPixelMenu";
 import TwitchModalButton from "./Twitch.jsx/TwitchModalButton";
 import pause_icon from "../../assets/images/pause_icon.svg";
 
-const ActionMenus = ({ setHide, hide, tutorialStep, pause }) => {
+const ActionMenus = ({ setHide, hide, tutorialStep, pause, setTutorialStep }) => {
   const [isModalActive, setIsModalActive] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isTwitchModalActive, setIsTwitchModalActive] = useState(true);
@@ -21,6 +21,11 @@ const ActionMenus = ({ setHide, hide, tutorialStep, pause }) => {
     if (isMenuOpen) {
       setIsMenuOpen(false);
     }
+  };
+
+  const handleReturnTuto = () => {
+    localStorage.removeItem("tutorial");
+    setTutorialStep(1);
   };
 
   const handleActiveMenu = () => {
@@ -81,7 +86,8 @@ const ActionMenus = ({ setHide, hide, tutorialStep, pause }) => {
             <img src={!hide ? OpenEye : CloseEye} alt="" className="menu" />
           </div>
           <div
-              className={!hide ? "action-menus__menu__item" : "hide"}
+            className={!hide ? "action-menus__menu__item" : "hide"}
+            onClick={() => handleReturnTuto()}
             >
               <img src={Help} alt="" className="menu" />
             </div>

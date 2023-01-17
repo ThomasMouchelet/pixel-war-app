@@ -318,9 +318,9 @@ const Canva = ({
     listenAllUsers(setAllUsers);
   }, []);
 
-  useEffect(() => {
-    console.log(allUsers);
-  }, [allUsers]);
+  // useEffect(() => {
+  //   console.log(allUsers);
+  // }, [allUsers]);
 
   const checkIsAdmin = async () => {
     const isAdmin = await checkUserIsAdmin();
@@ -391,7 +391,7 @@ const Canva = ({
             tutorialStep={tutorialStep}
           />
         )}
-        <ActionMenus setHide={setHide} hide={hide} tutorialStep={tutorialStep} pause={pause} />
+        <ActionMenus setHide={setHide} hide={hide} tutorialStep={tutorialStep} pause={pause} setTutorialStep={setTutorialStep} />
         <ProgressBar
           hide={hide}
           progress={progress}

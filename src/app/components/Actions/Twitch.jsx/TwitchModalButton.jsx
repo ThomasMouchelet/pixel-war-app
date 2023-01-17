@@ -24,7 +24,6 @@ const TwitchModalButton = ({
             tutorialStep === 2 ? "c-tutorial--active" : ""
           }`}
           style={{
-            backgroundColor: "rgba(255, 255, 255, 1)",
             width: "60px",
             height: "60px",
             display: "flex",

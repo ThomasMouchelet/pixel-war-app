@@ -132,6 +132,7 @@ const Tutorial = ({ step, setStep }) => {
         </div>
       );
     } else {
+      setStep(7);
       return null;
     }
   };
