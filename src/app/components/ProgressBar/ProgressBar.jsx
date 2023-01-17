@@ -21,18 +21,22 @@ const ProgressBar = ({ progress, hide }) => {
     setValueProgress(reste);
 
     if (coins < 9) {
-      if (progress === 100) {
-        setPopupVisible(true);
-        setTimeout(() => {
-          setPopupVisible(false);
-        }, 5000);
-      }
+      if (progress != 0 && progress % 100 === 0) {
+          setPopupVisible(true);
+          console.log(popupVisible)
+          setTimeout(() => {
+            setPopupVisible(false);
+          }, 2000);
+        }
     }
   }, [progress]);
 
   useEffect(() => {
-    if (coins === 10) {
-      setPopupConcours(true);
+    if (coins >= 10) {
+      if (!localStorage.getItem("concoursStorage")){
+        setPopupConcours(true);
+      }
+      localStorage.setItem("concoursStorage", true)
       setBarProgress(false);
       setTimeout(() => {
         setPopupConcours(false);
