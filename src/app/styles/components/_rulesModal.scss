@@ -84,3 +84,17 @@
         }
     }
 }
+
+@media (max-width: 1000px) {
+   .rules-modal__content__header h2 {
+        font-size: 24px;
+    }
+   .rules-modal__content__header h2::before {
+        font-size: 24px
+    }
+    .rules-modal .close-icon {
+   right: 110%;
+   top: -12%
+    }
+ }
+  

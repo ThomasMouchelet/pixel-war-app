@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import coin from "../../assets/images/coin.png";
 import trophy from "../../assets/images/trophy.png";
 import present from "../../assets/images/present.png";
 import openPresent from "../../assets/images/open-present.png";
 import close from "../../assets/images/close_icon.png";
 
-const ProgressBar = ({ progress, hide }) => {
+const ProgressBar = ({ progress, hide, tutorialStep }) => {
   const [coins, setCoins] = useState(0);
   const [popupVisible, setPopupVisible] = useState(false);
   const [popupConcours, setPopupConcours] = useState(false);
@@ -21,18 +21,22 @@ const ProgressBar = ({ progress, hide }) => {
     setValueProgress(reste);
 
     if (coins < 9) {
-      if (progress === 100) {
+      if (progress != 0 && progress % 100 === 0) {
         setPopupVisible(true);
+        console.log(popupVisible);
         setTimeout(() => {
           setPopupVisible(false);
-        }, 5000);
+        }, 2000);
       }
     }
   }, [progress]);
 
   useEffect(() => {
-    if (coins === 10) {
-      setPopupConcours(true);
+    if (coins >= 10) {
+      if (!localStorage.getItem("concoursStorage")) {
+        setPopupConcours(true);
+      }
+      localStorage.setItem("concoursStorage", true);
       setBarProgress(false);
       setTimeout(() => {
         setPopupConcours(false);
@@ -74,7 +78,12 @@ const ProgressBar = ({ progress, hide }) => {
         </div>
       )}
 
-      <div className="c-progressbar__allbar">
+      <div
+        className={`c-progressbar__allbar ${
+          tutorialStep === 6 ? "c-tutorial--active--absolute" : ""
+        }`}
+        id="coins"
+      >
         {barProgress ? (
           <div>
             <div>

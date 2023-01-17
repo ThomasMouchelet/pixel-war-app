@@ -1,35 +1,47 @@
 .action-menus {
  position: absolute;
- right: 4%;
- top: 5%;
+ background: $main-orange;
+ right: 0;
+ top: 0;
+ height: 100vh;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ width: 120px;
 
  &__menu {
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 34px;
+  fill: white;
 
   &__item {
    cursor: pointer;
+   display: flex;
    transition: 0.3s ease-in-out all;
 
    &:hover {
     animation: pulse 0.5s ease-in-out infinite;
    }
+
   }
  }
 }
 
+.action-menu-transparent {
+  background: transparent;
+}
+
 .btn-logout {
- width: 51px;
- height: 51px;
- background: #FFF;
- border-radius: 100px;
- bottom: 30px;
- right: 5%;
- position: absolute;
- display: flex;
- align-items: center;
- justify-content: center
+ position: relative;
+ bottom: -20%;
+}
+
+.pixel-war-logo {
+  width: 90%;
+  position: relative;
+  top: -20%
 }
 
 .hide {
@@ -48,4 +60,31 @@
  100% {
   transform: scale(1);
  }
+}
+
+@media (max-width: 1000px) {
+  .pixel-war-logo {
+    display: none;
+  }
+  .action-menus {
+    background: transparent;
+  }
+  .action-menus__menu {
+    flex-direction: column;
+    right: 15px;
+  }
+  .action-menus__menu__item_2, .btn-logout {
+    display: none;
+  }
+  .action-menus__menu__item {
+    width: 50px;
+    height: 50px;
+  }
+  .action-menus__menu__item:hover {
+    animation: none;
+  }
+  .action-menus__menu__item__opened {
+    position: relative;
+    z-index: 11;
+  }
 }

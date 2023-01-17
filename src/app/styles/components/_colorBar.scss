@@ -68,3 +68,9 @@
 .rotate {
   transform: rotate(180deg);
 }
+
+@media (max-width: 600px) {
+  .colorBar {
+    width: 90vw;
+  }
+}
