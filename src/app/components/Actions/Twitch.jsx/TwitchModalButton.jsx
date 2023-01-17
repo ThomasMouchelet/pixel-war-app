@@ -20,12 +20,19 @@ const TwitchModalButton = ({ hide, isTwitchModalActive }) => {
           <img src={TwitchIcon} alt="" />
         </div>
       ) : (
-        <div className="action-menus__menu__item">
+        <div
+          className="action-menus__menu__item"
+          style={{
+            position: "fixed",
+            zIndex: "100",
+            top: "10px",
+            right: "10px",
+          }}
+        >
           <img
             src={CloseIcon}
             alt=""
             className="menu action-menus_menu_item_cross"
-            style={{ position: "fixed", zIndex: "100", top: "10px", right: "10px" }}
           />
         </div>
       )}
