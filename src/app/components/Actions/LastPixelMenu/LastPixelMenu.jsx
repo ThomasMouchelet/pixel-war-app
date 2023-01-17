@@ -6,6 +6,7 @@ const LastPixelMenu = ({ isMenuOpen, setIsMenuOpen }) => {
   const [displayUserCard, setDisplayUserCard] = useState(true);
 
   useEffect(() => {
+    console.log(users);
     getLastTwentyUser(setUsers);
     setTimeout(() => {
       setDisplayUserCard(false);
@@ -16,7 +17,7 @@ const LastPixelMenu = ({ isMenuOpen, setIsMenuOpen }) => {
       <div className="lastPixel__content">
         <h2>Dernières actions</h2>
         <ul className="user-list">
-          {users ? users.map(user => <li key={user.user.uuid} className="user-card">{user.user.username}</li>) : null}
+          {users ? users.map(user => <li key={user.user.uid + Math.floor(Math.random() * 10) + 1} className="user-card">{user.user.username}</li>) : null}
         </ul>
       </div>
     </div>

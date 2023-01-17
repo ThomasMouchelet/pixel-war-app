@@ -11,6 +11,7 @@ import TwitchModalButton from "./Twitch.jsx/TwitchModalButton";
 const ActionMenus = ({ setHide, hide }) => {
   const [isModalActive, setIsModalActive] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isTwitchModalActive, setIsTwitchModalActive] = useState(true);
 
   const handleActiveModal = () => {
     setIsModalActive(!isModalActive);
@@ -37,14 +38,20 @@ const ActionMenus = ({ setHide, hide }) => {
           </div>
 
           <div
-            className={!hide ? "action-menus__menu__item action-menus__menu__item_2" : "hide"}
+            className={!hide ? "" : "hide"}
             onClick={() => handleActiveModal()}
           >
             <img src={Consigne} alt="" className="menu" />
           </div>
 
-          <div>
-            <TwitchModalButton hide={hide} />
+          <div
+            className={!hide ? "jejejej" : "hide"}
+            onClick={() => setIsTwitchModalActive(!isTwitchModalActive)}
+          >
+            <TwitchModalButton
+              hide={hide}
+              isTwitchModalActive={isTwitchModalActive}
+            />
           </div>
           {!isMenuOpen ? (
             <div
