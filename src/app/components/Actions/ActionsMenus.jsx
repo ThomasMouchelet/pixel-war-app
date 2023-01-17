@@ -30,15 +30,25 @@ const ActionMenus = ({ setHide, hide }) => {
     <>
       <div className="action-menus">
         <div className="action-menus__menu">
-          <div
-            className={!hide ? "action-menus__menu__item" : "hide"}
-            onClick={() => handleActiveMenu()}
-          >
-            <img src={LastPixel} alt="" className="menu" />
-          </div>
+          {!isMenuOpen ? (
+            <div
+              className={!hide ? "action-menus__menu__item" : "hide"}
+              onClick={() => handleActiveMenu()}
+            >
+              <img src={LastPixel} alt="" className="menu" />
+            </div>
+          ) : (
+            <div
+              className={!hide ? "action-menus__menu__item" : "hide"}
+              style={{ zIndex: "100", position: "fixed" }}
+              onClick={() => handleActiveMenu()}
+            >
+              <img src={CloseIcon} alt="" className="menu" />
+            </div>
+          )}
 
           <div
-            className={!hide ? "" : "hide"}
+            className={!hide ? "action-menus__menu__item" : "hide"}
             onClick={() => handleActiveModal()}
           >
             <img src={Consigne} alt="" className="menu" />
@@ -53,22 +63,13 @@ const ActionMenus = ({ setHide, hide }) => {
               isTwitchModalActive={isTwitchModalActive}
             />
           </div>
-          {!isMenuOpen ? (
-            <div
-              className="action-menus__menu__item"
-              onClick={() => setHide(!hide)}
-            >
-              <img src={!hide ? OpenEye : CloseEye} alt="" className="menu" />
-            </div>
-          ) : (
-            <div
-              className="action-menus__menu__item"
-              style={isMenuOpen ? { zIndex: 12 } : null}
-              onClick={() => setIsMenuOpen(false)}
-            >
-              <img src={CloseIcon} alt="" className="menu" />
-            </div>
-          )}
+
+          <div
+            className="action-menus__menu__item"
+            onClick={() => setHide(!hide)}
+          >
+            <img src={!hide ? OpenEye : CloseEye} alt="" className="menu" />
+          </div>
         </div>
       </div>
 
