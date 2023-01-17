@@ -49,7 +49,11 @@ const ProgressBar = ({ progress, hide }) => {
         >
           <img src={!coinModal ? present : close} alt="" />
 
-          <div className={!coinModal ? "coin-modal" : "coin-modal coin-modal-active"}>
+          <div
+            className={
+              !coinModal ? "coin-modal" : "coin-modal coin-modal-active"
+            }
+          >
             <div className="coin-modal__header">
               <span>Gagne des Airpods 3</span>
             </div>
@@ -81,7 +85,7 @@ const ProgressBar = ({ progress, hide }) => {
             <div className="c-progressbar__bar">
               <div
                 className="c-progressbar__fill"
-                style={{ height: `calc(${valueProgress} * 5%)` }}
+                style={{ height: `calc(${valueProgress} * 1%)` }}
               ></div>
             </div>
             <div>
