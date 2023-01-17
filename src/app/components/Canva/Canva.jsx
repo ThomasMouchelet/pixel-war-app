@@ -88,20 +88,30 @@ const Canva = ({
   };
 
   const handleFollowMouse = (event, scale) => {
-    const game = gameRef.current;
     const cursorWidthScale = cursorRef.current.offsetWidth * scale;
     const cursorHeightScale = cursorRef.current.offsetHeight * scale;
     const gridCellSizeScale = gridCellSize * scale;
     const cursorLeft = event.clientX + cursorWidthScale / 2;
     const cursorTop = event.clientY + cursorHeightScale / 2;
-    const x = cursorRef.current.offsetLeft;
-    const y = cursorRef.current.offsetTop - game.offsetTop;
-    setXPosition(x);
-    setYPosition(y);
     cursorRef.current.style.left =
       Math.floor(cursorLeft / gridCellSizeScale) * gridCellSizeScale + "px";
     cursorRef.current.style.top =
       Math.floor(cursorTop / gridCellSizeScale) * gridCellSizeScale + "px";
+
+    let oldx;
+    let oldy;
+
+    if (window.matchMedia("(max-width: 768px)").matches) {
+      var rect = gameRef.current.getBoundingClientRect();
+      oldx = (rect.x - event.changedTouches[0].clientX) * -1;
+      oldy = (rect.y - event.changedTouches[0].clientY) * -1;
+    } else {
+      oldx = event.nativeEvent.offsetX;
+      oldy = event.nativeEvent.offsetY;
+    }
+
+    setXPosition(Math.round(oldx / 10) * 10);
+    setYPosition(Math.round(oldy / 10) * 10);
   };
 
   function getRandomColor() {
@@ -183,7 +193,6 @@ const Canva = ({
   function handleMouseUp(e) {
     if (isMoving === false) {
       const timestampTimer = readCookie("Google Analytics");
-
       let oldx;
       let oldy;
 
@@ -201,7 +210,9 @@ const Canva = ({
       ctx.save();
 
       let x = Math.round(oldx / 10) * 10;
+      console.log(x, "newX");
       let y = Math.round(oldy / 10) * 10;
+      console.log(y, "newY");
 
       if (!isScaled) {
         const currentTime = Math.floor(new Date().getTime() / 1000);
