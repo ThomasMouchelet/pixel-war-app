@@ -6,7 +6,6 @@ const LastPixelMenu = ({ isMenuOpen, setIsMenuOpen }) => {
   const [displayUserCard, setDisplayUserCard] = useState(true);
 
   useEffect(() => {
-    console.log(users);
     getLastTwentyUser(setUsers);
     setTimeout(() => {
       setDisplayUserCard(false);

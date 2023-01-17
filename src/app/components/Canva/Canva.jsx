@@ -180,7 +180,6 @@ const Canva = ({
         if (newPixelIsCreated && isAdminUser !== true) {
           return;
         }
-        console.log("placepixel");
         const userId = localStorage.getItem("uid");
         createPixel(ctx, x, y, currentColorChoice);
         createPixelService({
@@ -345,7 +344,7 @@ const Canva = ({
             gameTimer={gameParams.gameTimer}
           />
         )}
-        <ActionMenus setHide={setHide} hide={hide} />
+        <ActionMenus pause={pause} setHide={setHide} hide={hide} />
         <ProgressBar
           hide={hide}
           progress={progress}
@@ -356,7 +355,6 @@ const Canva = ({
           isScaled={isScaled}
           hide={hide}
         />
-        <LogOutButton hide={hide} />
         {pause ? (
           <div className="pause-war">
             <img src={pause_icon} alt="" />

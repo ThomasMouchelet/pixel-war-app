@@ -1,4 +1,4 @@
-import TwitchIcon from "../../../assets/images/twitch-icon.png";
+import TwitchIcon from "../../../assets/images/dark-twitch-icon.svg";
 import CloseIcon from "../../../assets/images/close_icon.png";
 
 const TwitchModalButton = ({ hide, isTwitchModalActive }) => {
@@ -7,27 +7,12 @@ const TwitchModalButton = ({ hide, isTwitchModalActive }) => {
       {!isTwitchModalActive ? (
         <div
           className="action-menus__menu__item"
-          style={{
-            backgroundColor: "rgba(255, 255, 255, 1)",
-            width: "60px",
-            height: "60px",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            borderRadius: "50%",
-          }}
         >
           <img src={TwitchIcon} alt="" />
         </div>
       ) : (
         <div
-          className="action-menus__menu__item"
-          style={{
-            position: "fixed",
-            zIndex: "100",
-            top: "10px",
-            right: "10px",
-          }}
+          className="action-menus__menu__item action-menus__menu__item__opened"
         >
           <img
             src={CloseIcon}
