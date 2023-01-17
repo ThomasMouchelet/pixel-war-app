@@ -44,3 +44,11 @@
   transform: scale(1);
  }
 }
+
+
+@media (max-width: 600px) {
+    .lastPixel {
+        width: 55%;
+        z-index: 5;
+    }
+  }
