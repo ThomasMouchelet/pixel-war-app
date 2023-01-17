@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const HudInfo = ({ totalTimeInSec, hide }) => {
+const HudInfo = ({ totalTimeInSec, hide, tutorialStep }) => {
   const [time, setTime] = useState(totalTimeInSec);
 
   const hours = Math.floor(time / 3600);
@@ -24,7 +24,12 @@ const HudInfo = ({ totalTimeInSec, hide }) => {
   }, [time]);
 
   return (
-    <div className={!hide ? "c-hud-info" : "hide"} id="time">
+    <div
+      className={`${!hide ? "c-hud-info" : "hide"} ${
+        tutorialStep === 4 ? "c-tutorial--active--absolute" : ""
+      }`}
+      id="time"
+    >
       <div className="c-hud-info__container">
         <div className="c-hud-info__left"></div>
         <p>Temps: {renderTime()}</p>

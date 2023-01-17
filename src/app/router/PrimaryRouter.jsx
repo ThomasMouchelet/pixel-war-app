@@ -28,7 +28,6 @@ const PrimaryRouter = () => {
                   pixelColor={pixelColor}
                   setPixelColor={setPixelColor}
                 />
-                <Tutorial />
               </>
               // </ProtectedRoute>
             }

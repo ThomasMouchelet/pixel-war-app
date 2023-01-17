@@ -27,6 +27,7 @@ import {
 
 import pause_icon from "../../assets/images/pause_icon.svg";
 import Draggable from "react-draggable";
+import Tutorial from "../Tutorial/Tutorial";
 
 const Canva = ({
   currentColor,
@@ -41,6 +42,7 @@ const Canva = ({
   const [progress, setProgress] = useState(0);
   const [hide, setHide] = useState(false);
   const [pause, setPause] = useState(false);
+  const [tutorialStep, setTutorialStep] = useState(1);
   const [isClosing, setIsClosing] = useState(false);
   const [isScaled, setIsScaled] = useState(false);
   const [isMoving, setIsMoving] = useState(false);
@@ -360,7 +362,13 @@ const Canva = ({
         <div ref={addPixelAnimRef} className="pixelAdd">
           +1
         </div>
-        {time && <HudInfo hide={hide} totalTimeInSec={time} />}
+        {time && (
+          <HudInfo
+            hide={hide}
+            totalTimeInSec={time}
+            tutorialStep={tutorialStep}
+          />
+        )}
         {gameParams.gameTimer && (
           <ColorBar
             hide={hide}
@@ -381,6 +389,7 @@ const Canva = ({
           hide={hide}
         />
         <LogOutButton hide={hide} />
+        <Tutorial step={tutorialStep} setStep={setTutorialStep} />
         {pause ? (
           <div className="pause-war">
             <img src={pause_icon} alt="" />

@@ -59,9 +59,7 @@ const tutorialData = [
   },
 ];
 
-const Tutorial = () => {
-  const [step, setStep] = useState(1);
-
+const Tutorial = ({ step, setStep }) => {
   useEffect(() => {
     if (step > 6) {
       localStorage.setItem("tutorial", true);

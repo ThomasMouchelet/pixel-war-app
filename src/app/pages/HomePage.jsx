@@ -7,15 +7,12 @@ const HomePage = () => {
   const [pixelColor, setPixelColor] = useState([]);
 
   return (
-    <>
-      <Canva
-        currentColor={currentColor}
-        setCurrentColor={setCurrentColor}
-        pixelColor={pixelColor}
-        setPixelColor={setPixelColor}
-      />
-      <Tutorial />
-    </>
+    <Canva
+      currentColor={currentColor}
+      setCurrentColor={setCurrentColor}
+      pixelColor={pixelColor}
+      setPixelColor={setPixelColor}
+    />
   );
 };
 
