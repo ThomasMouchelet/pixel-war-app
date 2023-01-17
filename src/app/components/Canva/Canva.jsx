@@ -178,8 +178,12 @@ const Canva = ({
         if (newPixelIsCreated && isAdminUser !== true) {
           return;
         }
-        console.log("placepixel");
         const userId = localStorage.getItem("uid");
+
+        if (gameParams.isPlaying === false) {
+          setPause(true);
+          return;
+        }
         createPixel(ctx, x, y, currentColorChoice);
         createPixelService({
           x: x,
@@ -187,11 +191,6 @@ const Canva = ({
           color: currentColorChoice,
           userId: userId,
         });
-
-        if (gameParams.isPlaying === false) {
-          setPause(true);
-          return;
-        }
         setPause(false);
         if (!newPixelIsCreated) {
           setProgress(progress + 1);
