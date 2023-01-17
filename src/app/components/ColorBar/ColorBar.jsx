@@ -3,10 +3,16 @@ import useTimer from "../../../setup/context/timerContext";
 import { readCookie } from "../../../setup/utils/cookies";
 import arrowIcon from "../../assets/images/arrow.png";
 
-const ColorBar = ({ currentColor, setCurrentColor, hide, gameTimer, pageY, setPageY }) => {
+const ColorBar = ({
+  currentColor,
+  setCurrentColor,
+  hide,
+  gameTimer,
+  tutorialStep,
+}) => {
   const [time, setTime] = useState(0);
-  const colorBarRef = useRef(null)
-  const [isRotated, setIsRotated] = useState(false)
+  const colorBarRef = useRef(null);
+  const [isRotated, setIsRotated] = useState(false);
   const { newPixelIsCreated, setNewPixelIsCreated } = useTimer();
 
   useEffect(() => {
@@ -50,13 +56,13 @@ const ColorBar = ({ currentColor, setCurrentColor, hide, gameTimer, pageY, setPa
     "#8B0546",
     "#FC6DFF",
     "#DADADA",
-    "#000575757",
+    "#d63a4f",
   ];
 
   const colorListRef = useRef(null);
   const arrowRef = useRef(null);
   const arrowRef2 = useRef(null);
-  
+
   useEffect(() => {
     const timestampTimer = readCookie("Google Analytics");
     if (timestampTimer) {
@@ -71,45 +77,48 @@ const ColorBar = ({ currentColor, setCurrentColor, hide, gameTimer, pageY, setPa
   const handleColorListNavigationLeft = () => {
     arrowRef2.current.style.opacity = "1";
     if (!isRotated) {
-      colorListRef.current.scrollBy(colorListRef.current.clientWidth/10, 0)
+      colorListRef.current.scrollBy(colorListRef.current.clientWidth / 10, 0);
       if (
         colorListRef.current.scrollLeft >
-        colorListRef.current.clientWidth * .90
+        colorListRef.current.clientWidth * 0.9
       ) {
         setIsRotated(true);
       }
       return;
     }
     if (isRotated == true) {
-      colorListRef.current.scrollBy(colorListRef.current.clientWidth/10, 0)
+      colorListRef.current.scrollBy(colorListRef.current.clientWidth / 10, 0);
       if (
         colorListRef.current.scrollLeft <
-        colorListRef.current.clientWidth * .1 
+        colorListRef.current.clientWidth * 0.1
       ) {
         setIsRotated(false);
       }
       return;
     }
-  }
+  };
 
   const handleColorListNavigationRight = () => {
     if (!isRotated) {
       if (
         colorListRef.current.scrollLeft >
-        colorListRef.current.clientWidth * .01
+        colorListRef.current.clientWidth * 0.01
       ) {
         arrowRef.current.style.opacity = "1";
-        colorListRef.current.scrollBy(colorListRef.current.clientWidth/-10, 0)
+        colorListRef.current.scrollBy(
+          colorListRef.current.clientWidth / -10,
+          0
+        );
         setIsRotated(true);
       }
       return;
     }
     if (isRotated == true) {
-      colorListRef.current.scrollBy(colorListRef.current.clientWidth/-10, 0)
+      colorListRef.current.scrollBy(colorListRef.current.clientWidth / -10, 0);
       arrowRef.current.style.opacity = "1";
       if (
         colorListRef.current.scrollLeft <
-        colorListRef.current.clientWidth * .1 
+        colorListRef.current.clientWidth * 0.1
       ) {
         setIsRotated(false);
       }
@@ -152,11 +161,12 @@ const ColorBar = ({ currentColor, setCurrentColor, hide, gameTimer, pageY, setPa
 
   return (
     <div
-      className={!hide ? "colorBar" : "hide"}
-      ref={colorBarRef}
+      className={`${!hide ? "colorBar" : "hide"} ${
+        tutorialStep === 5 ? "c-tutorial--active--absolute" : ""
+      }`}
       style={newPixelIsCreated ? { width: "16rem", height: "4rem" } : null}
     >
-      <div className="color-list" ref={colorListRef} >
+      <div className="color-list" ref={colorListRef}>
         {newPixelIsCreated === false ? (
           <>
             <img
@@ -164,6 +174,7 @@ const ColorBar = ({ currentColor, setCurrentColor, hide, gameTimer, pageY, setPa
               src={arrowIcon}
               className="arrow-icon arrow-icon-2"
               onClick={handleColorListNavigationRight}
+              alt=""
             />
             {colorList.map((color, index) => (
               <div
@@ -178,6 +189,7 @@ const ColorBar = ({ currentColor, setCurrentColor, hide, gameTimer, pageY, setPa
               src={arrowIcon}
               className="arrow-icon"
               onClick={handleColorListNavigationLeft}
+              alt=""
             />
           </>
         ) : (

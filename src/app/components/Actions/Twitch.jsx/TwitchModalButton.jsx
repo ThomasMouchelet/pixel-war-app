@@ -1,12 +1,28 @@
 import TwitchIcon from "../../../assets/images/twitch-icon.png";
 import CloseIcon from "../../../assets/images/close_icon.png";
+import { useEffect } from "react";
 
-const TwitchModalButton = ({ hide, isTwitchModalActive }) => {
+const TwitchModalButton = ({
+  hide,
+  isTwitchModalActive,
+  setIsTwitchModalActive,
+  tutorialStep,
+}) => {
+  useEffect(() => {
+    console.log("tuto step", tutorialStep);
+    if (tutorialStep <= 6) {
+      setIsTwitchModalActive(false);
+    } else {
+      setIsTwitchModalActive(true);
+    }
+  }, [tutorialStep]);
   return (
     <>
       {!isTwitchModalActive ? (
         <div
-          className="action-menus__menu__item"
+          className={`action-menus__menu__item ${
+            tutorialStep === 2 ? "c-tutorial--active" : ""
+          }`}
           style={{
             backgroundColor: "rgba(255, 255, 255, 1)",
             width: "60px",

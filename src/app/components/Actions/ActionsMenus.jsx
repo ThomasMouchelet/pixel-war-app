@@ -8,7 +8,7 @@ import { useState } from "react";
 import LastPixelMenu from "./LastPixelMenu/LastPixelMenu";
 import TwitchModalButton from "./Twitch.jsx/TwitchModalButton";
 
-const ActionMenus = ({ setHide, hide }) => {
+const ActionMenus = ({ setHide, hide, tutorialStep }) => {
   const [isModalActive, setIsModalActive] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isTwitchModalActive, setIsTwitchModalActive] = useState(true);
@@ -32,7 +32,9 @@ const ActionMenus = ({ setHide, hide }) => {
         <div className="action-menus__menu">
           {!isMenuOpen ? (
             <div
-              className={!hide ? "action-menus__menu__item" : "hide"}
+              className={`${!hide ? "action-menus__menu__item" : "hide"} ${
+                tutorialStep === 3 ? "c-tutorial--active" : ""
+              }`}
               onClick={() => handleActiveMenu()}
             >
               <img src={LastPixel} alt="" className="menu" />
@@ -61,11 +63,15 @@ const ActionMenus = ({ setHide, hide }) => {
             <TwitchModalButton
               hide={hide}
               isTwitchModalActive={isTwitchModalActive}
+              setIsTwitchModalActive={setIsTwitchModalActive}
+              tutorialStep={tutorialStep}
             />
           </div>
 
           <div
-            className="action-menus__menu__item"
+            className={`action-menus__menu__item ${
+              tutorialStep === 1 ? "c-tutorial--active" : ""
+            }`}
             onClick={() => setHide(!hide)}
           >
             <img src={!hide ? OpenEye : CloseEye} alt="" className="menu" />

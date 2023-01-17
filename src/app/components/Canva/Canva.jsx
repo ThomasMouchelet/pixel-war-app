@@ -29,6 +29,7 @@ import pause_icon from "../../assets/images/pause_icon.svg";
 import Draggable from "react-draggable";
 import { getUidFromLocalstorage } from "../../../setup/utils/uid";
 import { getLastTwentyUser } from "../../../setup/services/user.service";
+import Tutorial from "../Tutorial/Tutorial";
 
 const Canva = ({
   currentColor,
@@ -43,6 +44,7 @@ const Canva = ({
   const [progress, setProgress] = useState(0);
   const [hide, setHide] = useState(false);
   const [pause, setPause] = useState(false);
+  const [tutorialStep, setTutorialStep] = useState(1);
   const [isClosing, setIsClosing] = useState(false);
   const [isScaled, setIsScaled] = useState(false);
   const [isMoving, setIsMoving] = useState(false);
@@ -127,6 +129,30 @@ const Canva = ({
     });
   }
 
+  function addPixelIntoGame() {
+    const timestampTimer = readCookie("Google Analytics");
+    const game = gameRef.current;
+    const ctx = game.getContext("2d");
+    const x = cursorRef.current.offsetLeft;
+    const y = cursorRef.current.offsetTop - game.offsetTop;
+    const userId = localStorage.getItem("uid");
+    const payload = {
+      x: x,
+      y: y,
+      color: currentColor,
+      userId: userId,
+    };
+    const currentTime = Math.floor(new Date().getTime() / 1000);
+    if (timestampTimer > currentTime && isAdminUser !== true) {
+      return;
+    }
+    if (newPixelIsCreated && isAdminUser !== true) {
+      return;
+    }
+    createPixelService(payload);
+    createPixel(ctx, x, y, currentColorChoice);
+  }
+
   async function drawPixelOnInit() {
     const game = gameRef.current;
     const ctx = game.getContext("2d");
@@ -194,6 +220,7 @@ const Canva = ({
           setPause(true);
           return;
         }
+        // addPixelIntoGame();
         setPause(false);
         if (!newPixelIsCreated) {
           setProgress(progress + 1);
@@ -336,20 +363,28 @@ const Canva = ({
         <div ref={addPixelAnimRef} className="pixelAdd">
           +1
         </div>
-        {time && <HudInfo hide={hide} totalTimeInSec={time} />}
+        {time && (
+          <HudInfo
+            hide={hide}
+            totalTimeInSec={time}
+            tutorialStep={tutorialStep}
+          />
+        )}
         {gameParams.gameTimer && (
           <ColorBar
             hide={hide}
             currentColor={currentColor}
             setCurrentColor={setCurrentColor}
             gameTimer={gameParams.gameTimer}
+            tutorialStep={tutorialStep}
           />
         )}
-        <ActionMenus setHide={setHide} hide={hide} />
+        <ActionMenus setHide={setHide} hide={hide} tutorialStep={tutorialStep} />
         <ProgressBar
           hide={hide}
           progress={progress}
           setProgress={setProgress}
+          tutorialStep={tutorialStep}
         />
         <ScaleButton
           handleScale={handleScale}
@@ -357,6 +392,7 @@ const Canva = ({
           hide={hide}
         />
         <LogOutButton hide={hide} />
+        <Tutorial step={tutorialStep} setStep={setTutorialStep} />
         {pause ? (
           <div className="pause-war">
             <img src={pause_icon} alt="" />
