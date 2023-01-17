@@ -84,25 +84,25 @@ const Tutorial = ({ step, setStep }) => {
           .querySelector("#twitch")
           .classList.remove("c-tutorial--active");
         // document.querySelector("#people").classList.add("c-tutorial--active");
-        document
-          .querySelector("#time")
-          .classList.remove("c-tutorial--active--absolute");
+        // document
+        //   .querySelector("#time")
+        //   .classList.remove("c-tutorial--active--absolute");
         break;
       case 4:
         // document
         //   .querySelector("#people")
         //   .classList.remove("c-tutorial--active");
-        document
-          .querySelector("#time")
-          .classList.add("c-tutorial--active--absolute");
+        // document
+        //   .querySelector("#time")
+        //   .classList.add("c-tutorial--active--absolute");
         document
           .querySelector("#colors")
           .classList.remove("c-tutorial--active--absolute");
         break;
       case 5:
-        document
-          .querySelector("#time")
-          .classList.remove("c-tutorial--active--absolute");
+        // document
+        //   .querySelector("#time")
+        //   .classList.remove("c-tutorial--active--absolute");
         document
           .querySelector("#colors")
           .classList.add("c-tutorial--active--absolute");

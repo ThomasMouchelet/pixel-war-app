@@ -375,6 +375,7 @@ const Canva = ({
             currentColor={currentColor}
             setCurrentColor={setCurrentColor}
             gameTimer={gameParams.gameTimer}
+            tutorialStep={tutorialStep}
           />
         )}
         <ActionMenus setHide={setHide} hide={hide} />

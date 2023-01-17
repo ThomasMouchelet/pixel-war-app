@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import TwitchIcon from "../../../assets/images/twitch-icon.png";
 import CloseIcon from "../../../assets/images/close_icon.png";
 
-const TwitchModalButton = ({ hide }) => {
+const TwitchModalButton = ({ hide, tutorialStep }) => {
   const [isModalActive, setIsModalActive] = useState(false);
 
   useEffect(() => {
@@ -24,9 +24,10 @@ const TwitchModalButton = ({ hide }) => {
     <div className={hide ? "hide" : ""}>
       {!isModalActive ? (
         <div
-          id="twitch"
           onClick={() => setIsModalActive(true)}
-          className="action-menus__menu__item"
+          className={`action-menus__menu__item ${
+            tutorialStep === 2 ? "c-tutorial--active" : ""
+          }`}
           style={{
             backgroundColor: "rgba(255, 255, 255, 1)",
             width: "60px",
