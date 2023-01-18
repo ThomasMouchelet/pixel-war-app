@@ -34,9 +34,7 @@ const TwitchModalButton = ({
           <img src={TwitchIcon} alt="" />
         </div>
       ) : (
-        <div
-          className="action-menus__menu__item action-menus__menu__item__opened"
-        >
+        <div className="action-menus__menu__item action-menus__menu__item__opened">
           <img
             src={CloseIcon}
             alt=""

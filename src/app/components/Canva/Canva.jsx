@@ -185,7 +185,7 @@ const Canva = ({
       setIsLoading(false);
       setTimeout(() => {
         setIsLoading(true);
-      }, 2000)
+      }, 2000);
     }
     pixels.forEach((pixel) => {
       createPixel(ctx, pixel.x, pixel.y, pixel.color, true);
@@ -431,6 +431,7 @@ const Canva = ({
           tutorialStep={tutorialStep}
           pause={pause}
           setTutorialStep={setTutorialStep}
+          progress={progress}
         />
         <ProgressBar
           hide={hide}
