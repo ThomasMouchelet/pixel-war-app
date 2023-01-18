@@ -26,7 +26,8 @@ const getLastTwentyUser = (setLastUsers) => {
             return b.createdAt - a.createdAt;
           })
           .slice(0, 19);
-        return [doc, ...lastUsers];
+          const user = lastUsers.splice(0, 19)
+        return [doc, ...user];
       });
     });
   });
