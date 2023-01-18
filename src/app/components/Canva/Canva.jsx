@@ -183,6 +183,9 @@ const Canva = ({
       setIsLoading(true);
     } else {
       setIsLoading(false);
+      setTimeout(() => {
+        setIsLoading(true);
+      }, 2000)
     }
     pixels.forEach((pixel) => {
       createPixel(ctx, pixel.x, pixel.y, pixel.color, true);
