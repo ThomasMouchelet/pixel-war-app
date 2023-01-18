@@ -23,7 +23,7 @@ const RankingMenu = ({ isRankingModalActive }) => {
           {users
             ? users.map((user) => {
                 let image;
-                const score = Math.floor(user.totalScore / 100) - 1;
+                const score = Math.floor(user.totalScore / 100);
                 if (score > 19) {
                   image = `./grades/grade-19.jpg`;
                 } else {

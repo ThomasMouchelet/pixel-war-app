@@ -58,7 +58,7 @@
   height: 2rem;
   margin: 1rem 0;
   &__img-container {
-    width: 42px;
+    min-width: 42px;
     height: 42px;
     border-radius: 100px;
     overflow: hidden;
