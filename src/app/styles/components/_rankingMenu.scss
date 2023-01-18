@@ -1,0 +1,156 @@
+.ranking-menu {
+ position: fixed;
+ top: 0;
+ right: -100%;
+ height: 100vh;
+ width: 25%;
+ overflow-y: scroll;
+ background-color: white;
+ transition: 0.4s ease-in-out all;
+
+ &__content {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  color: white;
+  font-family: $Unibody-bold;
+
+  h2 {
+   text-align: center;
+   color: black;
+   margin: 1rem;
+   text-transform: uppercase;
+  }
+ }
+
+ .user-rank-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+ }
+
+ .user-self-rank-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 100px;
+  box-sizing: unset;
+  padding: 10px;
+  width: 70%;
+  margin: 1rem auto;
+ }
+
+ .user-self-rank-card:nth-child(even) {
+  background-color: #9D6891;
+  transform: scale(1.1);
+ }
+
+ .user-self-rank-card:nth-child(odd) {
+  background-color: #5C5C5C;
+ }
+
+
+ .user-rank-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 100px;
+  box-sizing: unset;
+  padding: 10px;
+  width: 70%;
+  margin: 1rem auto;
+
+  &:nth-child(1) {
+   background-color: #E59E49;
+  }
+
+  &:nth-child(2) {
+   background-color: #BDBDBD;
+  }
+
+  &:nth-child(3) {
+   background-color: #BF6B3C;
+  }
+ }
+
+ .user-self-rank {
+  background-color: #303030;
+ }
+
+ .user-rank,
+ .user-self-rank {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 20%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top-left-radius: 50px;
+  border-bottom-left-radius: 50px;
+ }
+
+ .user-rank-card:nth-child(1) {
+  .user-rank {
+   background-color: #E27D41;
+  }
+ }
+
+ .user-rank-card:nth-child(2) {
+  .user-rank {
+   background-color: #565656;
+  }
+ }
+
+ .user-rank-card:nth-child(3) {
+  .user-rank {
+   background-color: #774122;
+  }
+ }
+
+ .user-card__img-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ }
+
+ .user-infos-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 80%;
+  margin: auto 0 auto auto;
+
+
+  .username {
+   font-family: $Gantari;
+   font-size: 14px;
+  }
+
+  .user-score {
+   font-size: 12px;
+  }
+ }
+
+}
+
+.ranking-menu-active {
+ display: flex;
+ opacity: 1;
+ right: 10%;
+ z-index: 2;
+}
+
+
+@media (max-width: 1000px) {
+    .ranking-menu-active {
+        animation: center-to-right-600 ease-in 500ms forwards;
+        right: initial;
+        width: 80vw;
+        z-index: 12;
+        transition: 0.4s ease-out-ins all;
+    }
+  }

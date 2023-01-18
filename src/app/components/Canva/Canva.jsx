@@ -8,6 +8,7 @@ import ProgressBar from "../ProgressBar/ProgressBar";
 import HoverInfo from "../HoverInfo/HoverInfo";
 import LogOutButton from "../Actions/LogOut/LogOutButton";
 import ScaleButton from "../Actions/ScaleButton/ScaleButton";
+import Loader from "../Loader/loader";
 
 import {
   updateGameParams,
@@ -36,6 +37,7 @@ import {
   getLastTwentyUser,
   listenAllUsers,
 } from "../../../setup/services/user.service";
+import {Howl} from 'howler';
 
 const Canva = ({
   currentColor,
@@ -64,12 +66,17 @@ const Canva = ({
   const [scale, setScale] = useState(1);
   const [image, setImage] = useState(null);
   const [allUsers, setAllUsers] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   let currentColorChoice = currentColor;
   const gridCellSize = 10;
 
   const startDateEvent = new Date("2023-01-13T13:00:00");
   const dateNow = new Date();
+  const sound = new Howl({
+    src: ['audio/Mario-Coin.mp3'],
+    volume: 0.1,
+  });
 
   // const handleDefineTimer = () => {
   //   const difference = startDateEvent.getTime() - dateNow.getTime();
@@ -136,6 +143,7 @@ const Canva = ({
       );
       createCookie("Google Analytics", timestampTimer, 1);
       setNewPixelIsCreated(true);
+      sound.play();
     }
     setPixelColor([x, y]);
     addPixelAnimRef.current.style.top = y + "px";
@@ -176,19 +184,29 @@ const Canva = ({
   async function drawPixelOnInit() {
     const game = gameRef.current;
     const ctx = game.getContext("2d");
-    // const imgDatabase = await getImage();
-    // const img = new Image();
-    // img.src = imgDatabase;
-    // img.onload = () => {
-    //   ctx.drawImage(img, 0, 0);
-    // }
+    const pixels = await getPixel();
+    if (pixels.length !== 0) {
+      setIsLoading(true);
+    } else {
+      setIsLoading(false);
+      setTimeout(() => {
+        setIsLoading(true);
+      }, 2000);
+    }
+    pixels.forEach((pixel) => {
+      createPixel(ctx, pixel.x, pixel.y, pixel.color, true);
+    });
   }
 
   function handleMouseDown() {
     if (window.matchMedia("(max-width: 768px)").matches) {
-      document.addEventListener("touchmove", () => {
-        setIsMoving(true);
-      }, { passive: false });
+      document.addEventListener(
+        "touchmove",
+        () => {
+          setIsMoving(true);
+        },
+        { passive: false }
+      );
     } else {
       document.addEventListener("mousemove", () => {
         setIsMoving(true);
@@ -204,9 +222,9 @@ const Canva = ({
       let oldy;
 
       if (window.matchMedia("(max-width: 768px)").matches) {
-        var rect = gameRef.current.getBoundingClientRect()
-        oldx = (rect.x - e.changedTouches[0].pageX) * -1
-        oldy = (rect.y - e.changedTouches[0].pageY) * -1
+        var rect = gameRef.current.getBoundingClientRect();
+        oldx = (rect.x - e.changedTouches[0].pageX) * -1;
+        oldy = (rect.y - e.changedTouches[0].pageY) * -1;
       } else {
         oldx = e.offsetX;
         oldy = e.offsetY;
@@ -217,9 +235,7 @@ const Canva = ({
       ctx.save();
 
       let x = Math.round(oldx / 10) * 10;
-      console.log(x, "newX");
       let y = Math.round(oldy / 10) * 10;
-      console.log(y, "newY");
 
       if (!isScaled) {
         const currentTime = Math.floor(new Date().getTime() / 1000);
@@ -239,7 +255,7 @@ const Canva = ({
           y: y,
           color: currentColorChoice,
           userId: userId,
-          urlImg: img.src
+          urlImg: img.src,
         });
 
         if (gameParams.isPlaying === false) {
@@ -260,7 +276,10 @@ const Canva = ({
           }, 600);
         }
       }
-      localStorage.setItem(gameRef.current, gameRef.current.toDataURL("image/bmp"));
+      localStorage.setItem(
+        gameRef.current,
+        gameRef.current.toDataURL("image/bmp")
+      );
     }
 
     let transform = gameRef.current.style.transform;
@@ -342,10 +361,6 @@ const Canva = ({
     listenAllUsers(setAllUsers);
   }, []);
 
-  // useEffect(() => {
-  //   console.log(allUsers);
-  // }, [allUsers]);
-
   const checkIsAdmin = async () => {
     const isAdmin = await checkUserIsAdmin();
     setIsAdminUser(isAdmin);
@@ -372,6 +387,7 @@ const Canva = ({
         />
       ) : null}
       <div className="c-canvas">
+        {isLoading === false ? <Loader /> : null}
         <div
           id="cursor"
           className="c-canvas__cursor"
@@ -415,7 +431,14 @@ const Canva = ({
             tutorialStep={tutorialStep}
           />
         )}
-        <ActionMenus setHide={setHide} hide={hide} tutorialStep={tutorialStep} pause={pause} setTutorialStep={setTutorialStep} />
+        <ActionMenus
+          setHide={setHide}
+          hide={hide}
+          tutorialStep={tutorialStep}
+          pause={pause}
+          setTutorialStep={setTutorialStep}
+          progress={progress}
+        />
         <ProgressBar
           hide={hide}
           progress={progress}

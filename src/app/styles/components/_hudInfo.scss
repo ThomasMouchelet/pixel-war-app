@@ -95,9 +95,13 @@
 
 
 @media (max-width: 600px) {
+    .c-hud-info__container {
+        gap: 10px 0px;
+    }
     .c-hud-info__container p {
         font-size: 10px;
         text-align: center;
+        width: 175px
     }
     .c-hud-info__container {
         width: 200px;
