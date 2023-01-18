@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { listenTopUser } from "../../../../setup/services/user.service";
 const RankingMenu = ({ isRankingModalActive }) => {
   const [users, setUsers] = useState([]);
+  const [selfRank, setSelfRank] = useState([]);
 
   useEffect(() => {
-    listenTopUser(setUsers);
+    listenTopUser(setUsers, setSelfRank);
   }, []);
   return (
     <div
