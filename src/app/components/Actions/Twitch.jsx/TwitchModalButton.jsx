@@ -1,23 +1,24 @@
 import TwitchIcon from "../../../assets/images/dark-twitch-icon.svg";
-import CloseIcon from "../../../assets/images/close_icon.png";
+import CloseIcon from "../../../assets/images/white-twitch-icon.svg";
 
 const TwitchModalButton = ({ hide, isTwitchModalActive }) => {
+
   return (
     <>
       {!isTwitchModalActive ? (
         <div
           className="action-menus__menu__item"
         >
-          <img src={TwitchIcon} alt="" />
+          <img src={TwitchIcon} className="menu" alt="" />
         </div>
       ) : (
         <div
-          className="action-menus__menu__item action-menus__menu__item__opened"
+          className="action-menus__menu__item"
         >
           <img
             src={CloseIcon}
             alt=""
-            className="menu action-menus_menu_item_cross"
+            className="menu"
           />
         </div>
       )}
@@ -33,6 +34,7 @@ const TwitchModalButton = ({ hide, isTwitchModalActive }) => {
               border: "none",
               zIndex: "99",
             }}
+            className="iFrameOpened"
             title="twitch-chat"
           ></iframe>
         </div>

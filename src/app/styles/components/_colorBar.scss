@@ -69,8 +69,19 @@
   transform: rotate(180deg);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 1000px) {
   .colorBar {
-    width: 90vw;
+    width: 50vw;
+    padding: 10px 30px;
+  }
+  .color-list {
+    max-width: 100%;
+  }
+  .color-item {
+    min-width: 20px;
+    height: 20px;
+  }
+  .arrow-icon {
+    width: 5%;
   }
 }
