@@ -1,6 +1,6 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 
-const HudInfo = ({ totalTimeInSec, hide }) => {
+const HudInfo = ({ totalTimeInSec, hide, tutorialStep }) => {
   const [time, setTime] = useState(totalTimeInSec);
   const [isOrange, setIsOrange] = useState(false);
 
@@ -32,8 +32,19 @@ const HudInfo = ({ totalTimeInSec, hide }) => {
   }, [time]);
 
   return (
-    <div className={!hide ? "c-hud-info" : "hide"}>
-      <div className={!isOrange ? "c-hud-info__container" : "c-hud-info__container orange-timer"}>
+    <div
+      className={`${!hide ? "c-hud-info" : "hide"} ${
+        tutorialStep === 4 ? "c-tutorial--active--absolute" : ""
+      }`}
+      id="time"
+    >
+      <div
+        className={
+          !isOrange
+            ? "c-hud-info__container"
+            : "c-hud-info__container orange-timer"
+        }
+      >
         <div className="c-hud-info__left"></div>
         <p>Temps: {renderTime()}</p>
         <div className="c-hud-info__right"></div>

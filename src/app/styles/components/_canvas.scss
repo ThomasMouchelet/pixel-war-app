@@ -77,3 +77,33 @@
         height: 100%;
     }
 }
+
+.modal {
+    position: fixed;
+    right: 120px;
+    top: 0;
+    width: 30%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+}
+.action-menus__menu__item_cross {
+    z-index: 12;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+   }
+
+@media (max-width: 1000px) {
+    #cursor {
+      display: none
+    }
+    #game {
+        overflow: hidden;
+    }
+    .modal {
+        left: 0;
+        width: 80%;
+        height: 100%;
+    }
+  }

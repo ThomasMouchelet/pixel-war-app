@@ -1,6 +1,6 @@
 .scale-button {
     background-repeat: no-repeat;
-    position: fixed;
+    position: absolute;
     bottom: 30px;
     z-index: 3;
     left: 5%;
@@ -17,3 +17,9 @@
         animation: pulse 0.5s ease-in-out infinite;
        }
 }
+
+@media (max-width: 600px) {
+    .scale-button {
+        display: none;
+    }
+ }

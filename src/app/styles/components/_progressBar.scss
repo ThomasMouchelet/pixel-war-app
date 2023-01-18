@@ -154,6 +154,7 @@
         top: 50%;
         left: 30px;
         transform: translateY(-50%);
+        
     }
 
     &__concours {
@@ -184,3 +185,12 @@
         padding-left: 14px;
     }
 }
+
+@media (max-width: 600px) {
+  .c-progressbar__totalcoins {
+    display: none;
+  }
+  .c-progressbar__allbar {
+    left: 0;
+  }
+  }

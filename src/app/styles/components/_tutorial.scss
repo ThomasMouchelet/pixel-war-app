@@ -1,0 +1,261 @@
+.c-tutorial {
+    width: 100vw;
+    height: 100vh;
+    padding: 0 48px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &__wrapper {
+        position: relative;
+        padding: 32px 12px;
+        background-color: #fff;
+        max-width: 508px;
+        &__left {
+            position: absolute;
+            top: 50%;
+            left: -25px;
+            transform: translateY(-50%);
+            height: calc(100% - 18px);
+            width: 25px;
+            background-color: #fff;
+            &::before {
+                content: "";
+                position: absolute;
+                top: 50%;
+                left: -12px;
+                transform: translateY(-50%);
+                height: calc(100% - 34px);
+                width: 12px;
+                background-color: #fff;
+            }
+        }
+        &__right {
+            position: absolute;
+            top: 50%;
+            right: -25px;
+            transform: translateY(-50%);
+            height: calc(100% - 18px);
+            width: 25px;
+            background-color: #fff;
+            &::before {
+                content: "";
+                position: absolute;
+                top: 50%;
+                right: -12px;
+                transform: translateY(-50%);
+                height: calc(100% - 34px);
+                width: 12px;
+                background-color: #fff;
+            }
+        }
+    }
+    &__head {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 22px;
+    }
+    &__title {
+        font-family: $Gantari;
+        text-align: center;
+        margin-bottom: 16px;
+        color: #180f24;
+        font-size: 26px;
+        line-height: 34px;
+        font-weight: 600;
+        @media screen and (min-width: 768px) {
+            font-size: 32px;
+            line-height: 40px;
+        }
+    }
+    &__previous {
+        margin-right: auto;
+        appearance: none;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+        img {
+            transform: rotate(180deg);
+            width: 12px;
+        }
+    }
+    &__description {
+        font-family: $Gantari;
+        text-align: center;
+        color: #000;
+        margin-bottom: 12px;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+        span {
+            color: $main-orange;
+            font-weight: 600;
+        }
+        @media screen and (min-width: 768px) {
+            font-size: 24px;
+            line-height: 32px;
+        }
+    }
+    &__step {
+        font-family: $Unibody-regular;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 32px;
+        text-align: center;
+        color: #180f24;
+    }
+    &__buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        @media screen and (min-width: 500px) {
+            flex-direction: row;
+        }
+    }
+    &__button--pass {
+        cursor: pointer;
+        border: 3px solid $main-orange;
+        padding: 19px;
+        font-family: $Gantari;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 22px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 12px;
+        justify-content: center;
+        background-color: transparent;
+        color: $main-orange;
+        width: 169px;
+        position: relative;
+        &:hover {
+            opacity: 0.8;
+        }
+        @media screen and (min-width: 500px) {
+            margin-bottom: 0;
+            margin-right: auto;
+        }
+        &__before {
+            position: absolute;
+            top: 50%;
+            left: -6px;
+            transform: translateY(-50%);
+            height: calc(100% - 5px);
+            width: 6px;
+            background-color: #fff;
+            border-top: 3px solid $main-orange;
+            border-left: 3px solid $main-orange;
+            border-bottom: 3px solid $main-orange;
+            &::before {
+                content: "";
+                position: absolute;
+                top: 50%;
+                left: -6px;
+                transform: translateY(-50%);
+                height: calc(100% - 10px);
+                width: 6px;
+                background-color: #fff;
+                border-top: 3px solid $main-orange;
+                border-left: 3px solid $main-orange;
+                border-bottom: 3px solid $main-orange;
+            }
+        }
+        &__after {
+            position: absolute;
+            top: 50%;
+            right: -6px;
+            transform: translateY(-50%);
+            height: calc(100% - 5px);
+            width: 6px;
+            background-color: #fff;
+            border-top: 3px solid $main-orange;
+            border-right: 3px solid $main-orange;
+            border-bottom: 3px solid $main-orange;
+            &::before {
+                content: "";
+                position: absolute;
+                top: 50%;
+                right: -6px;
+                transform: translateY(-50%);
+                height: calc(100% - 10px);
+                width: 6px;
+                background-color: #fff;
+                border-top: 3px solid $main-orange;
+                border-right: 3px solid $main-orange;
+                border-bottom: 3px solid $main-orange;
+            }
+        }
+    }
+    &__button--next {
+        width: 169px;
+        cursor: pointer;
+        border: 3px solid $main-orange;
+        background-color: $main-orange;
+        color: #fff;
+        padding: 19px;
+        font-family: $Gantari;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        &:hover {
+            opacity: 0.8;
+        }
+        &__before {
+            position: absolute;
+            top: 50%;
+            left: -6px;
+            transform: translateY(-50%);
+            height: calc(100% - 5px);
+            width: 4px;
+            background-color: $main-orange;
+            &::before {
+                content: "";
+                position: absolute;
+                top: 50%;
+                left: -4px;
+                transform: translateY(-50%);
+                height: calc(100% - 10px);
+                width: 4px;
+                background-color: $main-orange;
+            }
+        }
+        &__after {
+            position: absolute;
+            top: 50%;
+            right: -6px;
+            transform: translateY(-50%);
+            height: calc(100% - 5px);
+            width: 4px;
+            background-color: $main-orange;
+            &::before {
+                content: "";
+                position: absolute;
+                top: 50%;
+                right: -4px;
+                transform: translateY(-50%);
+                height: calc(100% - 10px);
+                width: 4px;
+                background-color: $main-orange;
+            }
+        }
+    }
+    &--active--absolute {
+        z-index: 9999;
+        pointer-events: none;
+    }
+    &--active {
+        z-index: 9999;
+        pointer-events: none;
+        position: relative;
+    }
+}
