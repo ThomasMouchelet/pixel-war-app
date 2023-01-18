@@ -226,9 +226,7 @@ const Canva = ({
       ctx.save();
 
       let x = Math.round(oldx / 10) * 10;
-      console.log(x, "newX");
       let y = Math.round(oldy / 10) * 10;
-      console.log(y, "newY");
 
       if (!isScaled) {
         const currentTime = Math.floor(new Date().getTime() / 1000);
@@ -353,10 +351,6 @@ const Canva = ({
     getLastTwentyUser();
     listenAllUsers(setAllUsers);
   }, []);
-
-  useEffect(() => {
-    console.log(allUsers);
-  }, [allUsers]);
 
   const checkIsAdmin = async () => {
     const isAdmin = await checkUserIsAdmin();

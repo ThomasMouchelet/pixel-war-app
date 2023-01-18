@@ -11,7 +11,6 @@ const ProgressBar = ({ progress, hide, tutorialStep }) => {
   const [popupConcours, setPopupConcours] = useState(false);
   const [barProgress, setBarProgress] = useState(true);
   const [valueProgress, setValueProgress] = useState(0);
-  const [coinModal, setCoinModal] = useState(false);
 
   useEffect(() => {
     const reste = progress % 100;
@@ -23,51 +22,36 @@ const ProgressBar = ({ progress, hide, tutorialStep }) => {
     if (coins < 9) {
       if (progress != 0 && progress % 100 === 0) {
         setPopupVisible(true);
-        console.log(popupVisible);
         setTimeout(() => {
           setPopupVisible(false);
-        }, 2000);
+        }, 1000);
       }
     }
   }, [progress]);
 
   useEffect(() => {
-    if (coins >= 10) {
-      if (!localStorage.getItem("concoursStorage")) {
-        setPopupConcours(true);
-      }
+    if (coins === 10) {
       localStorage.setItem("concoursStorage", true);
-      setBarProgress(false);
-      setTimeout(() => {
-        setPopupConcours(false);
-      }, 5000);
+      if (localStorage.getItem("concoursStorage") === "true") {
+        setPopupConcours(true);
+        setTimeout(() => {
+          setPopupConcours(false);
+        }, 5000);
+      }
     }
+
+    if (coins >= 10) {
+      setBarProgress(false);
+    }
+    console.log(coins);
   }, [coins]);
 
   return (
     <div className={!hide ? "c-progressbar" : "hide"}>
       {coins < 10 ? (
-        <div
-          className="c-progressbar__totalcoins"
-          onClick={() => setCoinModal(!coinModal)}
-        >
-          <img src={!coinModal ? present : close} alt="" />
-
-          <div
-            className={
-              !coinModal ? "coin-modal" : "coin-modal coin-modal-active"
-            }
-          >
-            <div className="coin-modal__header">
-              <span>Gagne des Airpods 3</span>
-            </div>
-            <div className="coin-modal__body">
-              <img src={openPresent} alt="" />
-            </div>
-            <div className="coin-modal__footer">
-              <img src={coin} alt="" />
-              <span>{coins} / 10</span>
-            </div>
+        <div className="c-progressbar__totalcoins">
+          <div className="c-progressbar__totalcoins__container">
+            <span className="total-coin">{coins} / 10</span>
           </div>
         </div>
       ) : (
@@ -111,7 +95,6 @@ const ProgressBar = ({ progress, hide, tutorialStep }) => {
           <div className="c-progressbar__popup">
             <span className="c-progressbar__coins">
               <img src={coin} alt="" />
-              +1
             </span>
           </div>
         ) : (

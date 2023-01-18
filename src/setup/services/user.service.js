@@ -42,7 +42,6 @@ const getTopUser = async (setTopUsers) => {
             }
             return user.data()
         }).sort((a, b) => b.totalScore - a.totalScore).splice(0, NUMBER_USER)
-        console.log(topUsers);
         setTopUsers(topUsers);
     } catch (error) {
         throw new Error(error)
