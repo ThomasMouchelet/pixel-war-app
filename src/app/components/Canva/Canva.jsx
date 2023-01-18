@@ -37,6 +37,7 @@ import {
   getLastTwentyUser,
   listenAllUsers,
 } from "../../../setup/services/user.service";
+import {Howl} from 'howler';
 
 const Canva = ({
   currentColor,
@@ -72,6 +73,10 @@ const Canva = ({
 
   const startDateEvent = new Date("2023-01-13T13:00:00");
   const dateNow = new Date();
+  const sound = new Howl({
+    src: ['audio/Mario-Coin.mp3'],
+    volume: 0.1,
+  });
 
   // const handleDefineTimer = () => {
   //   const difference = startDateEvent.getTime() - dateNow.getTime();
@@ -138,6 +143,7 @@ const Canva = ({
       );
       createCookie("Google Analytics", timestampTimer, 1);
       setNewPixelIsCreated(true);
+      sound.play();
     }
     setPixelColor([x, y]);
     addPixelAnimRef.current.style.top = y + "px";
@@ -185,7 +191,7 @@ const Canva = ({
       setIsLoading(false);
       setTimeout(() => {
         setIsLoading(true);
-      }, 2000)
+      }, 2000);
     }
     pixels.forEach((pixel) => {
       createPixel(ctx, pixel.x, pixel.y, pixel.color, true);
@@ -431,6 +437,7 @@ const Canva = ({
           tutorialStep={tutorialStep}
           pause={pause}
           setTutorialStep={setTutorialStep}
+          progress={progress}
         />
         <ProgressBar
           hide={hide}

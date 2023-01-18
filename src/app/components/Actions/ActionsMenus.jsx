@@ -12,12 +12,14 @@ import LastPixelMenu from "./LastPixelMenu/LastPixelMenu";
 import TwitchModalButton from "./Twitch.jsx/TwitchModalButton";
 import pause_icon from "../../assets/images/pause_icon.svg";
 import RankingMenu from "./RankingMenu/RankingMenu";
+import UserProfile from "./UserProfile/UserProfile";
 
 const ActionMenus = ({
   setHide,
   hide,
   tutorialStep,
   pause,
+  progress,
   setTutorialStep,
 }) => {
   const [isModalActive, setIsModalActive] = useState(false);
@@ -47,6 +49,7 @@ const ActionMenus = ({
           <div className={!hide ? "pixel-war-logo" : "hide"}>
             <img src={PixelWarLogo} alt="" />
           </div>
+          <UserProfile progress={progress} />
           {!isMenuOpen ? (
             <div
               className={`${!hide ? "action-menus__menu__item" : "hide"} ${

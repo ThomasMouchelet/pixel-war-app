@@ -57,9 +57,9 @@ const RankingMenu = ({ isRankingModalActive }) => {
                 } else {
                   image = `./grades/grade-${score}.jpg`;
                 }
-                return user.position !== 1 || user.position !== 2 ? (
+                return user.position !== 0 || user.position !== 1 ? (
                   <li key={index} className=" user-self-rank-card">
-                    <span className="user-self-rank">{user.position}</span>
+                    <span className="user-self-rank">{user.position + 1}</span>
                     <div className="user-infos-container">
                       <div className="user-card__img-container">
                         <img src={image} alt="" />
@@ -74,7 +74,9 @@ const RankingMenu = ({ isRankingModalActive }) => {
                       </span>
                     </div>
                   </li>
-                ) : null;
+                ) : (
+                  ""
+                );
               })}
           </ul>
         </div>

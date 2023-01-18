@@ -49,21 +49,51 @@ const getTopUser = async ({ setTopUsers, setUserPosition }) => {
     let userPosition = [];
     topUsers.find((user, index) => {
       if (user.uid === userId) {
-        userPosition = [
-          {
-            position: index - 1,
-            user: topUsers[index - 1],
-          },
-          {
-            position: index,
-            user: user,
-          },
-          {
-            position: index + 1,
-            user: topUsers[index + 1],
-          },
-        ];
-        return true;
+        if (index === 0) {
+          userPosition = [
+            {
+              position: index,
+              user: user,
+            },
+            {
+              position: index + 1,
+              user: topUsers[index + 1],
+            },
+            {
+              position: index + 2,
+              user: topUsers[index + 2],
+            },
+          ];
+          return true;
+        } else if (topUsers.lastIndexOf(user) === topUsers.length - 1) {
+          userPosition = [
+            {
+              position: index - 1,
+              user: topUsers[index - 1],
+            },
+            {
+              position: index,
+              user: user,
+            },
+          ];
+          return true;
+        } else {
+          userPosition = [
+            {
+              position: index - 1,
+              user: topUsers[index - 1],
+            },
+            {
+              position: index,
+              user: user,
+            },
+            {
+              position: index + 1,
+              user: topUsers[index + 1],
+            },
+          ];
+          return true;
+        }
       }
     });
     const topThreeUsers = topUsers.slice(0, NUMBER_USER);
@@ -107,6 +137,31 @@ const listenAllUsers = (setUsers) => {
   });
 };
 
+const getSingleUser = async (userId, setUser) => {
+  try {
+    const user = await getDoc(doc(userCollection, userId));
+    setUser(user.data());
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+// const listenSingleUser = (uid, setUser) => {
+//   const q = query(gamesCollection, where("uid", "==", uid));
+//   getSingleUser(uid, setUser);
+//   onSnapshot(q, (snapshot) => {
+//     snapshot.docChanges().forEach(
+//       async (change) => {
+//         getSingleUser(uid, setUser);
+//       },
+//       (error) => {
+//         console.log(error);
+//         throw new Error(error);
+//       }
+//     );
+//   });
+// };
+
 const getUserByPixelPositions = async (x, y) => {
   const q = await query(
     gamesCollection,
@@ -129,4 +184,5 @@ export {
   listenAllUsers,
   getTopUser,
   listenTopUser,
+  getSingleUser,
 };
