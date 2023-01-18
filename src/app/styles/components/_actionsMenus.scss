@@ -7,7 +7,7 @@
  display: flex;
  flex-direction: column;
  justify-content: center;
- width: 120px;
+ width: 10%;
 
  &__menu {
   display: flex;
@@ -20,6 +20,8 @@
    cursor: pointer;
    display: flex;
    transition: 0.3s ease-in-out all;
+   width: 50px;
+   height: 50px;
 
    &:hover {
     animation: pulse 0.5s ease-in-out infinite;
@@ -29,8 +31,16 @@
  }
 }
 
-.action-menu-transparent {
-  background: transparent;
+.action-menus-hidden {
+  background-color: transparent;
+}
+
+.close-icon {
+  position: absolute;
+  right: 4%;
+  top: 5%;
+  z-index: 99;
+  display: none;
 }
 
 .btn-logout {
@@ -39,9 +49,17 @@
 }
 
 .pixel-war-logo {
-  width: 90%;
+  width: 100%;
   position: relative;
-  top: -15%
+  top: -5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.menu {
+  width: 50px;
+  height: 50px;
 }
 
 .hide {
@@ -67,7 +85,8 @@
     display: none;
   }
   .action-menus {
-    background: transparent;
+    width: 20vw;
+    height: 100vh;
   }
   .action-menus__menu {
     flex-direction: column;
@@ -79,6 +98,8 @@
   .action-menus__menu__item {
     width: 50px;
     height: 50px;
+    display: flex;
+    justify-content: center;
   }
   .action-menus__menu__item:hover {
     animation: none;
@@ -86,5 +107,11 @@
   .action-menus__menu__item__opened {
     position: relative;
     z-index: 11;
+  }
+  .menu {
+    width: 100%;
+  }
+  .close-icon {
+    display: block;
   }
 }

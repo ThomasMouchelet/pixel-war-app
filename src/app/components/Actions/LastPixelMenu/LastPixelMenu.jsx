@@ -10,7 +10,7 @@ const LastPixelMenu = ({ isMenuOpen }) => {
   return (
     <div className={isMenuOpen ? "lastPixel menu-active" : "lastPixel"}>
       <div className="lastPixel__content">
-        <h2>Dernières actions</h2>
+        <h2 className="lastPixel__text">Dernières actions</h2>
         <ul className="user-list">
           {users
             ? users.map((user, index) => (

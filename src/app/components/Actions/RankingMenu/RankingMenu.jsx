@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { listenTopUser } from "../../../../setup/services/user.service";
-const RankingMenu = ({ isRankingModalActive }) => {
+const RankingMenu = ({ isRankingModalActive, hide }) => {
   const [users, setUsers] = useState(null);
   const [selfRank, setSelfRank] = useState(null);
   const currentUser = localStorage.getItem("uid");

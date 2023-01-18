@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { getSingleUser } from "../../../../setup/services/user.service";
 
-const UserProfile = ({ progress }) => {
+const UserProfile = ({ progress, hide }) => {
   const [user, setUser] = useState(null);
   const uid = localStorage.getItem("uid");
 
@@ -25,9 +25,9 @@ const UserProfile = ({ progress }) => {
   }, [progress]);
 
   return (
-    <div className="c-user-profile">
+    <div className={!hide ? "c-user-profile" : "hide"}>
       {renderGrade}
-      {user && <p>{user.username}</p>}
+      {user && <p className="profile-text">{user.username}</p>}
     </div>
   );
 };

@@ -38,7 +38,8 @@
 }
 
 .menu-active {
-  right: 120px;
+  width: 20vw;
+  right: 10%;
 }
 
 .user-list {
@@ -73,6 +74,26 @@
   }
 }
 
+@keyframes right-to-center-600 {
+  0% {
+      left: 0%;
+      z-index: 99;
+  }
+  100% {
+      left: 100%
+  }
+}
+
+@keyframes center-to-right-600 {
+  0% {
+      left: 100%
+  }
+  100% {
+      left: 0%;
+      z-index: 99;
+  }
+}
+
 @keyframes pulse {
   0% {
     transform: scale(1);
@@ -89,7 +110,18 @@
 
 @media (max-width: 1000px) {
   .lastPixel {
-    width: 70%;
-    z-index: 10;
+    animation: right-to-center-600 ease-in 500ms forwards;
+    width: 80vw;
   }
-}
+  .lastPixel__text {
+    color: black;
+    margin-top: 15px
+  }
+    .menu-active {
+      animation: center-to-right-600 ease-out 500ms forwards;
+      left: 0;
+      width: 80vw;
+      height: 100vh;
+      z-index: 99;
+    }
+  }
