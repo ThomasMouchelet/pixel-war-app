@@ -29,9 +29,12 @@ const ActionMenus = ({
   const [isTwitchModalActive, setIsTwitchModalActive] = useState(true);
   const [isMenuActive, setIsMenuActive] = useState(true);
 
-  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  const isMobile =
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    );
 
-  const menuRef = useRef(null)
+  const menuRef = useRef(null);
   const [isRankingModalActive, setIsRankingModalActive] = useState(false);
 
   const handleReturnTuto = () => {
@@ -40,7 +43,7 @@ const ActionMenus = ({
   };
 
   const handleActiveMenu = () => {
-    setIsTwitchModalActive(false)
+    setIsTwitchModalActive(false);
     setIsMenuOpen(!isMenuOpen);
     if (isModalActive) {
       setIsModalActive(false);
@@ -50,26 +53,27 @@ const ActionMenus = ({
   const handleClose = () => {
     if (!isMenuOpen && !isTwitchModalActive) {
       if (isMenuActive) {
-        menuRef.current.style.animation = "center-to-right-1000 1000ms forwards"
-        setIsMenuActive(false)
-      }
-      else {
-        menuRef.current.style.animation = ""
-        menuRef.current.style.animation = "right-to-center-1000 ease-in 1000ms forwards"
-        setIsMenuActive(true)
+        menuRef.current.style.animation =
+          "center-to-right-1000 1000ms forwards";
+        setIsMenuActive(false);
+      } else {
+        menuRef.current.style.animation = "";
+        menuRef.current.style.animation =
+          "right-to-center-1000 ease-in 1000ms forwards";
+        setIsMenuActive(true);
       }
     }
-    setIsMenuOpen(false)
-    setIsTwitchModalActive(false)
-    setIsRankingModalActive(false)
-  }
+    setIsMenuOpen(false);
+    setIsTwitchModalActive(false);
+    setIsRankingModalActive(false);
+  };
   return (
     <>
-   <img
-    src={CloseIcon}
-    className="close-icon"
-       onClick={handleClose} />
-      <div className={!hide ? "action-menus" : "action-menus action-menus-hidden"} ref={menuRef}>
+      <img src={CloseIcon} className="close-icon" onClick={handleClose} />
+      <div
+        className={!hide ? "action-menus" : "action-menus action-menus-hidden"}
+        ref={menuRef}
+      >
         <div className="action-menus__menu">
           <div className={!hide ? "pixel-war-logo" : "hide"}>
             <img src={PixelWarLogo} alt="" />
@@ -80,14 +84,21 @@ const ActionMenus = ({
               className={`${!hide ? "action-menus__menu__item" : "hide"} ${
                 tutorialStep === 3 ? "c-tutorial--active" : ""
               }`}
-              onClick={() => {handleActiveMenu(); setIsRankingModalActive(false); setIsTwitchModalActive(false); setIsModalActive(false)}}
+              onClick={() => {
+                handleActiveMenu();
+                setIsRankingModalActive(false);
+                setIsTwitchModalActive(false);
+                setIsModalActive(false);
+              }}
             >
               <img src={LastPixel} alt="" className="menu" />
             </div>
           ) : (
             <div
               className={!hide ? "action-menus__menu__item" : "hide"}
-              onClick={() => {handleActiveMenu();}}
+              onClick={() => {
+                handleActiveMenu();
+              }}
             >
               <img src={OpenedPeople} alt="" className="menu" />
             </div>
@@ -95,30 +106,46 @@ const ActionMenus = ({
 
           <div
             className={!hide ? "action-menus__menu__item" : "hide"}
-            onClick={() => {setIsRankingModalActive(!isRankingModalActive); setIsTwitchModalActive(false); setIsMenuActive(false)}}
+            onClick={() => {
+              setIsRankingModalActive(!isRankingModalActive);
+              setIsTwitchModalActive(false);
+              setIsMenuActive(false);
+            }}
           >
             {isRankingModalActive ? (
               <img src={WhiteRanking} alt="" className="menu" />
             ) : (
-              <img 
+              <img
                 onClick={() => {
-                setIsTwitchModalActive(false);
-                setIsMenuOpen(false);
-                console.log("ljh ")
-              }} src={Ranking} alt="" className={!hide ? "menu" : "hide"} />
+                  setIsTwitchModalActive(false);
+                  setIsMenuOpen(false);
+                  console.log("ljh ");
+                }}
+                src={Ranking}
+                alt=""
+                className={!hide ? "menu" : "hide"}
+              />
             )}
           </div>
 
           <div
             className={!hide ? "" : "hide"}
-            onClick={() => {setIsTwitchModalActive(!isTwitchModalActive); setIsRankingModalActive(false); setIsModalActive(false); setIsMenuOpen(false)}}
+            onClick={() => {
+              setIsTwitchModalActive(!isTwitchModalActive);
+              setIsRankingModalActive(false);
+              setIsModalActive(false);
+              setIsMenuOpen(false);
+            }}
           >
             <TwitchModalButton
               hide={hide}
               isTwitchModalActive={isTwitchModalActive}
               setIsTwitchModalActive={setIsTwitchModalActive}
               tutorialStep={tutorialStep}
-              onClick={() => {setIsRankingModalActive(false); setIsModalActive(false)}}
+              onClick={() => {
+                setIsRankingModalActive(false);
+                setIsModalActive(false);
+              }}
             />
           </div>
 
@@ -126,13 +153,20 @@ const ActionMenus = ({
             className={`action-menus__menu__item ${
               tutorialStep === 1 ? "c-tutorial--active" : ""
             }`}
-            onClick={() => {setHide(!hide)}}
+            onClick={() => {
+              setHide(!hide);
+            }}
           >
             <img src={!hide ? OpenEye : CloseEye} alt="" className="menu" />
           </div>
           <div
             className={!hide ? "action-menus__menu__item" : "hide"}
-            onClick={() => {handleReturnTuto(); console.log("ljhb") ;setIsTwitchModalActive(false); setIsModalActive(false)}}
+            onClick={() => {
+              handleReturnTuto();
+              console.log("ljhb");
+              setIsTwitchModalActive(false);
+              setIsModalActive(false);
+            }}
           >
             <img src={Help} alt="" className="menu" />
           </div>
@@ -155,7 +189,7 @@ const ActionMenus = ({
         setIsRankingModalActive={setIsRankingModalActive}
         hide={hide}
       />
-      <LastPixelMenu isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen}/>
+      <LastPixelMenu isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
     </>
   );
 };

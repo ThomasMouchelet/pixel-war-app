@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { listenTopUser } from "../../../../setup/services/user.service";
+import GradeImage from "../../GradeImage/GradeImage";
 const RankingMenu = ({ isRankingModalActive, hide }) => {
   const [users, setUsers] = useState(null);
   const [selfRank, setSelfRank] = useState(null);
@@ -34,7 +35,7 @@ const RankingMenu = ({ isRankingModalActive, hide }) => {
                     <span className="user-rank">{index + 1}</span>
                     <div className="user-infos-container">
                       <div className="user-card__img-container">
-                        <img src={image} alt="" />
+                        <GradeImage progress={user.totalScore} />
                       </div>
                       <span className="username">{user.username}</span>
                       <span className="user-score">{user.totalScore} px</span>
@@ -62,7 +63,8 @@ const RankingMenu = ({ isRankingModalActive, hide }) => {
                     <span className="user-self-rank">{user.position + 1}</span>
                     <div className="user-infos-container">
                       <div className="user-card__img-container">
-                        <img src={image} alt="" />
+                        <GradeImage progress={user.user.totalScore} />
+                        {/* <img src={image} alt="" /> */}
                       </div>
                       <span className="username">
                         {currentUser === user.user.uid

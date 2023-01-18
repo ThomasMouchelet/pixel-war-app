@@ -11,13 +11,65 @@
             object-fit: cover;
         }
     }
-    p {
+    &__username {
         font-family: $Gantari;
         font-size: 18px;
         font-weight: 500;
         line-height: 25px;
         text-align: center;
         color: #fff;
+    }
+    &__popup {
+        z-index: 100;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            margin-bottom: 22px;
+            img {
+                height: 42px;
+                width: 42px;
+            }
+        }
+        &__title {
+            font-family: $Gantari;
+            font-size: 32px;
+            font-weight: 600;
+            line-height: 40px;
+            text-align: center;
+            margin-bottom: 16px;
+            color: #000;
+        }
+        &__subtitle {
+            font-family: $Gantari;
+            font-size: 24px;
+            font-weight: 400;
+            line-height: 32px;
+            text-align: center;
+            margin-bottom: 12px;
+            color: #000;
+        }
+    }
+    &__container {
+        padding: 32px 104px;
+        background-color: #fff;
+    }
+    &__img-container__popup {
+        display: flex;
+        justify-content: center;
+        img {
+            aspect-ratio: 1/1;
+            width: 300px;
+        }
     }
 }
 
