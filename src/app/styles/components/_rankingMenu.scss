@@ -30,6 +30,28 @@
   align-items: center;
  }
 
+ .user-self-rank-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 100px;
+  box-sizing: unset;
+  padding: 10px;
+  width: 70%;
+  margin: 1rem auto;
+ }
+
+ .user-self-rank-card:nth-child(even) {
+  background-color: #9D6891;
+  transform: scale(1.1);
+ }
+
+ .user-self-rank-card:nth-child(odd) {
+  background-color: #5C5C5C;
+ }
+
+
  .user-rank-card {
   position: relative;
   display: flex;
@@ -54,7 +76,12 @@
   }
  }
 
- .user-rank {
+ .user-self-rank {
+  background-color: #303030;
+ }
+
+ .user-rank,
+ .user-self-rank {
   position: absolute;
   left: 0;
   top: 0;
