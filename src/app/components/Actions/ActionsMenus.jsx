@@ -54,10 +54,10 @@ const ActionMenus = ({ setHide, hide, pause }) => {
   }
   return (
     <>
-    <div>{isMobile ?  <img
+   <img
     src={CloseIcon}
          className="close-icon"
-         onClick={handleClose} /> : null }</div>
+         onClick={handleClose} /> : null 
         
       <div className={!hide ? "action-menus" : "action-menus action-menus-hidden"} ref={menuRef}>
         <div className="action-menus__menu">
