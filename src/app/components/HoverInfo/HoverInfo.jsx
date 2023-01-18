@@ -15,11 +15,13 @@ const HoverInfo = ({ x, y }) => {
   }, [x, y]);
 
   const renderUserInfo = () => {
-    if (userInfo.username || userInfo.totalScore) {
+    if (userInfo.username) {
       return (
         <div className="c-hoverInfo">
-          <p>{userInfo.username}</p>
-          <p>Score: {userInfo.totalScore}</p>
+          <div className="c-hoverInfo__container">
+            <p>{userInfo.username}</p>
+          </div>
+          <div className="c-hoverInfo__bottom"></div>
         </div>
       );
     } else {
