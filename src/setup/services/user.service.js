@@ -32,7 +32,7 @@ const getLastTwentyUser = (setLastUsers) => {
   });
 };
 
-const getTopUser = async (setTopUsers) => {
+const getTopUser = async (setTopUsers, setUserPosition) => {
     const NUMBER_USER = 3
     try {
         const users = await getDocs(userCollection)
@@ -41,9 +41,32 @@ const getTopUser = async (setTopUsers) => {
                 return user.totalScore = 0
             }
             return user.data()
-        }).sort((a, b) => b.totalScore - a.totalScore).splice(0, NUMBER_USER)
-        console.log(topUsers);
-        setTopUsers(topUsers);
+        }).sort((a, b) => b.totalScore - a.totalScore)
+        const userId = localStorage.getItem('uid')
+        let userPosition = []
+        topUsers.find((user, index) => {
+            if(user.uid === userId) {
+                userPosition = [
+                  {
+                    position: index - 1,
+                    user: topUsers[index - 1]
+                  },
+                  {
+                    position: index,
+                    user: user
+                  },
+                  {
+                    position: index + 1,
+                    user: topUsers[index + 1]
+                  }
+                  ]
+                return true
+            }
+        })
+        const topThreeUsers = topUsers.slice(0, NUMBER_USER)
+        setUserPosition(userPosition)
+        console.log("userPosition => ", userPosition);
+        setTopUsers(topThreeUsers);
     } catch (error) {
         throw new Error(error)
     }
