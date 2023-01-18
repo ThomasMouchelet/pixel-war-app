@@ -5,9 +5,6 @@ const RankingMenu = ({ isRankingModalActive }) => {
 
   useEffect(() => {
     listenTopUser(setUsers);
-    // setTimeout(() => {
-    //   setDisplayUserCard(false);
-    // }, 2000);
   }, []);
   return (
     <div
@@ -17,18 +14,19 @@ const RankingMenu = ({ isRankingModalActive }) => {
           : "ranking-menu"
       }
     >
-      <div className="lastPixel__content">
+      <div className="ranking-menu__content">
         <h2>Classement</h2>
-        <ul className="user-list">
+        <ul className="user-rank-list">
           {users
-            ? users.map((user) => (
+            ? users.map((user, index) => (
                 <li
                   key={user.uid + Math.floor(Math.random() * 10) + 1}
-                  className="user-card"
+                  className="user-rank-card"
                 >
-                  <p>{user.username}</p>
+                  <span className="user-rank">{index + 1}</span>
+                  {/* <p>{user.username}</p>
                   {"-"}
-                  <p>{user.totalScore}px</p>
+                  <p>{user.totalScore}px</p> */}
                 </li>
               ))
             : null}

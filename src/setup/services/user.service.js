@@ -33,7 +33,7 @@ const getLastTwentyUser = (setLastUsers) => {
 };
 
 const getTopUser = async (setTopUsers) => {
-    const NUMBER_USER = 10
+    const NUMBER_USER = 3
     try {
         const users = await getDocs(userCollection)
         const topUsers = users.docs.map(user => {
