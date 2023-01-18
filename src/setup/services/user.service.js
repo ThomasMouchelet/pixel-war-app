@@ -65,7 +65,7 @@ const getTopUser = async ({ setTopUsers, setUserPosition }) => {
             },
           ];
           return true;
-        } else if (topUsers.lastIndexOf(user) === topUsers.length - 1) {
+        } else if (index === topUsers.length - 1) {
           userPosition = [
             {
               position: index - 1,
