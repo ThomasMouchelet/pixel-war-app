@@ -33,7 +33,7 @@ const getLastTwentyUser = (setLastUsers) => {
   });
 };
 
-const getTopUser = async (setTopUsers, setUserPosition) => {
+const getTopUser = async ({setTopUsers, setUserPosition}) => {
     const NUMBER_USER = 3
     try {
         const users = await getDocs(userCollection)
@@ -66,7 +66,6 @@ const getTopUser = async (setTopUsers, setUserPosition) => {
         })
         const topThreeUsers = topUsers.slice(0, NUMBER_USER)
         setUserPosition(userPosition)
-        console.log("userPosition => ", userPosition);
         setTopUsers(topThreeUsers);
     } catch (error) {
         throw new Error(error)
