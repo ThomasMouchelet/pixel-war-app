@@ -49,21 +49,39 @@ const getTopUser = async ({ setTopUsers, setUserPosition }) => {
     let userPosition = [];
     topUsers.find((user, index) => {
       if (user.uid === userId) {
-        userPosition = [
-          {
-            position: index - 1,
-            user: topUsers[index - 1],
-          },
-          {
-            position: index,
-            user: user,
-          },
-          {
-            position: index + 1,
-            user: topUsers[index + 1],
-          },
-        ];
-        return true;
+        if(index === 0) {
+          userPosition = [
+            {
+              position: index,
+              user: user,
+            },
+            {
+              position: index + 1,
+              user: topUsers[index + 1],
+            },
+            {
+              position: index + 2,
+              user: topUsers[index + 2],
+            },
+          ];
+          return true;
+        }else{
+          userPosition = [
+            {
+              position: index - 1,
+              user: topUsers[index - 1],
+            },
+            {
+              position: index,
+              user: user,
+            },
+            {
+              position: index + 1,
+              user: topUsers[index + 1],
+            },
+          ];
+          return true;
+        }
       }
     });
     const topThreeUsers = topUsers.slice(0, NUMBER_USER);
