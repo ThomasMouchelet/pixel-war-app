@@ -5,13 +5,12 @@ import present from "../../assets/images/present.png";
 import openPresent from "../../assets/images/open-present.png";
 import close from "../../assets/images/close_icon.png";
 
-const ProgressBar = ({ progress, hide }) => {
+const ProgressBar = ({ progress, hide, tutorialStep }) => {
   const [coins, setCoins] = useState(0);
   const [popupVisible, setPopupVisible] = useState(false);
   const [popupConcours, setPopupConcours] = useState(false);
   const [barProgress, setBarProgress] = useState(true);
   const [valueProgress, setValueProgress] = useState(0);
-  const [coinModal, setCoinModal] = useState(false);
 
   useEffect(() => {
     const reste = progress % 100;
@@ -21,49 +20,37 @@ const ProgressBar = ({ progress, hide }) => {
     setValueProgress(reste);
 
     if (coins < 9) {
-      if (progress === 100) {
+      if (progress != 0 && progress % 100 === 0) {
         setPopupVisible(true);
         setTimeout(() => {
           setPopupVisible(false);
-        }, 5000);
+        }, 1000);
       }
     }
   }, [progress]);
 
   useEffect(() => {
     if (coins === 10) {
-      setPopupConcours(true);
+      localStorage.setItem("concoursStorage", true);
+      if (localStorage.getItem("concoursStorage") === "true") {
+        setPopupConcours(true);
+        setTimeout(() => {
+          setPopupConcours(false);
+        }, 5000);
+      }
+    }
+
+    if (coins >= 10) {
       setBarProgress(false);
-      setTimeout(() => {
-        setPopupConcours(false);
-      }, 5000);
     }
   }, [coins]);
 
   return (
     <div className={!hide ? "c-progressbar" : "hide"}>
       {coins < 10 ? (
-        <div
-          className="c-progressbar__totalcoins"
-          onClick={() => setCoinModal(!coinModal)}
-        >
-          <img src={!coinModal ? present : close} alt="" />
-
-          <div
-            className={
-              !coinModal ? "coin-modal" : "coin-modal coin-modal-active"
-            }
-          >
-            <div className="coin-modal__header">
-              <span>Gagne des Airpods 3</span>
-            </div>
-            <div className="coin-modal__body">
-              <img src={openPresent} alt="" />
-            </div>
-            <div className="coin-modal__footer">
-              <img src={coin} alt="" />
-              <span>{coins} / 10</span>
-            </div>
+        <div className="c-progressbar__totalcoins">
+          <div className="c-progressbar__totalcoins__container">
+            <span className="total-coin">{coins} / 10</span>
           </div>
         </div>
       ) : (
@@ -74,7 +61,12 @@ const ProgressBar = ({ progress, hide }) => {
         </div>
       )}
 
-      <div className="c-progressbar__allbar">
+      <div
+        className={`c-progressbar__allbar ${
+          tutorialStep === 6 ? "c-tutorial--active--absolute" : ""
+        }`}
+        id="coins"
+      >
         {barProgress ? (
           <div>
             <div>
@@ -102,7 +94,6 @@ const ProgressBar = ({ progress, hide }) => {
           <div className="c-progressbar__popup">
             <span className="c-progressbar__coins">
               <img src={coin} alt="" />
-              +1
             </span>
           </div>
         ) : (
