@@ -20,6 +20,7 @@ const HoverInfo = ({ x, y }) => {
         <div className="c-hoverInfo">
           <div className="c-hoverInfo__container">
             <p>{userInfo.username}</p>
+            <p>{userInfo.totalScore}px</p>
           </div>
           <div className="c-hoverInfo__bottom"></div>
         </div>
