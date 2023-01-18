@@ -43,7 +43,6 @@ const ProgressBar = ({ progress, hide, tutorialStep }) => {
     if (coins >= 10) {
       setBarProgress(false);
     }
-    console.log(coins);
   }, [coins]);
 
   return (

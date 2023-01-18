@@ -9,7 +9,6 @@ const TwitchModalButton = ({
   tutorialStep,
 }) => {
   useEffect(() => {
-    console.log("tuto step", tutorialStep);
     if (tutorialStep <= 6) {
       setIsTwitchModalActive(false);
     } else {

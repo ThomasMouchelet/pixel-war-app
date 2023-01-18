@@ -21,7 +21,7 @@ const RankingMenu = ({ isRankingModalActive }) => {
         <h2>Classement</h2>
         <ul className="user-list">
           {users
-            ? users.map((user) => {
+            ? users.map((user, index) => {
                 let image;
                 const score = Math.floor(user.totalScore / 100) - 1;
                 if (score > 19) {
@@ -31,7 +31,7 @@ const RankingMenu = ({ isRankingModalActive }) => {
                 }
                 return (
                   <li
-                    key={user.uid + Math.floor(Math.random() * 10) + 1}
+                    key={index}
                     className="user-card"
                   >
                     <div className="user-card__img-container">
