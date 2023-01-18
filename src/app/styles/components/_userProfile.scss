@@ -1,0 +1,22 @@
+.c-user-profile {
+    &__img-container {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin: 0 auto 6px auto;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+    p {
+        font-family: $Gantari;
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 25px;
+        text-align: center;
+        color: #fff;
+    }
+}

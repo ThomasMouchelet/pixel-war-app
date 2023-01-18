@@ -9,7 +9,7 @@ const TwitchModalButton = ({
   tutorialStep,
 }) => {
   useEffect(() => {
-    console.log("tuto step", tutorialStep);
+    // console.log("tuto step", tutorialStep);
     if (tutorialStep <= 6) {
       setIsTwitchModalActive(false);
     } else {
@@ -35,9 +35,7 @@ const TwitchModalButton = ({
           <img src={TwitchIcon} alt="" />
         </div>
       ) : (
-        <div
-          className="action-menus__menu__item action-menus__menu__item__opened"
-        >
+        <div className="action-menus__menu__item action-menus__menu__item__opened">
           <img
             src={CloseIcon}
             alt=""

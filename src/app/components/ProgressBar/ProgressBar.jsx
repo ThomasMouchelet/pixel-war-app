@@ -23,7 +23,7 @@ const ProgressBar = ({ progress, hide, tutorialStep }) => {
     if (coins < 9) {
       if (progress != 0 && progress % 100 === 0) {
         setPopupVisible(true);
-        console.log(popupVisible);
+        // console.log(popupVisible);
         setTimeout(() => {
           setPopupVisible(false);
         }, 2000);
