@@ -8,6 +8,7 @@ import ProgressBar from "../ProgressBar/ProgressBar";
 import HoverInfo from "../HoverInfo/HoverInfo";
 import LogOutButton from "../Actions/LogOut/LogOutButton";
 import ScaleButton from "../Actions/ScaleButton/ScaleButton";
+import Loader from "../Loader/loader";
 
 import {
   updateGameParams,
@@ -64,6 +65,7 @@ const Canva = ({
   const [scale, setScale] = useState(1);
   const [image, setImage] = useState(null);
   const [allUsers, setAllUsers] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   let currentColorChoice = currentColor;
   const gridCellSize = 10;
@@ -176,19 +178,26 @@ const Canva = ({
   async function drawPixelOnInit() {
     const game = gameRef.current;
     const ctx = game.getContext("2d");
-    // const imgDatabase = await getImage();
-    // const img = new Image();
-    // img.src = imgDatabase;
-    // img.onload = () => {
-    //   ctx.drawImage(img, 0, 0);
-    // }
+    const pixels = await getPixel();
+    if (pixels.length !== 0) {
+      setIsLoading(true);
+    } else {
+      setIsLoading(false);
+    }
+    pixels.forEach((pixel) => {
+      createPixel(ctx, pixel.x, pixel.y, pixel.color, true);
+    });
   }
 
   function handleMouseDown() {
     if (window.matchMedia("(max-width: 768px)").matches) {
-      document.addEventListener("touchmove", () => {
-        setIsMoving(true);
-      }, { passive: false });
+      document.addEventListener(
+        "touchmove",
+        () => {
+          setIsMoving(true);
+        },
+        { passive: false }
+      );
     } else {
       document.addEventListener("mousemove", () => {
         setIsMoving(true);
@@ -204,9 +213,9 @@ const Canva = ({
       let oldy;
 
       if (window.matchMedia("(max-width: 768px)").matches) {
-        var rect = gameRef.current.getBoundingClientRect()
-        oldx = (rect.x - e.changedTouches[0].pageX) * -1
-        oldy = (rect.y - e.changedTouches[0].pageY) * -1
+        var rect = gameRef.current.getBoundingClientRect();
+        oldx = (rect.x - e.changedTouches[0].pageX) * -1;
+        oldy = (rect.y - e.changedTouches[0].pageY) * -1;
       } else {
         oldx = e.offsetX;
         oldy = e.offsetY;
@@ -239,7 +248,7 @@ const Canva = ({
           y: y,
           color: currentColorChoice,
           userId: userId,
-          urlImg: img.src
+          urlImg: img.src,
         });
 
         if (gameParams.isPlaying === false) {
@@ -260,7 +269,10 @@ const Canva = ({
           }, 600);
         }
       }
-      localStorage.setItem(gameRef.current, gameRef.current.toDataURL("image/bmp"));
+      localStorage.setItem(
+        gameRef.current,
+        gameRef.current.toDataURL("image/bmp")
+      );
     }
 
     let transform = gameRef.current.style.transform;
@@ -372,6 +384,7 @@ const Canva = ({
         />
       ) : null}
       <div className="c-canvas">
+        {isLoading === false ? <Loader /> : null}
         <div
           id="cursor"
           className="c-canvas__cursor"
@@ -415,7 +428,13 @@ const Canva = ({
             tutorialStep={tutorialStep}
           />
         )}
-        <ActionMenus setHide={setHide} hide={hide} tutorialStep={tutorialStep} pause={pause} setTutorialStep={setTutorialStep} />
+        <ActionMenus
+          setHide={setHide}
+          hide={hide}
+          tutorialStep={tutorialStep}
+          pause={pause}
+          setTutorialStep={setTutorialStep}
+        />
         <ProgressBar
           hide={hide}
           progress={progress}
