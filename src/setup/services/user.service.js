@@ -38,10 +38,8 @@ const getTopUser = async ({ setTopUsers, setUserPosition }) => {
   try {
     const users = await getDocs(userCollection);
     const topUsers = users.docs
+      .filter((user) => user.data().isAdmin !== true)
       .map((user) => {
-        if (user.data().isAdmin) {
-          return {};
-        }
         return user.data();
       })
       .sort((a, b) => {
