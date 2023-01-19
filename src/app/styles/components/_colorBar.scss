@@ -13,6 +13,9 @@
   padding: 15px 30px;
   border-radius: 50px;
   gap: 10px;
+  @media screen and (max-width: 1000px) {
+    margin-bottom: 45px;
+  }
 }
 
 .cooldown {
@@ -44,10 +47,10 @@
   cursor: pointer;
   position: fixed;
   right: 4%;
-  transition: .5s;
+  transition: 0.5s;
   &-2 {
     left: 4%;
-    transform: rotate(180deg)
+    transform: rotate(180deg);
   }
 }
 
@@ -58,7 +61,7 @@
   overflow-x: auto;
   scroll-snap-type: x;
   scroll-behavior: smooth;
-  gap: 15px
+  gap: 15px;
 }
 
 .color-list::-webkit-scrollbar {
