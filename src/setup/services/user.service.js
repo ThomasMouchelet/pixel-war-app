@@ -39,12 +39,14 @@ const getTopUser = async ({ setTopUsers, setUserPosition }) => {
     const users = await getDocs(userCollection);
     const topUsers = users.docs
       .map((user) => {
-        if (user.data().email === "admin@admin.com") {
-          return (user.totalScore = 0);
+        if (user.data().isAdmin) {
+          return {};
         }
         return user.data();
       })
-      .sort((a, b) => b.totalScore - a.totalScore);
+      .sort((a, b) => {
+        return b.totalScore - a.totalScore;
+      });
     const userId = localStorage.getItem("uid");
     let userPosition = [];
     topUsers.find((user, index) => {
@@ -99,7 +101,6 @@ const getTopUser = async ({ setTopUsers, setUserPosition }) => {
     const topThreeUsers = topUsers.slice(0, NUMBER_USER);
     setUserPosition(userPosition);
     setTopUsers(topThreeUsers);
-    console.log(userPosition);
   } catch (error) {
     throw new Error(error);
   }
@@ -121,6 +122,9 @@ const listenTopUser = async (setTopUsers) => {
 const getAllUsers = async (setUsers) => {
   const usersData = await getDocs(userCollection);
   const usersDataArray = usersData.docs.map((doc) => doc.data());
+  const sortedArray = usersDataArray.sort((a, b) => {
+    return b.totalScore - a.totalScore;
+  });
   setUsers(usersDataArray);
 };
 
@@ -145,22 +149,6 @@ const getSingleUser = async (userId, setUser) => {
     throw new Error(error);
   }
 };
-
-// const listenSingleUser = (uid, setUser) => {
-//   const q = query(gamesCollection, where("uid", "==", uid));
-//   getSingleUser(uid, setUser);
-//   onSnapshot(q, (snapshot) => {
-//     snapshot.docChanges().forEach(
-//       async (change) => {
-//         getSingleUser(uid, setUser);
-//       },
-//       (error) => {
-//         console.log(error);
-//         throw new Error(error);
-//       }
-//     );
-//   });
-// };
 
 const getUserByPixelPositions = async (x, y) => {
   const q = await query(

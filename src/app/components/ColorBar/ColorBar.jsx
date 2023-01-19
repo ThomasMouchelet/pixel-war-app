@@ -63,6 +63,8 @@ const ColorBar = ({
   const arrowRef = useRef(null);
   const arrowRef2 = useRef(null);
 
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
   useEffect(() => {
     const timestampTimer = readCookie("Google Analytics");
     if (timestampTimer) {
@@ -181,7 +183,7 @@ const ColorBar = ({
                 key={index}
                 onClick={(event) => handleChangeComplete(event)}
                 style={{ backgroundColor: color }}
-                className="color-item"
+                className={!isSafari ? "color-item" : "color-item safari-color-item"}
               ></div>
             ))}
             <img

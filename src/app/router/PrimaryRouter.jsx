@@ -10,7 +10,7 @@ import ProtectedRoute from "../components/ProtectedRoutes";
 import Tutorial from "../components/Tutorial/Tutorial";
 
 const PrimaryRouter = () => {
-  const [currentColor, setCurrentColor] = useState("#4287f5");
+  const [currentColor, setCurrentColor] = useState("#00000");
   const [pixelColor, setPixelColor] = useState([]);
 
   return (
@@ -20,16 +20,14 @@ const PrimaryRouter = () => {
           <Route
             path="/"
             element={
-              // <ProtectedRoute>
-              <>
+              <ProtectedRoute>
                 <Canva
                   currentColor={currentColor}
                   setCurrentColor={setCurrentColor}
                   pixelColor={pixelColor}
                   setPixelColor={setPixelColor}
                 />
-              </>
-              // </ProtectedRoute>
+              </ProtectedRoute>
             }
           />
           <Route path="/connexion" element={<Login />} />

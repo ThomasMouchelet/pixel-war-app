@@ -1,5 +1,11 @@
-import { createUserWithEmailAndPassword, getAuth, sendPasswordResetEmail, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { firestoreDb } from "../config/firebase.config"
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+import { firestoreDb } from "../config/firebase.config";
 import { doc, setDoc } from "firebase/firestore";
 
 const register = async (data) => {
@@ -30,15 +36,19 @@ const register = async (data) => {
 };
 
 const login = async (data) => {
-  const auth = getAuth()
+  const auth = getAuth();
   try {
-    const signInCredentials = await signInWithEmailAndPassword(auth, data.email, data.password)
-    const user = signInCredentials.user
+    const signInCredentials = await signInWithEmailAndPassword(
+      auth,
+      data.email,
+      data.password
+    );
+    const user = signInCredentials.user;
     localStorage.setItem("token", user.accessToken);
     localStorage.setItem("uid", user.uid);
-    return user
+    return user;
   } catch (error) {
-    throw new Error(error)
+    throw new Error(error);
   }
 };
 
@@ -47,22 +57,15 @@ const logout = () => {
   localStorage.removeItem("token");
   localStorage.removeItem("uid");
   return auth.signOut();
-}
+};
 
 const resetPassword = (email) => {
   const auth = getAuth();
   return sendPasswordResetEmail(auth, email)
-    .then(() => {
-      // console.log("email sent");
-    })
+    .then(() => {})
     .catch((error) => {
       throw new Error(error.message);
     });
 };
 
-export {
-  login,
-  register,
-  logout,
-  resetPassword
-}
+export { login, register, logout, resetPassword };

@@ -15,6 +15,9 @@ const TwitchModalButton = ({
       setIsTwitchModalActive(true);
     }
   }, [tutorialStep]);
+
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  
   return (
     <>
       {!isTwitchModalActive ? (
@@ -23,7 +26,7 @@ const TwitchModalButton = ({
             tutorialStep === 2 ? "c-tutorial--active" : ""
           }`}
         >
-          <img src={TwitchIcon} className="menu" alt="" />
+          <img src={TwitchIcon} className={!isSafari ? "menu" : "menu safari-menu"} alt="" />
         </div>
       ) : (
         <div

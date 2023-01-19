@@ -6,9 +6,10 @@ const RankingMenu = ({ isRankingModalActive, hide }) => {
   const [selfRank, setSelfRank] = useState(null);
   const currentUser = localStorage.getItem("uid");
 
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
   useEffect(() => {
     listenTopUser({ setTopUsers: setUsers, setUserPosition: setSelfRank });
-    console.log(selfRank);
   }, []);
   return (
     <div
