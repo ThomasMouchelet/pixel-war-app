@@ -72,6 +72,10 @@
   transform: rotate(180deg);
 }
 
+.safari-color-item {
+  margin: 0px 5px 0px 5px; 
+}
+
 @media (max-width: 1000px) {
   .colorBar {
     width: 50vw;

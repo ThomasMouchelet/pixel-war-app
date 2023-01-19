@@ -30,10 +30,7 @@ const ActionMenus = ({
   const [isTwitchModalActive, setIsTwitchModalActive] = useState(true);
   const [isMenuActive, setIsMenuActive] = useState(true);
 
-  const isMobile =
-    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-      navigator.userAgent
-    );
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
   const menuRef = useRef(null);
   const [isRankingModalActive, setIsRankingModalActive] = useState(false);
@@ -106,7 +103,7 @@ const ActionMenus = ({
                 setIsModalActive(false);
               }}
             >
-              <img src={LastPixel} alt="" className="menu" />
+              <img src={LastPixel} alt="" className={!isSafari ? "menu" : "menu safari-menu"} />
             </div>
           ) : (
             <div
@@ -115,7 +112,7 @@ const ActionMenus = ({
                 handleActiveMenu();
               }}
             >
-              <img src={OpenedPeople} alt="" className="menu" />
+              <img src={OpenedPeople} alt="" className={!isSafari ? "menu" : "menu safari-menu"} />
             </div>
           )}
 
@@ -128,7 +125,7 @@ const ActionMenus = ({
             }}
           >
             {isRankingModalActive ? (
-              <img src={WhiteRanking} alt="" className="menu" />
+              <img src={WhiteRanking} alt="" className={!isSafari ? "menu" : "menu safari-menu"} />
             ) : (
               <img
                 onClick={() => {
@@ -172,7 +169,7 @@ const ActionMenus = ({
               setHide(!hide);
             }}
           >
-            <img src={!hide ? OpenEye : CloseEye} alt="" className="menu" />
+            <img src={!hide ? OpenEye : CloseEye} alt="" className={!isSafari ? "menu" : "menu safari-menu"} />
           </div>
           <div
             className={!hide ? "action-menus__menu__item" : "hide"}
@@ -183,7 +180,7 @@ const ActionMenus = ({
               setIsModalActive(false);
             }}
           >
-            <img src={Help} alt="" className="menu" />
+            <img src={Help} alt="" className={!isSafari ? "menu" : "menu safari-menu"} />
           </div>
 
           <LogOutButton hide={hide} />
