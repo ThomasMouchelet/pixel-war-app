@@ -65,6 +65,8 @@ const ActionMenus = ({
     setIsTwitchModalActive(false);
     setIsRankingModalActive(false);
   };
+
+
   return (
     <>
       {isMenuActive ? (
@@ -131,11 +133,10 @@ const ActionMenus = ({
                 onClick={() => {
                   setIsTwitchModalActive(false);
                   setIsMenuOpen(false);
-                  console.log("ljh ");
                 }}
                 src={Ranking}
                 alt=""
-                className={!hide ? "menu" : "hide"}
+                className={hide ? "hide" : !isSafari ? "menu" : "menu safari-menu"}
               />
             )}
           </div>
