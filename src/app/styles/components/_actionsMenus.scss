@@ -1,34 +1,39 @@
 .action-menus {
- position: absolute;
- background: $main-orange;
- right: 0;
- top: 0;
- height: 100vh;
- display: flex;
- flex-direction: column;
- justify-content: center;
- width: 10%;
-
- &__menu {
+  position: absolute;
+  background: $main-orange;
+  right: 0;
+  top: 0;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 34px;
-  fill: white;
+  justify-content: center;
+  width: 10%;
 
-  &__item {
-   cursor: pointer;
-   display: flex;
-   transition: 0.3s ease-in-out all;
-   width: 50px;
-   height: 50px;
+  &__menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 34px;
+    fill: white;
 
-   &:hover {
-    animation: pulse 0.5s ease-in-out infinite;
-   }
+    &__item {
+      cursor: pointer;
+      display: flex;
+      transition: 0.3s ease-in-out all;
+      width: 50px;
+      height: 50px;
 
+      &:hover {
+        animation: pulse 0.5s ease-in-out infinite;
+      }
+    }
   }
- }
+  &__arrow-icon {
+    position: absolute;
+    right: 4%;
+    top: 5%;
+    z-index: 99;
+  }
 }
 
 .action-menus-hidden {
@@ -44,8 +49,8 @@
 }
 
 .btn-logout {
- position: relative;
- bottom: -15%;
+  position: relative;
+  bottom: -10%;
 }
 
 .pixel-war-logo {
@@ -63,21 +68,21 @@
 }
 
 .hide {
- display: none;
+  display: none;
 }
 
 @keyframes pulse {
- 0% {
-  transform: scale(1);
- }
+  0% {
+    transform: scale(1);
+  }
 
- 50% {
-  transform: scale(1.1);
- }
+  50% {
+    transform: scale(1.1);
+  }
 
- 100% {
-  transform: scale(1);
- }
+  100% {
+    transform: scale(1);
+  }
 }
 
 @media (max-width: 1000px) {
@@ -92,7 +97,8 @@
     flex-direction: column;
     right: 15px;
   }
-  .action-menus__menu__item_2, .btn-logout {
+  .action-menus__menu__item_2,
+  .btn-logout {
     display: none;
   }
   .action-menus__menu__item {

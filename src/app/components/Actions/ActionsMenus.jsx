@@ -15,6 +15,7 @@ import TwitchModalButton from "./Twitch.jsx/TwitchModalButton";
 import pause_icon from "../../assets/images/pause_icon.svg";
 import RankingMenu from "./RankingMenu/RankingMenu";
 import UserProfile from "./UserProfile/UserProfile";
+import ArrowIcon from "../../assets/images/arrow.png";
 
 const ActionMenus = ({
   setHide,
@@ -69,7 +70,21 @@ const ActionMenus = ({
   };
   return (
     <>
-      <img src={CloseIcon} className="close-icon" onClick={handleClose} />
+      {isMenuActive ? (
+        <img
+          src={CloseIcon}
+          className="close-icon"
+          onClick={handleClose}
+          alt=""
+        />
+      ) : (
+        <img
+          src={ArrowIcon}
+          className="action-menus__arrow-icon"
+          onClick={handleClose}
+          alt=""
+        />
+      )}
       <div
         className={!hide ? "action-menus" : "action-menus action-menus-hidden"}
         ref={menuRef}
