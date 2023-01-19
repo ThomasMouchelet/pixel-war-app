@@ -50,7 +50,10 @@
 
 .btn-logout {
   position: relative;
-  bottom: -10%;
+  bottom: -15%;
+  @media screen and (max-width: 1000px) {
+    bottom: -10%;
+  }
 }
 
 .pixel-war-logo {
@@ -119,12 +122,12 @@
   }
   .close-icon {
     display: block;
-    right: 7%
+    right: 7%;
   }
 }
 
 @media (max-width: 1000px) {
   .close-icon {
-    right: 4%
+    right: 4%;
   }
 }
