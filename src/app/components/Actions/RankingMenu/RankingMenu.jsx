@@ -8,7 +8,6 @@ const RankingMenu = ({ isRankingModalActive, hide }) => {
 
   useEffect(() => {
     listenTopUser({ setTopUsers: setUsers, setUserPosition: setSelfRank });
-    console.log(selfRank);
   }, []);
   return (
     <div

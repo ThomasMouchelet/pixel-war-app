@@ -134,7 +134,6 @@ const ActionMenus = ({
                 onClick={() => {
                   setIsTwitchModalActive(false);
                   setIsMenuOpen(false);
-                  console.log("ljh ");
                 }}
                 src={Ranking}
                 alt=""
@@ -178,7 +177,6 @@ const ActionMenus = ({
             className={!hide ? "action-menus__menu__item" : "hide"}
             onClick={() => {
               handleReturnTuto();
-              console.log("ljhb");
               setIsTwitchModalActive(false);
               setIsModalActive(false);
             }}
