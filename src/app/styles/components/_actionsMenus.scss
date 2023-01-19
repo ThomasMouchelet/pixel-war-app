@@ -113,5 +113,12 @@
   }
   .close-icon {
     display: block;
+    right: 7%
+  }
+}
+
+@media (max-width: 1000px) {
+  .close-icon {
+    right: 4%
   }
 }
