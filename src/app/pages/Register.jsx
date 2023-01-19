@@ -22,7 +22,7 @@ const Register = () => {
     };
 
     try {
-      register(data);
+      await register(data);
       setResult("Le compte a bien été créé");
       setUser(data);
       navigate("/");
