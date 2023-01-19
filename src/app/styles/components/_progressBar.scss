@@ -157,7 +157,11 @@
 
 @media (max-width: 600px) {
     .c-progressbar__totalcoins {
-        display: none;
+        left: 10px;
+
+        span{
+            font-size: 12px;
+        }
     }
 
     .c-progressbar__allbar {
