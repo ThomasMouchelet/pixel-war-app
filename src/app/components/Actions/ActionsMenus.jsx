@@ -118,7 +118,7 @@ const ActionMenus = ({
                 setIsModalActive(false);
               }}
             >
-              <img src={LastPixel} alt="" className={!isSafari ? "menu" : "menu safari-menu"} />
+              <img src={LastPixel} alt="" className="menu" />
             </div>
           ) : (
             <div
