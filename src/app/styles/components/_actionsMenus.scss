@@ -61,7 +61,7 @@
 .pixel-war-logo {
   width: 100%;
   position: relative;
-  top: -5%;
+  top: -15%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -95,10 +95,6 @@
 }
 
 @media (max-width: 1000px) {
-  .pixel-war-logo {
-    display: none;
-    width: 90%;
-  }
   .action-menus {
     width: 20vw;
     height: 100vh;
@@ -130,7 +126,18 @@
   }
   .close-icon {
     display: block;
-    right: 7%;
+    position: absolute;
+    top: 25px;
+    z-index: 99;
+  }
+  .action-menus__arrow-icon {
+    position: absolute;
+    transform: rotate(180deg);
+    top: 40px;
+    right: 40px;
+  }
+  .header-logo {
+    display: none;
   }
 }
 

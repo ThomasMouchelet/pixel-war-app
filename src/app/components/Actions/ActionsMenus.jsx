@@ -33,6 +33,7 @@ const ActionMenus = ({
   const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
   const menuRef = useRef(null);
+  const closeIconRef = useRef(null);
   const [isRankingModalActive, setIsRankingModalActive] = useState(false);
 
   const handleReturnTuto = () => {
@@ -66,6 +67,17 @@ const ActionMenus = ({
     setIsRankingModalActive(false);
   };
 
+  const handleHideBG = () => {
+    if (!hide) {
+      menuRef.current.style.background = "transparent"
+      closeIconRef.current.style.display = "none"
+    }
+    else {
+      menuRef.current.style.background = "#E27D41"
+      closeIconRef.current.style.display = "block"
+    }
+  }
+
 
   return (
     <>
@@ -75,6 +87,7 @@ const ActionMenus = ({
           className="close-icon"
           onClick={handleClose}
           alt=""
+          ref={closeIconRef}
         />
       ) : (
         <img
@@ -90,7 +103,7 @@ const ActionMenus = ({
       >
         <div className="action-menus__menu">
           <div className={!hide ? "pixel-war-logo" : "hide"}>
-            <img src={PixelWarLogo} alt="" />
+            <img src={PixelWarLogo} className="header-logo" alt="" />
           </div>
           <UserProfile progress={progress} hide={hide} />
           {!isMenuOpen ? (
@@ -168,6 +181,7 @@ const ActionMenus = ({
             }`}
             onClick={() => {
               setHide(!hide);
+              handleHideBG()
             }}
           >
             <img src={!hide ? OpenEye : CloseEye} alt="" className={!isSafari ? "menu" : "menu safari-menu"} />
