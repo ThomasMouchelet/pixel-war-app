@@ -1,31 +1,31 @@
 .action-menus {
-  position: absolute;
-  background: $main-orange;
-  right: 0;
-  top: 0;
-  height: 100vh;
+ position: absolute;
+ background: $main-orange;
+ right: 0;
+ top: 0;
+ height: 100vh;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ width: 10%;
+
+ &__menu {
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: 10%;
+  gap: 34px;
+  fill: white;
 
-  &__menu {
+  &__item {
+    cursor: pointer;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 34px;
-    fill: white;
+    transition: 0.3s ease-in-out all;
+    width: 50px;
+    height: 50px;
 
-    &__item {
-      cursor: pointer;
-      display: flex;
-      transition: 0.3s ease-in-out all;
-      width: 50px;
-      height: 50px;
-
-      &:hover {
-        animation: pulse 0.5s ease-in-out infinite;
-      }
+    &:hover {
+      animation: pulse 0.5s ease-in-out infinite;
     }
   }
   &__arrow-icon {
@@ -40,6 +40,7 @@
 .action-menus-hidden {
   background-color: transparent;
 }
+
 
 .close-icon {
   position: absolute;
@@ -134,4 +135,5 @@
   .close-icon {
     right: 4%;
   }
+}
 }
