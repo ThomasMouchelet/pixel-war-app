@@ -10,7 +10,7 @@ import ProtectedRoute from "../components/ProtectedRoutes";
 import Tutorial from "../components/Tutorial/Tutorial";
 
 const PrimaryRouter = () => {
-  const [currentColor, setCurrentColor] = useState("#4287f5");
+  const [currentColor, setCurrentColor] = useState("#00000");
   const [pixelColor, setPixelColor] = useState([]);
 
   return (

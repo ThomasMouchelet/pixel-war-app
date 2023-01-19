@@ -30,9 +30,10 @@
   }
   &__arrow-icon {
     position: absolute;
-    right: 4%;
+    right: 5%;
     top: 5%;
     z-index: 99;
+    transform: rotate(180deg);
   }
 }
 
@@ -72,6 +73,9 @@
 
 .hide {
   display: none;
+}
+.safari-menu {
+  margin: 10px
 }
 
 @keyframes pulse {
