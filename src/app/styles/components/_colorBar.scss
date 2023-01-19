@@ -13,6 +13,7 @@
   padding: 15px 30px;
   border-radius: 50px;
   gap: 10px;
+
   @media screen and (max-width: 1000px) {
     margin-bottom: 45px;
   }
@@ -48,6 +49,7 @@
   position: fixed;
   right: 4%;
   transition: 0.5s;
+
   &-2 {
     left: 4%;
     transform: rotate(180deg);
@@ -62,6 +64,7 @@
   scroll-snap-type: x;
   scroll-behavior: smooth;
   gap: 15px;
+  align-items: center;
 }
 
 .color-list::-webkit-scrollbar {
@@ -73,7 +76,7 @@
 }
 
 .safari-color-item {
-  margin: 0px 5px 0px 5px; 
+  margin: 0px 5px 0px 5px;
 }
 
 @media (max-width: 1000px) {
@@ -82,14 +85,18 @@
     padding: 10px 30px;
     bottom: 50px
   }
+
   .color-list {
     max-width: 100%;
   }
+
   .color-item {
     min-width: 20px;
     height: 20px;
   }
+
   .arrow-icon {
     width: 7px;
+    height: 12.5px;
   }
 }

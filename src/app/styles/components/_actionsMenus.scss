@@ -1,83 +1,86 @@
 .action-menus {
- position: absolute;
- background: $main-orange;
- right: 0;
- top: 0;
- height: 100vh;
- display: flex;
- flex-direction: column;
- justify-content: center;
- width: 10%;
-
- &__menu {
+  position: absolute;
+  background: $main-orange;
+  right: 0;
+  top: 0;
+  height: 100vh;
   display: flex;
-  align-items: center;
   flex-direction: column;
   justify-content: center;
-  gap: 34px;
-  fill: white;
+  width: 10%;
 
-  &__item {
-    cursor: pointer;
+  &__menu {
     display: flex;
-    transition: 0.3s ease-in-out all;
-    width: 50px;
-    height: 50px;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    fill: white;
 
-    &:hover {
-      animation: pulse 0.5s ease-in-out infinite;
+    &__item {
+      cursor: pointer;
+      display: flex;
+      transition: 0.3s ease-in-out all;
+      width: 50px;
+      height: 50px;
+      margin: 15px 0;
+
+      &:hover {
+        animation: pulse 0.5s ease-in-out infinite;
+      }
+    }
+
+    &__arrow-icon {
+      position: absolute;
+      right: 5%;
+      top: 5%;
+      z-index: 99;
+      transform: rotate(180deg);
     }
   }
-  &__arrow-icon {
+
+  .action-menus-hidden {
+    background-color: transparent;
+  }
+
+
+  .close-icon {
     position: absolute;
-    right: 5%;
+    right: 4%;
     top: 5%;
     z-index: 99;
-    transform: rotate(180deg);
+    display: none;
   }
-}
 
-.action-menus-hidden {
-  background-color: transparent;
-}
+  .btn-logout {
+    position: relative;
+    bottom: -5%;
 
-
-.close-icon {
-  position: absolute;
-  right: 4%;
-  top: 5%;
-  z-index: 99;
-  display: none;
-}
-
-.btn-logout {
-  position: relative;
-  bottom: -5%;
-  @media screen and (max-width: 1000px) {
-    bottom: -10%;
+    @media screen and (max-width: 1000px) {
+      bottom: -10%;
+    }
   }
-}
 
-.pixel-war-logo {
-  width: 100%;
-  position: relative;
-  top: -5%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+  .pixel-war-logo {
+    width: 100%;
+    position: relative;
+    top: 0%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
-.menu {
-  width: 50px;
-  height: 50px;
-}
+  .menu {
+    width: 50px;
+    height: 50px;
+  }
 
-.hide {
-  display: none;
-}
-.safari-menu {
-  margin: 10px
-}
+  .hide {
+    display: none;
+  }
+
+  .safari-menu {
+    margin: 10px
+  }
 }
 
 @keyframes pulse {
@@ -95,42 +98,59 @@
 }
 
 @media (max-width: 1000px) {
-  .pixel-war-logo {
-    display: none;
-    width: 90%;
-  }
   .action-menus {
     width: 20vw;
     height: 100vh;
   }
+
   .action-menus__menu {
     flex-direction: column;
     width: 100%;
     right: 15px;
   }
+
   .action-menus__menu__item_2,
   .btn-logout {
     display: none;
   }
+
   .action-menus__menu__item {
     width: 50px;
     height: 50px;
     display: flex;
     justify-content: center;
   }
-  .action-menus__menu__item:hover {
+
+  .action-menus__menu__item:hover,
+  .action-menus__menu__item>*:hover {
     animation: none;
   }
+
   .action-menus__menu__item__opened {
     position: relative;
     z-index: 11;
   }
+
   .menu {
     width: 100%;
   }
+
   .close-icon {
     display: block;
-    right: 7%;
+    position: absolute;
+    top: 25px;
+    z-index: 99;
+  }
+
+  .action-menus__arrow-icon {
+    position: absolute;
+    transform: rotate(180deg);
+    top: 40px;
+    right: 40px;
+  }
+
+  .header-logo {
+    display: none;
   }
 }
 
